@@ -139,9 +139,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Player.h" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="player.cppm" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="Source.cpp" />
