@@ -30,5 +30,22 @@
     <ClCompile Include="word.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="round.cppm">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scoreboard.cppm">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="round.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="scoreboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Words.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

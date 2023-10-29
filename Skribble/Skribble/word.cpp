@@ -14,3 +14,14 @@ Words::~Words()
 {
 
 }
+
+void Words::setWords(std::string fileName)
+{
+	std::fstream file(fileName);
+	std::string word;
+	while (file)
+	{
+		file >> word;
+		m_words.push_back(word);
+	}
+}
