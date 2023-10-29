@@ -28,6 +28,6 @@ export namespace skirbble
 		std::string m_currentWord;
 		std::string m_displayWord;
 		bool m_roundActive;
-		Player& m_winner;
+		Player* m_winner;
 	};
 }
