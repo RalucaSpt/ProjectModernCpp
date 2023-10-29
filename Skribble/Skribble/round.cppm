@@ -22,6 +22,12 @@ export namespace skirbble
 		bool isRoundActive() const;
 
 		std::string getDisplayWord() const;
-
+	private:
+		Words& m_words;
+		std::vector<Player>& m_players;
+		std::string m_currentWord;
+		std::string m_displayWord;
+		bool m_roundActive;
+		Player& m_winner;
 	};
 }
