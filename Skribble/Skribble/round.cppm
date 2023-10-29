@@ -4,14 +4,16 @@ import <string>;
 import player;
 import word;
 
-export namespace skirbble
+//export 
+namespace skribble
 {
-	class Player;
-	class Words;
+	//class Player;
+	//class Words;
 	export class Round
 	{
 	public:
-		Round(Words& words, std::vector<Player>& players);
+		//Round(Words& words, std::vector<Player>& players);
+		Round(Words words);
 		~Round();
 		void startRound();
 		void guessLetter(char letter);
@@ -23,8 +25,8 @@ export namespace skirbble
 
 		std::string getDisplayWord() const;
 	private:
-		Words& m_words;
-		std::vector<Player>& m_players;
+		Words m_words;
+		//std::vector<Player>& m_players;
 		std::string m_currentWord;
 		std::string m_displayWord;
 		bool m_roundActive;

@@ -3,8 +3,11 @@ import <string>;
 import <vector>;
 import <iostream>;
 import <fstream>;
+import <cstdlib>;
+import <ctime>;
+import <random>;
 
-namespace skirbble
+namespace skribble
 {
 	export class Words
 	{
@@ -13,9 +16,11 @@ namespace skirbble
 		Words(std::vector<std::string> words);
 		~Words();
 
-		void setWords(std::string textFile);
+		void setWords(const std::string& textFile);
 
 		std::string getWord();
+		
+			
 	private:
 		std::vector<std::string> m_words;
 	};

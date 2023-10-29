@@ -1,13 +1,18 @@
 module round; 
 import <iostream>;
-#include <optional>
+//#include <optional>
 
-namespace skirbble
+namespace skribble
 {
-	Round::Round(Words& words, std::vector<Player>& players)
+	/*Round::Round(Words& words, std::vector<Player>& players)
 		: m_words(words), m_players(players),m_winner(), m_roundActive(false)
 	{
 		
+	}*/
+
+	Round::Round(Words words)
+		:m_words(words)
+	{
 	}
 
 	Round::~Round()
@@ -27,7 +32,12 @@ namespace skirbble
 
 	void Round::guessWord(const std::string& word)
 	{
-		
+		std::string word1 = m_words.getWord();
+		std::cout << word1 << "\n";
+		std::string guessingWord;
+		for (int it = 0; it < word1.size(); it++)
+			guessingWord.push_back('.');
+		std::cout << guessingWord;
 	}
 
 	void Round::endRound()
