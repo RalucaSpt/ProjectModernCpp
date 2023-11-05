@@ -20,6 +20,12 @@ namespace skribble
 	{
 	}
 
+	Round::Round(const Round& round)
+		:m_player{round.m_player},m_roundActive{round.m_roundActive},m_winner{round.m_winner},m_word{round.m_word}
+	{
+
+	}
+
 	Round::~Round()
 	{
 		

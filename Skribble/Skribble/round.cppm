@@ -13,6 +13,7 @@ namespace skribble
 		//Round(Words& words, std::vector<Player>& players);
 		Round();
 		Round(std::string word);
+		Round(const Round& round);
 		~Round();
 		void setWord(std::string word);
 		void setPlayer(Player player);

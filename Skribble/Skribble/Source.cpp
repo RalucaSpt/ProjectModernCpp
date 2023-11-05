@@ -10,7 +10,7 @@ import match;
 
 int main() 
 {
-    skribble::Words test;
+    /*skribble::Words test;
     skribble::Player player1(0,0);
     test.setWords("Words.txt");
     //std::cout<<test.getWord();
@@ -19,7 +19,7 @@ int main()
     skribble::Round round1;
     round1.setPlayer(player1);
     round1.setWord(test.getWord());
-    round1.guessWord();
+    round1.guessWord();*/
     
 	return 0;
 }
