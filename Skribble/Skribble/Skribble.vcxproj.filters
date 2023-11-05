@@ -42,6 +42,12 @@
     <ClCompile Include="scoreboard.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="match.cppm">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="match.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Words.txt">

@@ -16,11 +16,13 @@ namespace skribble {
 
 		uint16_t GetIdPlayer();
 		uint16_t GetScore();
+		bool GetIsDrawing();
 
-		 
+		void SetIsDrawing(bool isDrawing);
 
 	private:
 		uint16_t m_idPlayer;
 		uint16_t m_score;
+		bool m_isDrawing;
 	};
 }

@@ -3,33 +3,36 @@ import <vector>;
 import <string>;
 import player;
 import word;
+import <iostream>;
 
-//export 
 namespace skribble
 {
-	//class Player;
-	//class Words;
 	export class Round
 	{
 	public:
 		//Round(Words& words, std::vector<Player>& players);
-		Round(Words words);
+		Round();
+		Round(std::string word);
 		~Round();
+		void setWord(std::string word);
+		void setPlayer(Player player);
+		void guessWord();//const std::string& word);
 		void startRound();
-		void guessLetter(char letter);
-		void guessWord(const std::string& word);
 		void endRound();
 
 		const Player& getWinner() const;
 		bool isRoundActive() const;
 
 		std::string getDisplayWord() const;
+
 	private:
-		Words m_words;
+		//Words m_word;
+		std::string m_word;
 		//std::vector<Player>& m_players;
-		std::string m_currentWord;
-		std::string m_displayWord;
+		//std::string m_currentWord;
+		//std::string m_displayWord;
 		bool m_roundActive;
+		Player m_player;
 		Player* m_winner;
 	};
 }

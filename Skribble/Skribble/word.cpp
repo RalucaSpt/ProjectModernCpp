@@ -26,6 +26,17 @@ void Words::setWords(const std::string& fileName)
 	}
 }
 
+void skribble::Words::setWords()
+{
+	std::ifstream file("Words.txt");
+	std::string word;
+	while (file)
+	{
+		file >> word;
+		m_words.push_back(word);
+	}
+}
+
 std::string Words::getWord()
 {
 	if (m_words.size() == 0)
@@ -40,4 +51,10 @@ std::string Words::getWord()
 		int wordPosition = dist6(rng);
 		return m_words[wordPosition];
 	}
+}
+
+void Words::DeleteWord(std::string word)
+{
+	auto it = std::find(m_words.begin(), m_words.end(), word);
+	m_words.erase(it);
 }

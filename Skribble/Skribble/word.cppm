@@ -6,6 +6,7 @@ import <fstream>;
 import <cstdlib>;
 import <ctime>;
 import <random>;
+import  <algorithm>;
 
 namespace skribble
 {
@@ -17,9 +18,11 @@ namespace skribble
 		~Words();
 
 		void setWords(const std::string& textFile);
+		void setWords();
 
 		std::string getWord();
 		
+		void DeleteWord(std::string word);
 			
 	private:
 		std::vector<std::string> m_words;
