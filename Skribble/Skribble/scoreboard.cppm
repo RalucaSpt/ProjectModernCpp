@@ -2,6 +2,8 @@ export module scoreboard;
 #include <unordered_map>
 #include <string>
 #include <utility>
+#include <algorithm>
+
 
 export class Scoreboard {
 public:
@@ -12,6 +14,7 @@ public:
     std::pair<std::string, int> getMaxScore() const;
     std::pair<std::string, int> getMinScore() const;
     void printExtremeScores() const;
+    std::vector<std::pair<std::string, int>> getSortedScores() const;
     void printScoreboard() const;
 
 private:

@@ -51,6 +51,17 @@ void Scoreboard::printExtremeScores() const
         << minScore.first << " and they have " << minScore.second << " points." << std::endl;
 }
 
+std::vector<std::pair<std::string, int>> Scoreboard::getSortedScores() const
+{
+    std::vector<std::pair<std::string, int>> sortedScores(scores.begin(), scores.end());
+    std::sort(sortedScores.begin(), sortedScores.end(),
+        [](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
+            return a.second > b.second; 
+        }
+    );
+    return sortedScores;
+}
+
 void Scoreboard::printScoreboard() const {
     std::cout << "Scoreboard:" << std::endl;
     for (const auto& [playerName, score] : scores) {
