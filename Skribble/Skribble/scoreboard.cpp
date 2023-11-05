@@ -47,8 +47,9 @@ std::pair<std::string, int> Scoreboard::getMinScore() const
             minScore = { playerName, score };
         }
     }
-    return minScore;    
+    return minScore;
 }
+
 
 void Scoreboard::printScoreboard() const {
     std::cout << "Scoreboard:" << std::endl;
