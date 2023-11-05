@@ -7,7 +7,7 @@ namespace skribble {
 
 	public:
 		Player();
-		Player(uint16_t IdPlayer, uint16_t score);
+		Player(uint16_t IdPlayer, uint16_t score, const std::string& m_name);
 		Player(const Player& player);
 
 		~Player();
