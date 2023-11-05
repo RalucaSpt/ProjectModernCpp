@@ -15,18 +15,19 @@ namespace skribble {
 
 		Player& operator= (const Player& player);
 
-		uint16_t GetIdPlayer();
-		uint16_t GetScore();
+		uint16_t GetIdPlayer() const;
+		uint16_t GetScore() const;
 		std::string GetName() const;
-		bool GetIsDrawing();
+		bool GetIsDrawing() const;
 
 		void SetIsDrawing(bool isDrawing);
-		void SetName(const std::string& name);
+		void setName(const std::string& name);
 		
 	private:
 		uint16_t m_idPlayer;
 		uint16_t m_score;
 		bool m_isDrawing;
 		std::string m_name;
+		//std::string m_name;
 	};
 }
