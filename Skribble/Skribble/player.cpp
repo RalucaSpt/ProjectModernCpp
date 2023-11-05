@@ -48,6 +48,11 @@ uint16_t skribble::Player::GetScore()
 	return m_score;
 }
 
+std::string skribble::Player::GetName() const
+{
+	return std::string();
+}
+
 bool skribble::Player::GetIsDrawing()
 {
 	return m_isDrawing;
@@ -56,4 +61,8 @@ bool skribble::Player::GetIsDrawing()
 void Player::SetIsDrawing(bool isDrawing)
 {
 	m_isDrawing = isDrawing;
+}
+
+void skribble::Player::SetName(const std::string& name)
+{
 }

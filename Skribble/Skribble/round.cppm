@@ -5,6 +5,10 @@ import <string>;
 import player;
 import word;
 import <iostream>;
+import <vector>;
+import <ctime>;
+import <random>;
+
 
 namespace skribble
 {
@@ -13,7 +17,7 @@ namespace skribble
 	public:
 		//Round(Words& words, std::vector<Player>& players);
 		Round();
-		Round(std::string word);
+	    Round(std::string word);
 		Round(const Round& round);
 		~Round();
 		void setWord(std::string word);

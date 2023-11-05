@@ -1,4 +1,5 @@
-module round; 
+﻿module round; 
+
 
 //#include <optional>
 
@@ -33,6 +34,13 @@ namespace skribble
 
 	void Round::setWord(std::string word)
 	{
+		/*static const std::vector<std::string> wordList = { "pictură", "calculator", "bibliotecă", "astronaut", "chitară" };
+		static std::mt19937 rng(std::time(nullptr));
+		std::uniform_int_distribution<std::mt19937::result_type> dist(0, wordList.size() - 1);
+
+		int randomIndex = dist(rng);
+
+		setWord(wordList[randomIndex]);*/
 		m_word = word;
 	}
 
@@ -88,11 +96,22 @@ namespace skribble
 			std::cerr << "Cannot start round: word is not set." << std::endl;
 		}
 	} 
-	
+		
 
 	void Round::endRound()
 	{
-		
+		if (!m_roundActive) {
+			std::cerr << "Cannot end round: No round is active." << std::endl;
+			return;
+		}
+		m_roundActive = false;
+		if (m_winner == nullptr) {
+			std::cout << "No one guessed the word. No winner this round." << std::endl;
+		}
+		else {
+			std::cout << "Winner of the round is: " << m_winner->GetName() << std::endl;
+		}
+		std::cout << "Round ended." << std::endl;
 	}
 
 	/*const Player& Round::getWinner() const
