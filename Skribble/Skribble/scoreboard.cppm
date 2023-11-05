@@ -1,3 +1,4 @@
+module;
 export module scoreboard;
 #include <unordered_map>
 #include <string>

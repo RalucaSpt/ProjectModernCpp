@@ -39,6 +39,11 @@ std::pair<std::string, int> Scoreboard::getMaxScore() const
     return maxScore; 
 }
 
+std::pair<std::string, int> Scoreboard::getMinScore() const
+{
+    return std::pair<std::string, int>();
+}
+
 void Scoreboard::printExtremeScores() const
 {
     auto maxScore = getMaxScore();
