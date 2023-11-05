@@ -39,17 +39,17 @@ std::pair<std::string, int> Scoreboard::getMaxScore() const
     return maxScore; 
 }
 
-std::pair<std::string, int> Scoreboard::getMinScore() const
+void Scoreboard::printExtremeScores() const
 {
-    std::pair<std::string, int> minScore("", INT_MAX);
-    for (const auto& [playerName, score] : scores) {
-        if (score < minScore.second) {
-            minScore = { playerName, score };
-        }
-    }
-    return minScore;
-}
+    auto maxScore = getMaxScore();
+    auto minScore = getMinScore();
 
+    std::cout << "The player with maximum score is "
+        << maxScore.first << " and they have " << maxScore.second << " points." << std::endl;
+
+    std::cout << "The player with minimum score is "
+        << minScore.first << " and they have " << minScore.second << " points." << std::endl;
+}
 
 void Scoreboard::printScoreboard() const {
     std::cout << "Scoreboard:" << std::endl;

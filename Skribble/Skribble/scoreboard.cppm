@@ -1,5 +1,4 @@
 export module scoreboard;
-
 #include <unordered_map>
 #include <string>
 #include <utility>
@@ -12,6 +11,7 @@ public:
     int getScore(const std::string& playerName) const;
     std::pair<std::string, int> getMaxScore() const;
     std::pair<std::string, int> getMinScore() const;
+    void printExtremeScores() const;
     void printScoreboard() const;
 
 private:
