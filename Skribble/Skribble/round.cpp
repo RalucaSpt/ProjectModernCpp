@@ -48,7 +48,7 @@ namespace skribble
 
 		std::string guessingWord;
 		for (int it = 0; it < m_word.size(); it++)
-			guessingWord.push_back('.');
+			guessingWord.push_back('_');
 		std::cout << guessingWord<<"  ("<<guessingWord.size()<<")\n";
 
 		std::string word;
@@ -80,8 +80,15 @@ namespace skribble
 
 	void Round::startRound()
 	{
-		
-	}
+		if (!m_word.empty()) {
+			m_roundActive = true;
+			std::cout << "Round has started. Guess the word!" << std::endl;
+		}
+		else {
+			std::cerr << "Cannot start round: word is not set." << std::endl;
+		}
+	} 
+	
 
 	void Round::endRound()
 	{
