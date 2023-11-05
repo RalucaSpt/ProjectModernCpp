@@ -28,6 +28,28 @@ int Scoreboard::getScore(const std::string& playerName) const {
     }
 }
 
+std::pair<std::string, int> Scoreboard::getMaxScore() const
+{
+    std::pair<std::string, int> maxScore("", INT_MIN);
+    for (const auto& [playerName, score] : scores) {
+        if (score > maxScore.second) {
+            maxScore = { playerName, score };
+        }
+    }
+    return maxScore; 
+}
+
+std::pair<std::string, int> Scoreboard::getMinScore() const
+{
+    std::pair<std::string, int> minScore("", INT_MAX);
+    for (const auto& [playerName, score] : scores) {
+        if (score < minScore.second) {
+            minScore = { playerName, score };
+        }
+    }
+    return minScore;    
+}
+
 void Scoreboard::printScoreboard() const {
     std::cout << "Scoreboard:" << std::endl;
     for (const auto& [playerName, score] : scores) {
