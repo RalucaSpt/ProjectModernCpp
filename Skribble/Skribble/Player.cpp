@@ -65,7 +65,7 @@ void Player::SetIsDrawing(bool isDrawing)
 
 void Player::setName(const std::string& name)
 {
-	 = name;
+	 m_name= name;
 }
 
 

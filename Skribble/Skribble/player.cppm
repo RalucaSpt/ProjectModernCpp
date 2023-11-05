@@ -1,4 +1,3 @@
-module;
 export module player;
 import <iostream>;
 
@@ -22,12 +21,27 @@ namespace skribble {
 
 		void SetIsDrawing(bool isDrawing);
 		void setName(const std::string& name);
+		// Score management
+		void AddScore(uint16_t points);
+		void SubtractScore(uint16_t points);
+		void ResetScore();
+
+		// Serialization (example using string, but JSON/XML/other could be used)
+		std::string Serialize() const;
+		static Player Deserialize(const std::string& data);
+
+		// Friend functions
+		friend std::ostream& operator<<(std::ostream& os, const Player& player);
+		friend std::istream& operator>>(std::istream& is, Player& player);
+
+		// Equality and Comparison
+		bool operator==(const Player& other) const;
+		bool operator!=(const Player& other) const;
 		
 	private:
 		uint16_t m_idPlayer;
 		uint16_t m_score;
 		bool m_isDrawing;
 		std::string m_name;
-		//std::string m_name;
 	};
 }
