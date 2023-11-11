@@ -2,7 +2,7 @@ export module player;
 import <iostream>;
 
 namespace skribble {
-
+	enum class DrawingStatus { NotDrawing, Drawing };
 	export class Player {
 
 	public:
@@ -41,7 +41,7 @@ namespace skribble {
 	private:
 		uint16_t m_idPlayer;
 		uint16_t m_score;
-		bool m_isDrawing;
+		DrawingStatus m_drawingStatus;
 		std::string m_name;
 	};
 }

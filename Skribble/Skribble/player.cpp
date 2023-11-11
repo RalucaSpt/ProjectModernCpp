@@ -5,7 +5,7 @@ import <string>;
 using skribble::Player;
 
 Player::Player()
-	:m_idPlayer{ 0 }, m_score{ 0 }, m_isDrawing{ false }
+	:m_idPlayer{ 0 }, m_score{ 0 }, m_drawingStatus{ DrawingStatus::NotDrawing }
 {
 
 }
@@ -14,13 +14,13 @@ Player::Player(uint16_t IdPlayer, uint16_t score, const std::string& name):
 	m_idPlayer { IdPlayer },
 	m_score{ score },
 	m_name{ name },
-	m_isDrawing{ false }
+	m_drawingStatus{ DrawingStatus::NotDrawing }
 {
 
 }
 
 Player::Player(const Player& player)
-	:m_idPlayer{ player.m_idPlayer }, m_score{ player.m_score }, m_isDrawing{ player.m_isDrawing }
+	:m_idPlayer{ player.m_idPlayer }, m_score{ player.m_score }, m_drawingStatus{ player.m_drawingStatus }
 {
 
 }
@@ -36,6 +36,7 @@ Player& Player::operator=(const Player& player)
 	{
 		m_idPlayer = player.m_idPlayer;
 		m_score = player.m_score;
+		m_drawingStatus = player.m_drawingStatus;
 	}
 	return *this;
 }
@@ -54,14 +55,12 @@ std::string Player::GetName() const
 	return m_name;
 }
 
-bool skribble::Player::GetIsDrawing() const
-{
-	return m_isDrawing;
+bool Player::GetIsDrawing() const {
+	return m_drawingStatus == DrawingStatus::Drawing;
 }
 
-void Player::SetIsDrawing(bool isDrawing)
-{
-	m_isDrawing = isDrawing;
+void Player::SetIsDrawing(bool isDrawing) {
+	m_drawingStatus = isDrawing ? DrawingStatus::Drawing : DrawingStatus::NotDrawing;
 }
 
 void Player::setName(const std::string& name)
