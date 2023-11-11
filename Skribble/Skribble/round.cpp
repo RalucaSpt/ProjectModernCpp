@@ -122,13 +122,25 @@ namespace skribble
 		return *m_winner;
 	}
 	*/
+	void Round::guessWord(Player& player, const std::string& guessedWord)
+	{
+		if (!m_roundActive) {
+			std::cerr << "Round not active. Cannot guess word." << std::endl;
+			return;
+		}
+
+		if (guessedWord == m_word) {
+			std::cout << player.GetName() << " has guessed the word!" << std::endl;
+			//player.AddScore(); 
+		}
+		else {
+			std::cout << player.GetName() << " has not guessed the word. Try again!" << std::endl;
+		}
+	}
 	bool Round::isRoundActive() const
 	{
 		return m_roundActive;
 	}
 
-	/*std::string Round::getDisplayWord() const
-	{
-		return m_word;
-	}*/
+
 }

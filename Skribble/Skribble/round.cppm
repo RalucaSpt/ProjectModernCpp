@@ -30,7 +30,7 @@ namespace skribble
 		bool isRoundActive() const;
 
 		std::string getDisplayWord() const;
-
+		void guessWord(Player& player, const std::string& guessedWord);
 	private:
 		//Words m_word;
 		std::string m_word;
