@@ -1,5 +1,9 @@
 ﻿module round; 
 
+import <vector>;
+import <string>;
+import <random>;
+import <set>;
 
 //#include <optional>
 
@@ -142,5 +146,24 @@ namespace skribble
 		return m_roundActive;
 	}
 
+	std::string Round::RevealRandomLetters() {
+		int halfLength = m_word.length() / 2;
+		std::string revealedWord = m_word;
+		std::random_device rd;
+		std::mt19937 g(rd());
 
+		std::set<int> revealedPositions;
+		while (revealedPositions.size() < halfLength) {
+			int pos = g() % m_word.length();
+			revealedPositions.insert(pos);
+		}
+
+		for (int i = 0; i < revealedWord.length(); ++i) {
+			if (revealedPositions.find(i) == revealedPositions.end()) {
+				revealedWord[i] = '_';
+			}
+		}
+
+		return revealedWord;
+	}
 }
