@@ -49,6 +49,11 @@ uint16_t skribble::Player::GetScore() const
 	return m_score;
 }
 
+uint16_t skribble::Player::GetScoreAddress()
+{
+	return &m_score;
+}
+
 std::string Player::GetName() const
 {
 	return m_name;

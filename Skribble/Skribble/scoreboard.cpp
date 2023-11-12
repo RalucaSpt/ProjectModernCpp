@@ -1,36 +1,41 @@
 ﻿module scoreboard;
 
 import <iostream>;
+import player;
 
+using skribble::Player;
+using skribble::Scoreboard;
 Scoreboard::Scoreboard() = default;
 
-void Scoreboard::addPlayer(const std::string& playerName) {
-    scores[playerName] = 0;
+void skribble::Scoreboard::addPlayer(const std::string namePlayer)
+{
+    m_scores[namePlayer] = 0;
 }
 
+
 void Scoreboard::updateScore(const std::string& playerName, int points) {
-    if (scores.find(playerName) != scores.end()) {
-        scores[playerName] += points;
+    if (m_scores.find(playerName) != m_scores.end()) {
+        m_scores[playerName] += points;
     }
     else {
-        std::cout << "Player not found." << std::endl;
+        std::cout << "Player not found.";
     }
 }
 
 int Scoreboard::getScore(const std::string& playerName) const {
-    auto it = scores.find(playerName);
-    if (it != scores.end()) {
+    auto it = m_scores.find(playerName);
+    if (it != m_scores.end()) {
         return it->second;
     }
     else {
-        std::cout << "Player not found." << std::endl;
+        std::cout << "Player not found.\n";
         return 0;
     }
 }
 
 void Scoreboard::printTopPlayers(int topN) const
 {
-    std::vector<std::pair<std::string, int>> sortedScores(scores.begin(), scores.end());
+    std::vector<std::pair<std::string, int>> sortedScores(m_scores.begin(), m_scores.end());
     std::sort(sortedScores.begin(), sortedScores.end(),
         [](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
             return a.second > b.second;
@@ -43,15 +48,15 @@ void Scoreboard::printTopPlayers(int topN) const
 }
 
 void Scoreboard::resetAllScores() {
-    for (auto& [playerName, score] : scores) {
+    for (auto& [playerName, score] : m_scores) {
         score = 0;
     }
 }
 
 void Scoreboard::removePlayer(const std::string& playerName) {
-    auto it = scores.find(playerName);
-    if (it != scores.end()) {
-        scores.erase(it);
+    auto it = m_scores.find(playerName);
+    if (it != m_scores.end()) {
+        m_scores.erase(it);
     }
     else {
         std::cout << "Player not found." << std::endl;
@@ -61,7 +66,7 @@ void Scoreboard::removePlayer(const std::string& playerName) {
 std::pair<std::string, int> Scoreboard::getMaxScore() const
 {
     std::pair<std::string, int> maxScore("", INT_MIN);
-    for (const auto& [playerName, score] : scores) {
+    for (const auto& [playerName, score] : m_scores) {
         if (score > maxScore.second) {
             maxScore = { playerName, score };
         }
@@ -88,7 +93,7 @@ void Scoreboard::printExtremeScores() const
 
 std::vector<std::pair<std::string, int>> Scoreboard::getSortedScores() const
 {
-    std::vector<std::pair<std::string, int>> sortedScores(scores.begin(), scores.end());
+    std::vector<std::pair<std::string, int>> sortedScores(m_scores.begin(), m_scores.end());
     std::sort(sortedScores.begin(), sortedScores.end(),
         [](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
             return a.second > b.second; 
@@ -99,7 +104,7 @@ std::vector<std::pair<std::string, int>> Scoreboard::getSortedScores() const
 
 void Scoreboard::printScoreboard() const {
     std::cout << "Scoreboard:" << std::endl;
-    for (const auto& [playerName, score] : scores) {
+    for (const auto& [playerName, score] : m_scores) {
         std::cout << playerName << ": " << score << std::endl;
     }
 }

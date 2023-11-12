@@ -21,6 +21,7 @@ namespace skribble {
 
 		uint16_t GetIdPlayer() const;
 		uint16_t GetScore() const;
+		uint16_t GetScoreAddress();
 		std::string GetName() const;
 		DrawingStatus GetIsDrawing() const;
 
