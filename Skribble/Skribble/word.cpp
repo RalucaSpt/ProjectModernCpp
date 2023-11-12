@@ -37,7 +37,7 @@ void skribble::Words::setWords()
 	}
 }
 
-std::string Words::getWord()
+std::vector<std::string> Words::getWord(int nrRounds,int nrPlayers)
 {
 	if (m_words.size() == 0)
 	{
@@ -45,11 +45,18 @@ std::string Words::getWord()
 	}
 	else
 	{
-		std::random_device dev;
-		std::mt19937 rng(dev());
-		std::uniform_int_distribution<std::mt19937::result_type> dist6(0, m_words.size() - 1);
-		int wordPosition = dist6(rng);
-		return m_words[wordPosition];
+		std::vector<std::string> matchWords;
+		for (int it = 0; it < nrPlayers * nrRounds; it++)
+		{
+			std::random_device dev;
+			std::mt19937 rng(dev());
+			std::uniform_int_distribution<std::mt19937::result_type> dist6(0, m_words.size() - 1);
+			int wordPosition = dist6(rng);
+			if (std::find(matchWords.begin(), matchWords.end(), m_words[wordPosition]) == matchWords.end())
+				matchWords.push_back(m_words[wordPosition]);
+			it--;
+		}
+		return matchWords;
 	}
 }
 

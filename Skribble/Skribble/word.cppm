@@ -5,7 +5,6 @@ import <vector>;
 import <iostream>;
 import <fstream>;
 import <cstdlib>;
-import <ctime>;
 import <random>;
 import  <algorithm>;
 
@@ -21,7 +20,7 @@ namespace skribble
 		void setWords(const std::string& textFile);
 		void setWords();
 
-		std::string getWord();
+		std::vector<std::string> getWord(int nrRounds, int nrPlayers);
 		
 		void DeleteWord(std::string word);
 			
