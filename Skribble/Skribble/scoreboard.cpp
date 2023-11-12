@@ -36,6 +36,16 @@ void Scoreboard::printTopPlayers(int topN) const
             return a.second > b.second;
         }
     );
+    std::cout << "Top " << topN << " Players:" << std::endl;
+    for (int i = 0; i < topN && i < sortedScores.size(); ++i) {
+        std::cout << sortedScores[i].first << ": " << sortedScores[i].second << std::endl;
+    }
+}
+
+void Scoreboard::resetAllScores() {
+    for (auto& [playerName, score] : scores) {
+        score = 0;
+    }
 }
 
 std::pair<std::string, int> Scoreboard::getMaxScore() const

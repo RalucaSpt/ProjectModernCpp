@@ -13,6 +13,7 @@ public:
     void updateScore(const std::string& playerName, int points);
     int getScore(const std::string& playerName) const;
     void printTopPlayers(int topN) const;
+    void resetAllScores();
     std::pair<std::string, int> getMaxScore() const;
     std::pair<std::string, int> getMinScore() const;
     void printExtremeScores() const;
