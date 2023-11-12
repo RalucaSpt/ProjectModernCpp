@@ -48,6 +48,16 @@ void Scoreboard::resetAllScores() {
     }
 }
 
+void Scoreboard::removePlayer(const std::string& playerName) {
+    auto it = scores.find(playerName);
+    if (it != scores.end()) {
+        scores.erase(it);
+    }
+    else {
+        std::cout << "Player not found." << std::endl;
+    }
+}
+
 std::pair<std::string, int> Scoreboard::getMaxScore() const
 {
     std::pair<std::string, int> maxScore("", INT_MIN);

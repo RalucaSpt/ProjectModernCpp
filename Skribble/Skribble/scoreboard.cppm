@@ -14,6 +14,7 @@ public:
     int getScore(const std::string& playerName) const;
     void printTopPlayers(int topN) const;
     void resetAllScores();
+    void removePlayer(const std::string& playerName);
     std::pair<std::string, int> getMaxScore() const;
     std::pair<std::string, int> getMinScore() const;
     void printExtremeScores() const;
