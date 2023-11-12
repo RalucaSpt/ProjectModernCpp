@@ -49,4 +49,14 @@ namespace skribble {
 		DrawingStatus m_drawingStatus;
 		std::string m_name;
 	};
+	std::ostream& operator<<(std::ostream& os, const Player& player)
+	{
+		os <<"Id player: "<< player.m_idPlayer<<" nume: "<< player.m_name;
+		return os;
+	}
+	std::istream& operator>>(std::istream& is, Player& player)
+	{
+		is >> player.m_idPlayer >> player.m_name;
+		return is;
+	}
 }

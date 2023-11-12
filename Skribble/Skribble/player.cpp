@@ -74,4 +74,25 @@ void skribble::Player::AddScore(uint16_t points)
 	m_score = points;
 }
 
+void skribble::Player::SubtractScore(uint16_t points)
+{
+	m_score -= points;
+}
+
+void skribble::Player::ResetScore()
+{
+	m_score = 0;
+}
+
+bool skribble::Player::operator==(const Player& other) const
+{
+	return m_idPlayer==other.m_idPlayer;
+}
+
+bool skribble::Player::operator!=(const Player& other) const
+{
+	return  m_idPlayer != other.m_idPlayer;
+}
+
+
 
