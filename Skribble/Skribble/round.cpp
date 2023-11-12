@@ -59,7 +59,7 @@ namespace skribble
 	{
 		std::string word = m_word.front();
 		std::string guessingWord;
-		for (int it = 0; it < m_word.size(); it++)
+		for (int it = 0; it < word.size(); it++)
 			guessingWord.push_back('_');
 		std::cout << guessingWord<<"  ("<<guessingWord.size()<<")\n";
 
@@ -87,7 +87,8 @@ namespace skribble
 				RevealRandomLetters(word);
 			}
 		}
-		
+		auto it = std::find(m_word.begin(), m_word.end(), word);
+		m_word.erase(it);
 	}
 
 	void Round::startRound()

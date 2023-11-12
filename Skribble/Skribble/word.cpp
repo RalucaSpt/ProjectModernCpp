@@ -60,8 +60,8 @@ std::vector<std::string> Words::getWord(int nrRounds,int nrPlayers)
 	}
 }
 
-void Words::DeleteWord(std::string word)
+/*void Words::DeleteWord(std::string word)
 {
 	auto it = std::find(m_words.begin(), m_words.end(), word);
 	m_words.erase(it);
-}
+}*/
