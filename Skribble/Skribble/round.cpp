@@ -20,7 +20,7 @@ namespace skribble
 	{
 	}
 
-	Round::Round(std::string word)
+	Round::Round(std::vector<std::string> word)
 		:m_word{word}, m_roundActive{ false }
 	{
 	}
@@ -36,7 +36,7 @@ namespace skribble
 		
 	}
 
-	void Round::setWord(std::string word)
+	void Round::setWord(std::vector<std::string> word)
 	{
 		/*static const std::vector<std::string> wordList = { "pictură", "calculator", "bibliotecă", "astronaut", "chitară" };
 		static std::mt19937 rng(std::time(nullptr));
@@ -57,22 +57,22 @@ namespace skribble
 
 	void Round::guessWord()//const std::string& word)
 	{
-
+		std::string word = m_word.front();
 		std::string guessingWord;
 		for (int it = 0; it < m_word.size(); it++)
 			guessingWord.push_back('_');
 		std::cout << guessingWord<<"  ("<<guessingWord.size()<<")\n";
 
-		std::string word;
+		std::string playerGuess;
 
 		int score, poz=0;
 		for (int i = 0; i < 10; i++)
 		{
 			std::cout << guessingWord << "  (" << guessingWord.size() << ")\n";
 			std::cout << m_player.GetIdPlayer()<<": ";
-			std::cin >> word;
+			std::cin >> playerGuess;
 			std::cout << "\n";
-			if (word == m_word)
+			if (word == playerGuess)
 			{
 				score = 10 - i;
 				std::cout << "Round Over!" << "\n";
@@ -84,7 +84,7 @@ namespace skribble
 			}
 			if (i >= 4 && poz<guessingWord.size()/2)
 			{
-				guessingWord[poz] = m_word[poz];
+				RevealRandomLetters(word);
 			}
 		}
 		
@@ -126,14 +126,14 @@ namespace skribble
 		return *m_winner;
 	}
 	*/
-	void Round::guessWord(Player& player, const std::string& guessedWord)
+	void Round::guessWord(Player& player, const std::string& guessedWord,const std::string& guessingword)
 	{
 		if (!m_roundActive) {
 			std::cerr << "Round not active. Cannot guess word." << std::endl;
 			return;
 		}
 
-		if (guessedWord == m_word) {
+		if (guessedWord == guessingword) {
 			std::cout << player.GetName() << " has guessed the word!" << std::endl;
 			//player.AddScore(); 
 		}
@@ -146,15 +146,17 @@ namespace skribble
 		return m_roundActive;
 	}
 
-	std::string Round::RevealRandomLetters() {
-		int halfLength = m_word.length() / 2;
-		std::string revealedWord = m_word;
+	std::string Round::RevealRandomLetters(std::string word)
+	{
+		
+		int halfLength = word.length() / 2;
+		std::string revealedWord = word;
 		std::random_device rd;
 		std::mt19937 g(rd());
 
 		std::set<int> revealedPositions;
 		while (revealedPositions.size() < halfLength) {
-			int pos = g() % m_word.length();
+			int pos = g() % word.length();
 			revealedPositions.insert(pos);
 		}
 

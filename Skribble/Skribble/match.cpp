@@ -4,7 +4,7 @@ using skribble::Match;
 
 void Match::StartRound()
 {
-	m_words.setWords();
+	/*m_words.setWords();
 	for (int i = 0; i < m_nrRounds; i++)
 	{
 		std::string word = m_words.getWord();
@@ -14,5 +14,5 @@ void Match::StartRound()
 		{
 			m_round.guessWord();
 		}
-	}
+	}*/
 }

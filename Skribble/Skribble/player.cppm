@@ -2,9 +2,14 @@ export module player;
 import <iostream>;
 
 namespace skribble {
-	enum class DrawingStatus { NotDrawing, Drawing };
+	// enum class DrawingStatus { NotDrawing, Drawing };
 	export class Player {
-
+	private:
+		enum class DrawingStatus 
+		{
+			NotDrawing,
+			Drawing
+		};
 	public:
 		Player();
 		Player(uint16_t IdPlayer, uint16_t score, const std::string& m_name);
@@ -17,9 +22,9 @@ namespace skribble {
 		uint16_t GetIdPlayer() const;
 		uint16_t GetScore() const;
 		std::string GetName() const;
-		bool GetIsDrawing() const;
+		DrawingStatus GetIsDrawing() const;
 
-		void SetIsDrawing(bool isDrawing);
+		void SetIsDrawing(DrawingStatus isDrawing);
 		void setName(const std::string& name);
 		// Score management
 		void AddScore(uint16_t points);

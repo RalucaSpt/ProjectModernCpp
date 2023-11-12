@@ -5,7 +5,7 @@ import <string>;
 using skribble::Player;
 
 Player::Player()
-	:m_idPlayer{ 0 }, m_score{ 0 }, m_drawingStatus{ DrawingStatus::NotDrawing }
+	:m_idPlayer{ 0 }, m_score{ 0 }, m_drawingStatus{Player::DrawingStatus::NotDrawing}
 {
 
 }
@@ -36,7 +36,6 @@ Player& Player::operator=(const Player& player)
 	{
 		m_idPlayer = player.m_idPlayer;
 		m_score = player.m_score;
-		m_drawingStatus = player.m_drawingStatus;
 	}
 	return *this;
 }
@@ -55,12 +54,14 @@ std::string Player::GetName() const
 	return m_name;
 }
 
-bool Player::GetIsDrawing() const {
-	return m_drawingStatus == DrawingStatus::Drawing;
+Player::DrawingStatus skribble::Player::GetIsDrawing() const
+{
+	return m_drawingStatus;
 }
 
-void Player::SetIsDrawing(bool isDrawing) {
-	m_drawingStatus = isDrawing ? DrawingStatus::Drawing : DrawingStatus::NotDrawing;
+void Player::SetIsDrawing(DrawingStatus isDrawing)
+{
+	m_drawingStatus = isDrawing;
 }
 
 void Player::setName(const std::string& name)
@@ -70,7 +71,7 @@ void Player::setName(const std::string& name)
 
 void skribble::Player::AddScore(uint16_t points)
 {
-	m_score;
+	m_score = points;
 }
 
 
