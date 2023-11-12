@@ -28,6 +28,16 @@ int Scoreboard::getScore(const std::string& playerName) const {
     }
 }
 
+void Scoreboard::printTopPlayers(int topN) const
+{
+    std::vector<std::pair<std::string, int>> sortedScores(scores.begin(), scores.end());
+    std::sort(sortedScores.begin(), sortedScores.end(),
+        [](const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) {
+            return a.second > b.second;
+        }
+    );
+}
+
 std::pair<std::string, int> Scoreboard::getMaxScore() const
 {
     std::pair<std::string, int> maxScore("", INT_MIN);
