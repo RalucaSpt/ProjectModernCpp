@@ -12,6 +12,7 @@ namespace skribble
 	export class Match
 	{
 	public:
+		Match();
 		void StartRound();
 	private:
 		std::vector<skribble::Player> m_players;

@@ -20,10 +20,11 @@ namespace skribble
 		void setWords(const std::string& textFile);
 		void setWords();
 
+		Words(Words&& listWords);
+
 		std::vector<std::string> getWord(int nrRounds, int nrPlayers);
 		
-		//void DeleteWord(std::string word);
-			
+
 	private:
 		std::vector<std::string> m_words;
 	};

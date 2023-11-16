@@ -5,7 +5,7 @@ import <iostream>;
 import <ctime>;
 import <cstdlib>;
 
-import match;
+//import match;
 
 
 int main() 
