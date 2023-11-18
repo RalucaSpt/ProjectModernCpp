@@ -50,6 +50,12 @@ Words::Words(Words&& listWords)
 
 std::vector<std::string> Words::getWord(int nrRounds,int nrPlayers)
 {
+	if (nrRounds <= 0 || nrPlayers <= 0) {
+		throw std::invalid_argument("Number of rounds and players must be greater than 0.");
+	}
+	if (m_words.size() < static_cast<size_t>(nrRounds * nrPlayers)) {
+		throw std::runtime_error("Not enough words to match the number of rounds and players.");
+	}
 	if (m_words.empty())
 	{
 		throw std::runtime_error("No words.");

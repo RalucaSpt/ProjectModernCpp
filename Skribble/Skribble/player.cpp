@@ -66,6 +66,10 @@ void Player::SetIsDrawing(DrawingStatus isDrawing)
 
 void Player::setName(const std::string& name)
 {
+	if (name.empty()) {
+		std::cerr << "Player name cannot be empty." << std::endl;
+		return;
+	}
 	m_name = name;
 }
 
