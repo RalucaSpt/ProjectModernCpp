@@ -16,13 +16,18 @@ Words::~Words()
 }
 
 void Words::setWords(const std::string& fileName)
-{
+{	
 	std::ifstream file(fileName);
+	if (!file) {
+		throw std::runtime_error("Failed to open file: " + fileName);
+	}
 	std::string word;
-	while (file)
+	while (file>>word)
 	{
-		file >> word;
 		m_words.push_back(word);
+	}
+	if (m_words.empty()) {
+		throw std::runtime_error("No words found in file: " + fileName);
 	}
 }
 
@@ -45,7 +50,7 @@ Words::Words(Words&& listWords)
 
 std::vector<std::string> Words::getWord(int nrRounds,int nrPlayers)
 {
-	if (m_words.size() == 0)
+	if (m_words.empty())
 	{
 		throw std::runtime_error("No words.");
 	}
