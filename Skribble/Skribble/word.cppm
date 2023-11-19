@@ -1,4 +1,4 @@
-
+module;
 export module word;
 import <string>;
 import <vector>;
@@ -13,17 +13,21 @@ namespace skribble
 	export class Words
 	{
 	public:
-		Words();
-		Words(std::vector<std::string> words);
-		~Words();
+		Words()=default;
+		explicit Words(const std::vector<std::string>& words);
+		Words(const Words&) = delete;
+		Words(Words&& listWords) noexcept = default;
+
+		Words& operator=(const Words& words) = delete;
+		Words& operator=(Words&& words)noexcept = default;
+		~Words() = default;
+
 
 		void setWords(const std::string& textFile);
 		void setWords();
 
-		Words(Words&& listWords) noexcept;
-		Words& operator=(Words&& words)noexcept = default;
-		std::vector<std::string> getWord(int nrRounds, int nrPlayers);
-		
+		std::vector<std::string> getWord(int nrRounds, int nrPlayers) const;
+
 
 	private:
 		std::vector<std::string> m_words;

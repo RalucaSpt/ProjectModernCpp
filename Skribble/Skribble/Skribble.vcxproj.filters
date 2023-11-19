@@ -50,7 +50,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Words.txt">
+    <Text Include="..\..\..\OneDrive - Universitatea Transilvania din Brasov\Desktop\MC\cuvinte_skribble.txt">
       <Filter>Resource Files</Filter>
     </Text>
   </ItemGroup>

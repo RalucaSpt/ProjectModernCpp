@@ -152,7 +152,7 @@
     <ClCompile Include="word.cppm" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Words.txt" />
+    <Text Include="..\..\..\OneDrive - Universitatea Transilvania din Brasov\Desktop\MC\cuvinte_skribble.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
