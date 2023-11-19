@@ -3,12 +3,23 @@ module match;
 using skribble::Match;
 
 skribble::Match::Match()
+	:m_nrRounds{4}
 {
 }
 
 skribble::Match::Match(const Match& match)
 	:m_players{match.m_players}, m_round{match.m_round}, m_nrPlayers{match.m_nrPlayers}, m_nrRounds{match.m_nrRounds}, m_scoreboard{match.m_scoreboard}
 {
+}
+
+skribble::Match::Match(Match&& match) noexcept
+{
+	m_players=std::move(match.m_players);
+	m_round=std::move(match.m_round);
+	m_nrPlayers=std::move(match.m_nrPlayers);
+	m_nrRounds = std::move(match.m_nrRounds);
+	m_scoreboard=std::move(match.m_scoreboard);
+	
 }
 
 void Match::StartRound()
