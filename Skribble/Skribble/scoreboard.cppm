@@ -17,8 +17,8 @@ namespace skribble {
         void resetAllScores();
         void removePlayer(const std::string& playerName);
         std::pair<std::string, int> getMaxScore() const;
-        std::pair<std::string, int> getMinScore() const;
-        void printExtremeScores() const;
+        // std::pair<std::string, int> getMinScore() const; NU AVEM NEVOIE SI IMPLEMENTAREA ERA INCOMPLETA, semnat anto
+        void printMaxScores() const;
         std::vector<std::pair<std::string, int>> getSortedScores() const;
         void printScoreboard() const;
 

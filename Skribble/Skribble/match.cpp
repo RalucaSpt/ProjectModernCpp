@@ -20,3 +20,15 @@ void Match::StartRound()
 		}
 	}
 }
+
+
+
+int skribble::Match::getNrPlayers()
+{
+	return m_players.size();
+}
+
+int skribble::Match::getNrSemiRounds()
+{
+	return getNrPlayers() * m_nrRounds;
+}

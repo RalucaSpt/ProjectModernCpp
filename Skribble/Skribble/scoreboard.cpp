@@ -83,21 +83,21 @@ std::pair<std::string, int> Scoreboard::getMaxScore() const
     return maxScore; 
 }
 
-std::pair<std::string, int> Scoreboard::getMinScore() const
-{
-    return std::pair<std::string, int>();
-}
+//std::pair<std::string, int> Scoreboard::getMinScore() const
+//{
+//    return std::pair<std::string, int>();
+//}
 
-void Scoreboard::printExtremeScores() const
+void Scoreboard::printMaxScores() const
 {
     auto maxScore = getMaxScore();
-    auto minScore = getMinScore();
+    //auto minScore = getMinScore();
 
     std::cout << "The player with maximum score is "
         << maxScore.first << " and they have " << maxScore.second << " points." << std::endl;
 
-    std::cout << "The player with minimum score is "
-        << minScore.first << " and they have " << minScore.second << " points." << std::endl;
+   /* std::cout << "The player with minimum score is "
+        << minScore.first << " and they have " << minScore.second << " points." << std::endl;*/
 }
 
 std::vector<std::pair<std::string, int>> Scoreboard::getSortedScores() const
