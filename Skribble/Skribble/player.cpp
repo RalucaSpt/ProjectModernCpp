@@ -44,6 +44,16 @@ Player& Player::operator=(const Player& player)
 	return *this;
 }
 
+Player& Player::operator= (Player&& player) 
+{
+	if (this != &player)
+	{
+		this->m_name = std::move(player.m_name);
+		this->m_idPlayer = std::move(player.m_idPlayer);
+		this->m_score = std::move(player.m_score);
+	}
+}
+
 uint16_t skribble::Player::GetIdPlayer() const {
 	return m_idPlayer;
 }

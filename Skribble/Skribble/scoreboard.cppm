@@ -9,8 +9,10 @@ import player;
 namespace skribble {
     export class Scoreboard {
     public:
-        Scoreboard();
-        void addPlayer(const std::string namePlayer);
+        Scoreboard() = default;
+        ~Scoreboard() = default;
+
+        void addPlayer(const std::string& namePlayer);
         void updateScore(const std::string& playerName, int points);
         int getScore(const std::string& playerName) const;
         void printTopPlayers(int topN) const;

@@ -2,17 +2,9 @@ module word;
 
 using skribble::Words;
 
-Words::Words()
-{
-
-}
-Words::Words(std::vector<std::string> words)
+Words::Words(const std::vector<std::string>& word)
 {
 	m_words=words;
-}
-Words::~Words()
-{
-
 }
 
 void Words::setWords(const std::string& fileName)
@@ -43,12 +35,8 @@ void skribble::Words::setWords()
 	
 }
 
-Words::Words(Words&& listWords) noexcept
-{
-	m_words = std::move(listWords.m_words);
-}
 
-std::vector<std::string> Words::getWord(int nrRounds,int nrPlayers)
+std::vector<std::string> Words::getWord(int nrRounds,int nrPlayers) const
 {
 	if (nrRounds <= 0 || nrPlayers <= 0) {
 		throw std::invalid_argument("Number of rounds and players must be greater than 0.");

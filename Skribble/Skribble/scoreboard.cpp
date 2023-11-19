@@ -7,14 +7,14 @@ using skribble::Player;
 using skribble::Scoreboard;
 Scoreboard::Scoreboard() = default;
 
-void skribble::Scoreboard::addPlayer(const std::string namePlayer)
+void skribble::Scoreboard::addPlayer(const std::string& namePlayer)
 {
     if (namePlayer.empty()) {
-        std::cerr << "Player name cannot be empty." << std::endl;
+        std::cerr << "Player name cannot be empty.\n";
         return;
     }
     if (m_scores.find(namePlayer) != m_scores.end()) {
-        std::cerr << "Player already exists." << std::endl;
+        std::cerr << "Player already exists.\n";
         return;
     }
     m_scores[namePlayer] = 0;
@@ -26,7 +26,7 @@ void Scoreboard::updateScore(const std::string& playerName, int points) {
         m_scores[playerName] += points;
     }
     else {
-        std::cout << "Player not found." << std::endl;
+        std::cout << "Player not found.\n";
         return;
     }
 }
