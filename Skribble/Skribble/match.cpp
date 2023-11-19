@@ -23,12 +23,12 @@ void Match::StartRound()
 
 
 
-int skribble::Match::getNrPlayers()
+uint8_t skribble::Match::getNrPlayers()
 {
 	return m_players.size();
 }	
 
-int skribble::Match::getNrSemiRounds()
+uint8_t skribble::Match::getNrSemiRounds()
 {
 	return getNrPlayers() * m_nrRounds;
 }

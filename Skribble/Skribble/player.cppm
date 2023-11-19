@@ -2,6 +2,7 @@ export module player;
 import <iostream>;
 
 namespace skribble {
+	class match; // declaratie forward
 	// enum class DrawingStatus { NotDrawing, Drawing };
 	export class Player {
 	private:
@@ -25,6 +26,7 @@ namespace skribble {
 		uint16_t GetCorrectAnswerTime();
 		std::string GetName() const;
 		DrawingStatus GetIsDrawing() const;
+		bool guessedWord();
 
 		void SetIsDrawing(DrawingStatus isDrawing);
 		void setName(const std::string& name);
@@ -41,11 +43,12 @@ namespace skribble {
 		friend std::ostream& operator<<(std::ostream& os, const Player& player);
 		friend std::istream& operator>>(std::istream& is, Player& player);
 
-		// Equality and Comparison
+		// Equality and Comparison	
 		bool operator==(const Player& other) const;
 		bool operator!=(const Player& other) const;
 		
 	private:
+		skribble::match* m_match;
 		uint16_t m_idPlayer;
 		uint16_t m_score;
 		uint8_t m_correctAnswerTime; // de la 0 la 60

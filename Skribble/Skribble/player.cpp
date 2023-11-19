@@ -5,16 +5,20 @@ import <string>;
 using skribble::Player;
 
 Player::Player()
-	:m_idPlayer{ 0 }, m_score{ 0 }, m_drawingStatus{Player::DrawingStatus::NotDrawing}
+	:/*m_match{match}*/
+	m_idPlayer{ 0 },
+	m_score{ 0 }, 
+	m_drawingStatus{Player::DrawingStatus::NotDrawing}
 {
 
 }
 
-Player::Player(uint16_t IdPlayer, uint16_t score, const std::string& name):
-	m_idPlayer { IdPlayer },
+Player::Player(uint16_t IdPlayer, uint16_t score, const std::string& name/*, skribble::match* match*/)
+	:m_idPlayer { IdPlayer },
 	m_score{ score },
 	m_name{ name },
 	m_drawingStatus{ DrawingStatus::NotDrawing }
+	/*m_match{match}*/
 {
 
 }
@@ -51,7 +55,7 @@ uint16_t skribble::Player::GetScore() const
 
 uint16_t skribble::Player::GetCorrectAnswerTime()
 {
-	return m_correctAnswerTime;
+	return m_correctAnswerTime; //returneaza un numar de secunde
 }
 
 std::string Player::GetName() const
@@ -62,6 +66,11 @@ std::string Player::GetName() const
 Player::DrawingStatus skribble::Player::GetIsDrawing() const
 {
 	return m_drawingStatus;
+}
+
+bool skribble::Player::guessedWord()
+{
+	return false;
 }
 
 void Player::SetIsDrawing(DrawingStatus isDrawing)
@@ -82,10 +91,16 @@ void skribble::Player::AddScore(uint16_t points)
 {
 	if (m_drawingStatus == DrawingStatus::Drawing) {
 		float alfa = 0.0; // in alfa calculam media timpilor la care s au oferit raspunsurile corecte
+		//uint8_t numPlayers = m_match->getNrPlayers();	
+		// de calculat alfa 
+		m_score = ((60 - alfa) * 100) / 60;
 	}
 	else if (m_drawingStatus == DrawingStatus::NotDrawing) {
-		uint8_t seconds; //numarul de secunde in care jucatorul a ghicit cuvantul
-		m_score = ((60 - seconds) * 100) / 30;
+		uint8_t seconds = GetCorrectAnswerTime(); //numarul de secunde in care jucatorul a ghicit cuvantul
+		if (seconds < 30)
+			m_score += 100;
+		else
+			m_score = ((60 - seconds) * 100) / 30;
 	}
 	
 }
