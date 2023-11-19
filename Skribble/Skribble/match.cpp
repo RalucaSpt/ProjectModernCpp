@@ -6,6 +6,11 @@ skribble::Match::Match()
 {
 }
 
+skribble::Match::Match(const Match& match)
+	:m_players{match.m_players}, m_round{match.m_round}, m_nrPlayers{match.m_nrPlayers}, m_nrRounds{match.m_nrRounds}, m_scoreboard{match.m_scoreboard}
+{
+}
+
 void Match::StartRound()
 {
 	m_words.setWords();

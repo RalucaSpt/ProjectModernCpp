@@ -43,7 +43,7 @@ void skribble::Words::setWords()
 	
 }
 
-Words::Words(Words&& listWords)
+Words::Words(Words&& listWords) noexcept
 {
 	m_words = std::move(listWords.m_words);
 }
@@ -71,7 +71,10 @@ std::vector<std::string> Words::getWord(int nrRounds,int nrPlayers)
 			int wordPosition = dist6(rng);
 			if (std::find(matchWords.begin(), matchWords.end(), m_words[wordPosition]) == matchWords.end())
 				matchWords.push_back(m_words[wordPosition]);
-			it--;
+			else
+			{
+				it--;
+			}
 		}
 		return matchWords;
 	}

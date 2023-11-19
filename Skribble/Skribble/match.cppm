@@ -14,6 +14,7 @@ namespace skribble
 	{
 	public:
 		Match();
+		Match(const Match& match);
 		void StartRound();
 		uint8_t getNrPlayers();
 		uint8_t getNrSemiRounds();

@@ -20,8 +20,8 @@ namespace skribble
 		void setWords(const std::string& textFile);
 		void setWords();
 
-		Words(Words&& listWords);
-
+		Words(Words&& listWords) noexcept;
+		Words& operator=(Words&& words)noexcept = default;
 		std::vector<std::string> getWord(int nrRounds, int nrPlayers);
 		
 
