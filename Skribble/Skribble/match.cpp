@@ -9,7 +9,7 @@ skribble::Match::Match()
 void Match::StartRound()
 {
 	m_words.setWords();
-	for (int i = 0; i < m_nrRounds; i++)
+	for (int i = 0; i < m_nrRounds * getNrSemiRounds(); i++)
 	{
 		std::vector<std::string> word = m_words.getWord(m_nrRounds, m_players.size());
 		m_round.setWord(word);
@@ -26,7 +26,7 @@ void Match::StartRound()
 int skribble::Match::getNrPlayers()
 {
 	return m_players.size();
-}
+}	
 
 int skribble::Match::getNrSemiRounds()
 {

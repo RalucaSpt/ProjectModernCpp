@@ -22,6 +22,7 @@ namespace skribble {
 		uint16_t GetIdPlayer() const;
 		uint16_t GetScore() const;
 		uint16_t GetScoreAddress();
+		uint16_t GetCorrectAnswerTime();
 		std::string GetName() const;
 		DrawingStatus GetIsDrawing() const;
 
@@ -47,6 +48,7 @@ namespace skribble {
 	private:
 		uint16_t m_idPlayer;
 		uint16_t m_score;
+		uint8_t m_correctAnswerTime; // de la 0 la 60
 		DrawingStatus m_drawingStatus;
 		std::string m_name;
 	};
