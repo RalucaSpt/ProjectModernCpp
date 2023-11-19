@@ -12,17 +12,19 @@ namespace skribble {
 			Drawing
 		};
 	public:
-		Player();
+		Player() = default;
 		Player(uint16_t IdPlayer, uint16_t score, const std::string& m_name);
-		Player(const Player& player);
+		Player(const Player& player) = default;
+		Player(Player&& player) = default;
+		Player& operator= (const Player& player);
+		Player& operator= (Player&& player) noexcept = default;
+		
 
 		~Player();
 
-		Player& operator= (const Player& player);
 
 		uint16_t GetIdPlayer() const;
 		uint16_t GetScore() const;
-		uint16_t GetScoreAddress();
 		uint16_t GetCorrectAnswerTime();
 		std::string GetName() const;
 		DrawingStatus GetIsDrawing() const;
@@ -48,13 +50,15 @@ namespace skribble {
 		bool operator!=(const Player& other) const;
 		
 	private:
-		skribble::match* m_match;
+		skribble::match* m_match = nullptr;
 		uint16_t m_idPlayer;
 		uint16_t m_score;
 		uint8_t m_correctAnswerTime; // de la 0 la 60
 		DrawingStatus m_drawingStatus;
 		std::string m_name;
 	};
+
+
 	std::ostream& operator<<(std::ostream& os, const Player& player)
 	{
 		os <<"Id player: "<< player.m_idPlayer<<" nume: "<< player.m_name;
