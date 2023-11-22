@@ -5,7 +5,6 @@ import player;
 
 using skribble::Player;
 using skribble::Scoreboard;
-Scoreboard::Scoreboard() = default;
 
 void skribble::Scoreboard::addPlayer(const std::string& namePlayer)
 {

@@ -2,7 +2,7 @@ module word;
 
 using skribble::Words;
 
-Words::Words(const std::vector<std::string>& word)
+Words::Words(const std::vector<std::string>& words)
 {
 	m_words=words;
 }

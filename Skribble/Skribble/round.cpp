@@ -1,5 +1,7 @@
 ﻿module round; 
 
+using skribble::Round;
+
 import <vector>;
 import <string>;
 import <random>;
@@ -7,8 +9,6 @@ import <set>;
 
 //#include <optional>
 
-namespace skribble
-{
 	/*Round::Round(Words& words, std::vector<Player>& players)
 		: m_words(words), m_players(players),m_winner(), m_roundActive(false)
 	{
@@ -169,4 +169,3 @@ namespace skribble
 
 		return revealedWord;
 	}
-}

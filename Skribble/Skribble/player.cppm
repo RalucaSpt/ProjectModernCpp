@@ -2,7 +2,7 @@ export module player;
 import <iostream>;
 
 namespace skribble {
-	class match; // declaratie forward
+	//class match; // declaratie forward
 	// enum class DrawingStatus { NotDrawing, Drawing };
 	export class Player {
 	private:
@@ -50,7 +50,7 @@ namespace skribble {
 		bool operator!=(const Player& other) const;
 		
 	private:
-		skribble::match* m_match = nullptr;
+		//skribble::match* m_match = nullptr;
 		uint16_t m_idPlayer;
 		uint16_t m_score;
 		uint8_t m_correctAnswerTime; // de la 0 la 60

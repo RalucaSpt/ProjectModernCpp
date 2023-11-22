@@ -4,14 +4,6 @@ import <string>;
 
 using skribble::Player;
 
-Player::Player()
-	:/*m_match{match}*/
-	m_idPlayer{ 0 },
-	m_score{ 0 }, 
-	m_drawingStatus{Player::DrawingStatus::NotDrawing}
-{
-
-}
 
 Player::Player(uint16_t IdPlayer, uint16_t score, const std::string& name/*, skribble::match* match*/)
 	:m_idPlayer { IdPlayer },
@@ -23,11 +15,6 @@ Player::Player(uint16_t IdPlayer, uint16_t score, const std::string& name/*, skr
 
 }
 
-Player::Player(const Player& player)
-	:m_idPlayer{ player.m_idPlayer }, m_score{ player.m_score }, m_drawingStatus{ player.m_drawingStatus }
-{
-
-}
 
 Player::~Player()
 {
@@ -44,15 +31,6 @@ Player& Player::operator=(const Player& player)
 	return *this;
 }
 
-Player& Player::operator= (Player&& player) 
-{
-	if (this != &player)
-	{
-		this->m_name = std::move(player.m_name);
-		this->m_idPlayer = std::move(player.m_idPlayer);
-		this->m_score = std::move(player.m_score);
-	}
-}
 
 uint16_t skribble::Player::GetIdPlayer() const {
 	return m_idPlayer;
