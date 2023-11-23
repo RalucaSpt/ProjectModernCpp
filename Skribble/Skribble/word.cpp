@@ -1,11 +1,12 @@
 module word;
-
 using skribble::Words;
 
 Words::Words(const std::vector<std::string>& words)
 {
 	m_words=words;
 }
+
+
 
 void Words::setWords(const std::string& fileName)
 {	
