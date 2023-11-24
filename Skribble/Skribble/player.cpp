@@ -5,12 +5,12 @@ import <string>;
 using skribble::Player;
 
 
-Player::Player(uint16_t IdPlayer, uint16_t score, const std::string& name/*, skribble::match* match*/)
+Player::Player(uint16_t IdPlayer, uint16_t score, const std::string& name)
 	:m_idPlayer { IdPlayer },
 	m_score{ score },
 	m_name{ name },
 	m_drawingStatus{ DrawingStatus::NotDrawing }
-	/*m_match{match}*/
+	
 {
 
 }
@@ -75,7 +75,7 @@ void Player::setName(const std::string& name)
 	m_name = name;
 }
 
-void skribble::Player::AddScore(uint16_t points)
+void Player::AddScore(uint16_t points, int nrPlayers)
 {
 	if (m_drawingStatus == DrawingStatus::Drawing) {
 		float alfa = 0.0; // in alfa calculam media timpilor la care s au oferit raspunsurile corecte

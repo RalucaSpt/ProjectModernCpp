@@ -20,7 +20,7 @@ void skribble::Scoreboard::addPlayer(const std::string& namePlayer)
 }
 
 
-void Scoreboard::updateScore(const std::string& playerName, int points) {
+void Scoreboard::UpdateScore(const std::string& playerName, int points) {
     if (m_scores.find(playerName) != m_scores.end()) {
         m_scores[playerName] += points;
     }

@@ -2,7 +2,7 @@ export module player;
 import <iostream>;
 
 namespace skribble {
-	//class match; // declaratie forward
+	
 	// enum class DrawingStatus { NotDrawing, Drawing };
 	export class Player {
 	private:
@@ -33,13 +33,13 @@ namespace skribble {
 		void SetIsDrawing(DrawingStatus isDrawing);
 		void setName(const std::string& name);
 		// Score management
-		void AddScore(uint16_t points);
+		void AddScore(uint16_t points,int nrPlayers);
 		void SubtractScore(uint16_t points);
 		void ResetScore();
 
 		// Serialization (example using string, but JSON/XML/other could be used)
-		std::string Serialize() const;
-		static Player Deserialize(const std::string& data);
+		//std::string Serialize() const;
+		//static Player Deserialize(const std::string& data);
 
 		// Friend functions
 		friend std::ostream& operator<<(std::ostream& os, const Player& player);

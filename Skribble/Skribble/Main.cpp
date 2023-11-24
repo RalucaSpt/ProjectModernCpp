@@ -15,6 +15,7 @@ import <iostream>;
 
 int main() 
 {
+    skribble::Words word;
     crow::SimpleApp app;
     CROW_ROUTE(app, "/")([]() 
         {

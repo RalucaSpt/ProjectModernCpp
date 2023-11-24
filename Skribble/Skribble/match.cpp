@@ -30,9 +30,11 @@ void Match::StartRound()
 		std::vector<std::string> word = m_words.getWord(m_nrRounds, m_players.size());
 		m_round.setWord(word);
 		//m_words.DeleteWord(word);
-		for (const Player& player : m_players)
+		for (skribble::Player& player : m_players)
 		{
 			m_round.guessWord();
+			player.AddScore(1, m_players.size());
+				
 		}
 	}
 }
