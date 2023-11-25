@@ -2,6 +2,7 @@
 #include <QtWidgets/QApplication>
 
 #include <cpr/cpr.h>
+#include <crow.h>
 
 int main(int argc, char *argv[])
 {
