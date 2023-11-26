@@ -20,3 +20,18 @@ void WordStorage::PopulateStorage()
     };
     m_db.insert_range(words.begin(), words.end());
 }
+std::vector<std::string> WordStorage::GetWords()
+{
+    std::vector<WordEntity> wordEntities = m_db.get_all<WordEntity>();
+    std::vector<std::string> words;
+    for (const auto& entity : wordEntities) {
+        words.push_back(entity.word);
+    }
+    return words;
+}
+
+void WordStorage::AddWord(const std::string& word)
+{
+    WordEntity newWord{ -1, word };
+    m_db.insert(newWord);
+}
