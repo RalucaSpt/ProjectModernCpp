@@ -1,6 +1,4 @@
-﻿#include "wordDatabase.h"
-
-using namespace http;
+﻿#include "SkribbleDatabase.h"
 
 bool WordStorage::Initialize()
 {
@@ -11,4 +9,14 @@ bool WordStorage::Initialize()
 
     auto wordsCount = m_db.count<WordEntity>();
     return wordsCount != 0;
+}
+void WordStorage::PopulateStorage()
+{
+    std::vector<WordEntity> words{
+        { -1, "Word1" },
+        { -1, "Word2" },
+        { -1, "Word3" },
+        // Adăugați mai multe cuvinte aici
+    };
+    m_db.insert_range(words.begin(), words.end());
 }

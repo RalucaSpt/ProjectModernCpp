@@ -6,9 +6,9 @@
 #include <sqlite_orm/sqlite_orm.h>
 namespace sql = sqlite_orm;
 
-import utils;
-import product;
-import shoppingBasketRow;
+//import <utils>;
+//import <product>;
+//import <shoppingBasketRow>;
 
 struct WordEntity {
     int id;
