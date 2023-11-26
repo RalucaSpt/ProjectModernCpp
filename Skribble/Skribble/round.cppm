@@ -34,7 +34,7 @@ namespace skribble
 		bool isRoundActive() const;
 		void endRound();
 
-		void displayScoreboard(const std::vector<Player>& players);
+		void displayScoreboard(std::vector<Player> players);
 
 
 	private:

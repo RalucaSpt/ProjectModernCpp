@@ -18,8 +18,7 @@ namespace skribble {
 		Player(Player&& player) = default;
 		Player& operator= (const Player& player);
 		Player& operator= (Player&& player) noexcept = default;
-		
-
+	
 		~Player();
 
 

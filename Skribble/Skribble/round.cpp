@@ -120,14 +120,13 @@ void Round::endRound()
 	std::cout << "Round ended." << std::endl;
 }
 
-bool comparator(const skribble::Player& p1, const skribble::Player& p2)
+void skribble::Round::displayScoreboard(std::vector<Player> players)
 {
-	return p1.GetScore() > p2.GetScore();
-}
+	std::stable_sort(players.begin(), players.end(), [](Player a, Player b)
+		{
+			return a.GetScore() < b.GetScore();
+		});
 
-void skribble::Round::displayScoreboard(const std::vector<Player>& players)
-{
-	std::sort(players.begin(), players.end(), comparator);
 	std::cout << "Scoreboard:\n";
 	for (const auto& player : players)
 	{
