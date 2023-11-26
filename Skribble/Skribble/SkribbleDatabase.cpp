@@ -55,3 +55,20 @@ void WordStorage::AddWord(const std::string& word)
     WordEntity newWord{ -1, word };
     m_db.insert(newWord);
 }
+
+void UserStorage::AddUser(const std::string& username, const std::string& password)
+{
+    UserEntity newUser{ -1, username, password };
+    m_db.insert(newUser);
+}
+
+bool UserStorage::VerifyUser(const std::string& username, const std::string& password)
+{
+    auto users = m_db.get_all<UserEntity>(sql::where(sql::c(&UserEntity::m_username) == username));
+    if (!users.empty())
+    {
+        const auto& user = users.front();
+        return password == user.m_password;
+    }
+    return false;
+}

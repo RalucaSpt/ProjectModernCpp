@@ -16,9 +16,9 @@ struct WordEntity {
 };
 
 struct UserEntity {
-	uint16_t id;
-	std::string username;
-	std::string password_hash;
+	uint16_t m_id;
+	std::string m_username;
+	std::string m_password;
 };
 
 inline auto CreateStorage(const std::string& filename) {
@@ -31,9 +31,9 @@ inline auto CreateStorage(const std::string& filename) {
 		),
 		sql::make_table(
 			"Users",
-			sql::make_column("id", &UserEntity::id),
-			sql::make_column("username", &UserEntity::username),
-			sql::make_column("password_hash", &UserEntity::password_hash)
+			sql::make_column("id", &UserEntity::m_id),
+			sql::make_column("username", &UserEntity::m_username),
+			sql::make_column("password_hash", &UserEntity::m_password)
 		)
 	);
 }
