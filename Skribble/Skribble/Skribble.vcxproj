@@ -148,11 +148,15 @@
     <ClCompile Include="scoreboard.cpp" />
     <ClCompile Include="scoreboard.cppm" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="SkribbleDatabase.cpp" />
     <ClCompile Include="word.cpp" />
     <ClCompile Include="word.cppm" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\OneDrive - Universitatea Transilvania din Brasov\Desktop\MC\cuvinte_skribble.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="SkribbleDatabase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
