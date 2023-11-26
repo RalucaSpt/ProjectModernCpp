@@ -4,7 +4,6 @@ export module match;
 import <vector>;
 import player;
 import round;
-import scoreboard;
 import word;
 
 namespace skribble
@@ -27,7 +26,6 @@ namespace skribble
 		uint8_t m_nrPlayers;
 		uint8_t m_nrRounds;
 		//int m_nrSemiRounds;
-		Scoreboard m_scoreboard;
 		Words m_words;
 	};
 

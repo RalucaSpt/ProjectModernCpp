@@ -8,7 +8,7 @@ skribble::Match::Match()
 }
 
 skribble::Match::Match(const Match& match)
-	:m_players{match.m_players}, m_round{match.m_round}, m_nrPlayers{match.m_nrPlayers}, m_nrRounds{match.m_nrRounds}, m_scoreboard{match.m_scoreboard}
+	:m_players{match.m_players}, m_round{match.m_round}, m_nrPlayers{match.m_nrPlayers}, m_nrRounds{match.m_nrRounds}
 {
 }
 
@@ -17,9 +17,7 @@ skribble::Match::Match(Match&& match) noexcept
 	m_players=std::move(match.m_players);
 	m_round=std::move(match.m_round);
 	m_nrPlayers=std::move(match.m_nrPlayers);
-	m_nrRounds = std::move(match.m_nrRounds);
-	m_scoreboard=std::move(match.m_scoreboard);
-	
+	m_nrRounds = std::move(match.m_nrRounds);	
 }
 
 void Match::StartRound()
@@ -28,7 +26,7 @@ void Match::StartRound()
 	for (int i = 0; i < m_nrRounds * getNrSemiRounds(); i++)
 	{
 		std::vector<std::string> word = m_words.getWord(m_nrRounds, m_players.size());
-		m_round.setWord(word);
+		m_round.SetWord(word);
 		//m_words.DeleteWord(word);
 		for (skribble::Player& player : m_players)
 		{

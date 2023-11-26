@@ -20,19 +20,22 @@ namespace skribble
 	    Round(std::vector<std::string> word);
 		Round(const Round& round);
 		~Round();
-		void setWord(std::vector<std::string> word);
-		void setPlayer(Player player);
+
+		void SetWord(const std::vector<std::string>& word);
+		void SetPlayer(Player player);
+		const Player& GetWinner() const;
+		std::string GetDisplayWord() const;
+
 		void guessWord();//const std::string& word);
+		void guessWord(Player& player, const std::string& guessedWord,const std::string& guessWord);
+		std::string RevealRandomLetters(std::string word);
+
 		void startRound();
+		bool isRoundActive() const;
 		void endRound();
 
-		const Player& getWinner() const;
-		bool isRoundActive() const;
+		void displayScoreboard(const std::vector<Player>& players);
 
-		std::string getDisplayWord() const;
-		void guessWord(Player& player, const std::string& guessedWord,const std::string& guessWord);
-
-		std::string RevealRandomLetters(std::string word);
 
 	private:
 		//Words m_word;

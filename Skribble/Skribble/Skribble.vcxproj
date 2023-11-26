@@ -149,8 +149,6 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="round.cpp" />
     <ClCompile Include="round.cppm" />
-    <ClCompile Include="scoreboard.cpp" />
-    <ClCompile Include="scoreboard.cppm" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="SkribbleDatabase.cpp" />
     <ClCompile Include="word.cpp" />
