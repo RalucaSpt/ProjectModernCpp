@@ -22,4 +22,24 @@ namespace http
             )
         );
     }
+
+    using Storage = decltype(CreateStorage(""));
+
+    class WordStorage {
+    public:
+        bool Initialize();
+
+        std::vector<std::string> GetWords();
+        void AddWord(const std::string& word);
+
+    private:
+        void PopulateStorage();
+
+    private:
+        const std::string kDbFile{ "words.sqlite" };
+
+    private:
+        Storage m_db = CreateStorage(kDbFile);
+    };
+
 }
