@@ -10,36 +10,39 @@ import utils;
 import product;
 import shoppingBasketRow;
 
-namespace http 
-{
-    inline auto CreateStorage(const std::string& filename) {
-        return sql::make_storage(
-            filename,
-            sql::make_table(
-                "Words",
-                sql::make_column("id", &WordEntity::id, sql::primary_key().autoincrement()),
-                sql::make_column("word", &WordEntity::word)
-            )
-        );
-    }
+struct WordEntity {
+    int id;
+    std::string word;
+};
 
-    using Storage = decltype(CreateStorage(""));
+inline auto CreateStorage(const std::string& filename) {
+    return sql::make_storage(
+    filename,
+    sql::make_table(
+         "Words",
+          sql::make_column("id", &WordEntity::id, sql::primary_key().autoincrement()),
+          sql::make_column("word", &WordEntity::word)
+     )
+    );
+}
 
-    class WordStorage {
-    public:
+using Storage = decltype(CreateStorage(""));
+
+class WordStorage {
+public:
         bool Initialize();
 
         std::vector<std::string> GetWords();
         void AddWord(const std::string& word);
 
-    private:
+private:
         void PopulateStorage();
 
-    private:
+private:
         const std::string kDbFile{ "words.sqlite" };
 
-    private:
+private:
         Storage m_db = CreateStorage(kDbFile);
     };
 
-}
+
