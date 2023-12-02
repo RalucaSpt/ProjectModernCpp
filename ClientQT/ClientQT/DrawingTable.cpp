@@ -72,6 +72,18 @@ void DrawingTable::PrintMatrix(QPainter& p)
     }
 }
 
+void DrawingTable::UpdatePixelColor(int x, int y, QColor color)
+{
+    int correctedX = x - m_xStart;
+    int correctedY = y - m_yStart;
+
+    if (correctedX >= 0 && correctedX < m_width && correctedY >= 0 && correctedY < m_height)
+    {
+        m_tablePixels[correctedY][correctedX] = color;
+
+    }
+}
+
 bool DrawingTable::IsSet()
 {
     return m_isSet;

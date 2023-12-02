@@ -12,6 +12,7 @@ public:
 	void PrintMatrix(QPainter& p);
 	bool IsSet();
 	void ChangeIsSet(bool b);
+	void UpdatePixelColor(int x, int y, QColor color);
 
 	int GetHeight();
 	int GetWidth();
