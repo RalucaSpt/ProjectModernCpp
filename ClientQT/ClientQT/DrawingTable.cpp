@@ -54,19 +54,24 @@ void DrawingTable::UpdatePixelColor(int x, int y)
 
 void DrawingTable::PrintMatrix(QPainter& p)
 {
-    p.setPen(Qt::white);
-    for (int x = 0; x < m_width; x++) {
-        for (int y = 0; y < m_height; y++) {
-            if (m_tablePixels[y][x] == Qt::black)
+    for (int y = 0; y < m_height; y++) {
+        for (int x = 0; x < m_width; x++) {
+            p.setPen(QPen(Qt::white));
+            p.drawPoint(x + m_xStart, y + m_yStart);
+        }
+    }
+
+    for (int y = 0; y < m_height; y++) {
+        for (int x = 0; x < m_width; x++) {
+            QColor currentColor = m_tablePixels[y][x];
+            if (currentColor != Qt::white) 
             {
-                p.setPen(Qt::black);
+                p.setPen(QPen(currentColor)); 
                 p.drawPoint(x + m_xStart, y + m_yStart);
-                p.setPen(Qt::white);
-            }
-            else
-            {
-                p.setPen(Qt::white);
-                p.drawPoint(x + m_xStart, y + m_yStart);
+                p.drawPoint(x + m_xStart - 1, y + m_yStart);
+                p.drawPoint(x + m_xStart + 1, y + m_yStart);
+                p.drawPoint(x + m_xStart, y + m_yStart - 1);
+                p.drawPoint(x + m_xStart, y + m_yStart + 1);
             }
         }
     }
