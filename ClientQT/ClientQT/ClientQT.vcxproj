@@ -37,12 +37,12 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>6.5.3</QtInstall>
+    <QtInstall>6.6.0_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'" Label="QtSettings">
-    <QtInstall>6.5.3</QtInstall>
+    <QtInstall>6.6.0_msvc2019_64</QtInstall>
     <QtModules>core;gui;widgets</QtModules>
     <QtBuildConfig>release</QtBuildConfig>
   </PropertyGroup>
@@ -96,7 +96,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <QtRcc Include="ClientQT.qrc" />
-    <QtUic Include="ClientQT.ui" />
     <QtMoc Include="ClientQT.h" />
     <ClCompile Include="ClientQT.cpp" />
     <ClCompile Include="DrawingTable.cpp" />
@@ -104,6 +103,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawingTable.h" />
+    <ClInclude Include="resource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="ClientQT.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <QtUic Include="ClientQT.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

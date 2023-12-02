@@ -4,6 +4,11 @@ ClientQT::ClientQT(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+
+    m_colorButton = new QPushButton("Alege Culoare", this);
+    m_colorButton->setGeometry(10, 10, 120, 30);
+    connect(m_colorButton, &QPushButton::clicked, this, &ClientQT::openColorDialog);
+
 }
 
 ClientQT::~ClientQT()
@@ -49,6 +54,15 @@ void ClientQT::mouseReleaseEvent(QMouseEvent* event)
         m_drawing = false;
     }
     update();
+}
+
+void ClientQT::openColorDialog()
+{
+    QColor color = QColorDialog::getColor(Qt::white, this, "Selecteaz? Culoare");
+    if (color.isValid())
+    {
+        m_currentColor = color;
+    }
 }
 
 

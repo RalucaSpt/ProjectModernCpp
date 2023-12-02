@@ -4,6 +4,8 @@
 #include "ui_ClientQT.h"
 #include <qpainter.h>
 #include <QMouseEvent>
+#include <QPushButton>
+#include <QColorDialog>
 #include "DrawingTable.h"
 class ClientQT : public QMainWindow
 {
@@ -22,4 +24,9 @@ private:
     Ui::ClientQTClass ui;
     bool m_drawing = false;
     DrawingTable m_table;
+    QPoint m_lastPoint;
+    QColor m_currentColor;
+    QPushButton* m_colorButton;
+private slots:
+    void openColorDialog();
 };
