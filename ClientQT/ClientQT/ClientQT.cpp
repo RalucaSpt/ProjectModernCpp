@@ -8,7 +8,11 @@ ClientQT::ClientQT(QWidget *parent)
     m_colorButton = new QPushButton("Alege Culoare", this);
     m_colorButton->setGeometry(10, 10, 120, 30);
     connect(m_colorButton, &QPushButton::clicked, this, &ClientQT::openColorDialog);
-
+    m_thicknessSlider = new QSlider(Qt::Horizontal, this);
+    m_thicknessSlider->setRange(1, 10);
+    m_thicknessSlider->setValue(m_lineThickness);
+    m_thicknessSlider->setGeometry(50, 50, 200, 30);
+    connect(m_thicknessSlider, &QSlider::valueChanged, this, &ClientQT::onThicknessChanged);
 }
 
 ClientQT::~ClientQT()
