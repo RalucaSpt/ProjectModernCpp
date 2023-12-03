@@ -12,5 +12,4 @@ int main(int argc, char *argv[])
     loginWindow.show();
     return a.exec();
 
-    return a.exec();
 }
