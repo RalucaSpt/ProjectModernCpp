@@ -23,7 +23,7 @@ public:
 
     void onThicknessChanged(int thickness);
 private:
-    Ui::MainWindow ui;
+    Ui::ClientQTClass ui;
     bool m_drawing = false;
     DrawingTable m_table;
     QPoint m_lastPoint;
