@@ -69,4 +69,7 @@ void ClientQT::openColorDialog()
     }
 }
 
-
+void ClientQT::onThicknessChanged(int thickness)
+{
+    m_lineThickness = thickness;
+}

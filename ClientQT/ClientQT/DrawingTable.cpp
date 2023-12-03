@@ -52,6 +52,20 @@ void DrawingTable::UpdatePixelColor(int x, int y,QColor color)
 	m_tablePixels[y - m_yStart][x - m_xStart+1] = color;
 }
 
+void DrawingTable::UpdatePixelColor(int x, int y, QColor color, int thickness)
+{
+    int halfThickness = thickness / 2;
+    for (int i = -halfThickness; i <= halfThickness; ++i) {
+        for (int j = -halfThickness; j <= halfThickness; ++j) {
+            int newX = x - m_xStart + i;
+            int newY = y - m_yStart + j;
+            if (newX >= 0 && newX < m_width && newY >= 0 && newY < m_height) {
+                m_tablePixels[newY][newX] = color;
+            }
+        }
+    }
+}
+
 void DrawingTable::PrintMatrix(QPainter& p)
 {
     for (int y = 0; y < m_height; y++) {
