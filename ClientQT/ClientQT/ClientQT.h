@@ -21,7 +21,7 @@ public:
 
     void mouseReleaseEvent(QMouseEvent* event);
 private:
-    Ui::ClientQTClass ui;
+    Ui::MainWindow ui;
     bool m_drawing = false;
     DrawingTable m_table;
     QPoint m_lastPoint;

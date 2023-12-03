@@ -39,55 +39,30 @@ void DrawingTable::SetTable(int height, int width, int xStart, int yStart)
     ChangeIsSet(true);
 }
 
-void DrawingTable::UpdatePixelColor(int x, int y)
+void DrawingTable::UpdatePixelColor(int x, int y,QColor color)
 {
-	m_tablePixels[y - m_yStart][x - m_xStart] = Qt::black;
-	m_tablePixels[y - m_yStart-1][x - m_xStart] = Qt::black;
-	m_tablePixels[y - m_yStart+1][x - m_xStart] = Qt::black;
-	m_tablePixels[y - m_yStart-1][x - m_xStart+1] = Qt::black;
-	m_tablePixels[y - m_yStart-1][x - m_xStart-1] = Qt::black;
-	m_tablePixels[y - m_yStart+1][x - m_xStart+1] = Qt::black;
-	m_tablePixels[y - m_yStart+1][x - m_xStart-1] = Qt::black;
-	m_tablePixels[y - m_yStart][x - m_xStart-1] = Qt::black;
-	m_tablePixels[y - m_yStart][x - m_xStart+1] = Qt::black;
+	m_tablePixels[y - m_yStart][x - m_xStart] = color;
+	m_tablePixels[y - m_yStart-1][x - m_xStart] = color;
+	m_tablePixels[y - m_yStart+1][x - m_xStart] = color;
+	m_tablePixels[y - m_yStart-1][x - m_xStart+1] = color;
+	m_tablePixels[y - m_yStart-1][x - m_xStart-1] = color;
+	m_tablePixels[y - m_yStart+1][x - m_xStart+1] = color;
+	m_tablePixels[y - m_yStart+1][x - m_xStart-1] = color;
+	m_tablePixels[y - m_yStart][x - m_xStart-1] = color;
+	m_tablePixels[y - m_yStart][x - m_xStart+1] = color;
 }
 
 void DrawingTable::PrintMatrix(QPainter& p)
 {
     for (int y = 0; y < m_height; y++) {
         for (int x = 0; x < m_width; x++) {
-            p.setPen(QPen(Qt::white));
+
+            p.setPen(QPen(m_tablePixels[y][x]));
             p.drawPoint(x + m_xStart, y + m_yStart);
         }
     }
-
-    for (int y = 0; y < m_height; y++) {
-        for (int x = 0; x < m_width; x++) {
-            QColor currentColor = m_tablePixels[y][x];
-            if (currentColor != Qt::white) 
-            {
-                p.setPen(QPen(currentColor)); 
-                p.drawPoint(x + m_xStart, y + m_yStart);
-                p.drawPoint(x + m_xStart - 1, y + m_yStart);
-                p.drawPoint(x + m_xStart + 1, y + m_yStart);
-                p.drawPoint(x + m_xStart, y + m_yStart - 1);
-                p.drawPoint(x + m_xStart, y + m_yStart + 1);
-            }
-        }
-    }
 }
 
-void DrawingTable::UpdatePixelColor(int x, int y, QColor color)
-{
-    int correctedX = x - m_xStart;
-    int correctedY = y - m_yStart;
-
-    if (correctedX >= 0 && correctedX < m_width && correctedY >= 0 && correctedY < m_height)
-    {
-        m_tablePixels[correctedY][correctedX] = color;
-
-    }
-}
 
 bool DrawingTable::IsSet()
 {
