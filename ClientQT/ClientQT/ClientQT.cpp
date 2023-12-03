@@ -44,16 +44,16 @@ void ClientQT::mousePressEvent(QMouseEvent* e)
 void ClientQT::mouseMoveEvent(QMouseEvent* event)
 {
     QPainter painter(this);
-    if (/*(event->button() == Qt::LeftButton) &&*/ m_drawing) {
-        //QPoint currentPoint = event->pos();
-        if (event->x()<m_table.GetWidth() + m_table.GetX() && event->x() >= m_table.GetX() &&
-            event->y() < m_table.GetHeight() + m_table.GetY() && event->y() >= m_table.GetY())
+    if (/ (event->button() == Qt::LeftButton) && / m_drawing) {
+        QPoint currentPoint = event->pos();
+        if (currentPoint.x() < m_table.GetWidth() + m_table.GetX() && currentPoint.x() >= m_table.GetX() &&
+            currentPoint.y() < m_table.GetHeight() + m_table.GetY() && currentPoint.y() >= m_table.GetY())
         {
-            m_table.UpdatePixelColor(event->x(), event->y(), m_currentColor);
-            
+            m_table.UpdatePixelColor(currentPoint.x(), currentPoint.y(), m_currentColor, m_lineThickness);
+
         }
     }
-    
+
 }
 
 void ClientQT::mouseReleaseEvent(QMouseEvent* event)
