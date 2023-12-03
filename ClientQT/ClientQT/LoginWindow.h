@@ -4,6 +4,7 @@
 #include "ui_LoginWindow.h"
 #include <QPushButton>
 #include "ClientQT.h"
+#include "RegisterWindow.h"
 class LoginWindow : public QMainWindow
 {
 	Q_OBJECT
@@ -13,7 +14,11 @@ public:
 	~LoginWindow();
 private slots:
 	void joinGame();
+	void onRegisterClicked();
 private:
 	Ui::LoginWindowClass ui;
 	QPushButton* m_colorButton;
+
+	QPushButton* m_registerButton;
+	RegisterWindow* m_registerWindow;
 };

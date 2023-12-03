@@ -95,6 +95,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="RegisterWindow.cpp" />
     <QtRcc Include="ClientQT.qrc" />
     <QtMoc Include="ClientQT.h" />
     <ClCompile Include="ClientQT.cpp" />
@@ -105,6 +106,7 @@
   <ItemGroup>
     <ClInclude Include="DrawingTable.h" />
     <QtMoc Include="LoginWindow.h" />
+    <QtMoc Include="RegisterWindow.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
