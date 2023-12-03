@@ -4,6 +4,10 @@ ClientQT::ClientQT(QWidget *parent)
     : QMainWindow(parent)
 {
     ui.setupUi(this);
+    QPalette pal = this->palette();
+    pal.setColor(QPalette::Window, Qt::red);
+    this->setPalette(pal);
+    this->resize(1300, 700);
 
     m_colorButton = new QPushButton("Alege Culoare", this);
     m_colorButton->setGeometry(10, 10, 120, 30);

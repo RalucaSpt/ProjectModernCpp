@@ -99,10 +99,12 @@
     <QtMoc Include="ClientQT.h" />
     <ClCompile Include="ClientQT.cpp" />
     <ClCompile Include="DrawingTable.cpp" />
+    <ClCompile Include="LoginWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DrawingTable.h" />
+    <QtMoc Include="LoginWindow.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="ClientQT.ui" />
+    <QtUic Include="LoginWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
