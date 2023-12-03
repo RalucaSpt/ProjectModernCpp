@@ -108,7 +108,7 @@
     <ClInclude Include="DrawingTable.h" />
     <QtMoc Include="LoginWindow.h" />
     <QtMoc Include="RegisterWindow.h" />
-    <ClInclude Include="LobbyWindow.h" />
+    <QtMoc Include="LobbyWindow.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
