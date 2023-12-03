@@ -9,6 +9,7 @@ public:
 	DrawingTable();
 	DrawingTable(int height, int width,int xStart,int yStart);
 	void SetTable(int height, int width, int xStart, int yStart);
+	void UpdatePixelColor(int x, int y, QColor color, int thickness);
 	void PrintMatrix(QPainter& p);
 	bool IsSet();
 	void ChangeIsSet(bool b);

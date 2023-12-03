@@ -1,5 +1,5 @@
 #pragma once
-
+#include <QSlider>
 #include <QtWidgets/QMainWindow>
 #include "ui_ClientQT.h"
 #include <qpainter.h>
@@ -20,6 +20,8 @@ public:
     void mouseMoveEvent(QMouseEvent* event);
 
     void mouseReleaseEvent(QMouseEvent* event);
+
+    void onThicknessChanged(int thickness);
 private:
     Ui::MainWindow ui;
     bool m_drawing = false;
@@ -27,6 +29,8 @@ private:
     QPoint m_lastPoint;
     QColor m_currentColor;
     QPushButton* m_colorButton;
+    QSlider* m_thicknessSlider;
+    int m_lineThickness = 1;
 private slots:
     void openColorDialog();
 };

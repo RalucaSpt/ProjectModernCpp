@@ -58,7 +58,7 @@ void ClientQT::mouseReleaseEvent(QMouseEvent* event)
 
 void ClientQT::openColorDialog()
 {
-    QColor color = QColorDialog::getColor(Qt::white, this, "Selecteaz? Culoare");
+    QColor color = QColorDialog::getColor(m_currentColor, this, "Selecteaza Culoare");
     if (color.isValid())
     {
         m_currentColor = color;
