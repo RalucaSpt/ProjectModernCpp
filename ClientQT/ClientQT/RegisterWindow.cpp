@@ -29,12 +29,22 @@ RegisterWindow::~RegisterWindow()
     // Distrugere resurse dacă este necesar
 }
 
+std::string RegisterWindow::GetUsername()
+{
+    return m_username;
+}
+
+std::string RegisterWindow::GetPassword()
+{
+    return m_password;
+}
+
 void RegisterWindow::onRegisterClicked()
 {
     // Implementează logica pentru înregistrare
-    QString username = m_usernameLineEdit->text();
-    QString password = m_passwordLineEdit->text();
-
+    /*QString*/ m_username = m_usernameLineEdit->text().toUtf8().constData();
+    /*QString*/ m_password = m_passwordLineEdit->text().toUtf8().constData();
+    this->close();
     // Aici poți adăuga logica pentru a salva datele de înregistrare sau pentru a le trimite undeva
     // De exemplu, poți trimite aceste date la un server pentru înregistrare
 }

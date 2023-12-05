@@ -30,7 +30,7 @@ namespace skribble {
 		bool guessedWord();
 
 		void SetIsDrawing(DrawingStatus isDrawing);
-		void setName(const std::string& name);
+		void SetName(const std::string& name);
 		// Score management
 		void AddScore(uint16_t points,int nrPlayers);
 		void SubtractScore(uint16_t points);

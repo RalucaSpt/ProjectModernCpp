@@ -13,15 +13,18 @@ LoginWindow::LoginWindow(QWidget *parent)
 	connect(m_registerButton, &QPushButton::clicked, this, &LoginWindow::onRegisterClicked);
 
 	m_registerWindow = nullptr;
+	
 }
-
-//LoginWindow::~LoginWindow()
-//{}
-
 void LoginWindow::joinGame()
 {
 	ClientQT* gameWindow= new ClientQT();
 	gameWindow->show();
+	if (m_registerWindow->GetUsername().size() != 0)
+	{
+		std::string name= m_registerWindow->GetUsername();
+		auto response = cpr::Post(cpr::Url{ "http://localhost:18080/CreateGame" },
+			cpr::Body(name));
+	}
 	this->close();
 }
 

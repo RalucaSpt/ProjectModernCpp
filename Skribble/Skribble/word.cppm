@@ -1,14 +1,15 @@
 module;
 export module word;
 
+
 import <string>;
 import <vector>;
 import <iostream>;
-#include <fstream>
 import <cstdlib>;
 import <random>;
 import <algorithm>;
 
+#include <fstream>
 
 namespace skribble {
 	export class Words

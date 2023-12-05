@@ -5,6 +5,9 @@
 #include <QPushButton>
 #include "ClientQT.h"
 #include "RegisterWindow.h"
+#include <QInputDialog>
+#include <qdir.h>
+#include <cpr/cpr.h>
 class LoginWindow : public QMainWindow
 {
 	Q_OBJECT

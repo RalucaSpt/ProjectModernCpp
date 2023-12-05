@@ -45,6 +45,9 @@
     <ClCompile Include="SkribbleDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Routes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\OneDrive - Universitatea Transilvania din Brasov\Desktop\MC\cuvinte_skribble.txt">
@@ -53,6 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SkribbleDatabase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Routes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

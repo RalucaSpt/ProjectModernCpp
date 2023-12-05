@@ -1,6 +1,7 @@
 module;
 export module match;
 
+import<iostream>;
 import <vector>;
 import player;
 import round;
@@ -17,11 +18,12 @@ namespace skribble
 		Match(Match&& match) noexcept;
 
 		void StartRound();
+		void AddPlayer(const Player& player);
 
-		uint8_t getNrPlayers();
+		int getNrPlayers();
 		uint8_t getNrSemiRounds();
 	private:
-		std::vector<skribble::Player> m_players;
+		std::vector<Player> m_players;
 		Round m_round;
 		uint8_t m_nrPlayers;
 		uint8_t m_nrRounds;

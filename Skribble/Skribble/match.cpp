@@ -37,9 +37,14 @@ void Match::StartRound()
 	}
 }
 
+void Match::AddPlayer(const Player& player)
+{
+	m_players.push_back(player);
+}
 
 
-uint8_t skribble::Match::getNrPlayers()
+
+int skribble::Match::getNrPlayers()
 {
 	return m_players.size();
 }	

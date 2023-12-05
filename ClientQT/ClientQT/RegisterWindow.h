@@ -12,7 +12,8 @@ class RegisterWindow : public QMainWindow
 public:
     RegisterWindow(QWidget* parent = nullptr);
     ~RegisterWindow();
-
+    std::string GetUsername();
+    std::string GetPassword();
 private slots:
     void onRegisterClicked();
 
@@ -20,5 +21,8 @@ private:
     QLineEdit* m_usernameLineEdit;
     QLineEdit* m_passwordLineEdit;
     QPushButton* m_registerButton;
+
+    std::string m_username;
+    std::string m_password;
 };
 

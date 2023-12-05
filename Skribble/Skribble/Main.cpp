@@ -5,23 +5,18 @@ import word;
 import round;
 import player;
 
-
 import <iostream>;
 //import <ctime>;
 //import <cstdlib>;
 
+#include "Routes.h"
 
 
 
 int main() 
 {
-    skribble::Words word;
-    crow::SimpleApp app;
-    CROW_ROUTE(app, "/")([]() 
-        {
-            return "Hello Word!";
-        });
-    app.port(18080).multithreaded().run();
+    Routes server;
+    server.Run();
 	return 0;
 }
 
