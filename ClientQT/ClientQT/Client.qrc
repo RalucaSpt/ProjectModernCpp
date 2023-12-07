@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/ClientQT">
+        <file>fundal.jpg</file>
+    </qresource>
+</RCC>

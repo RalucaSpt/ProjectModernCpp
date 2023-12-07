@@ -23,13 +23,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <QtRcc Include="ClientQT.qrc">
+    <QtRcc Include="Client.qrc">
       <Filter>Resource Files</Filter>
     </QtRcc>
-    <QtMoc Include="ClientQT.h">
+    <QtMoc Include="Client.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <ClCompile Include="ClientQT.cpp">
+    <ClCompile Include="Client.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -59,12 +59,12 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ClientQT.rc">
+    <ResourceCompile Include="Client.rc">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="ClientQT.ui">
+    <QtUic Include="Client.ui">
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="LoginWindow.ui">

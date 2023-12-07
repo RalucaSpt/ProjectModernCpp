@@ -3,7 +3,7 @@
 #include <QMainWindow>
 #include "ui_LoginWindow.h"
 #include <QPushButton>
-#include "ClientQT.h"
+#include "Client.h"
 #include "RegisterWindow.h"
 #include <QInputDialog>
 #include <qdir.h>

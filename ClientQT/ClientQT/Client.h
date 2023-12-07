@@ -1,7 +1,7 @@
 #pragma once
 #include <QSlider>
 #include <QtWidgets/QMainWindow>
-#include "ui_ClientQT.h"
+#include "ui_Client.h"
 #include <qpainter.h>
 #include <QMouseEvent>
 #include <QPushButton>

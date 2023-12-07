@@ -1,4 +1,4 @@
-#include "ClientQT.h"
+#include "Client.h"
 
 ClientQT::ClientQT(QWidget *parent)
     : QMainWindow(parent)

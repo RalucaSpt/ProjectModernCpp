@@ -1,4 +1,4 @@
-﻿#include "ClientQT.h"
+﻿#include "Client.h"
 #include <QtWidgets/QApplication>
 #include "RegisterWindow.h"
 #include <QApplication>

@@ -97,9 +97,9 @@
   <ItemGroup>
     <ClCompile Include="LobbyWindow.cpp" />
     <ClCompile Include="RegisterWindow.cpp" />
-    <QtRcc Include="ClientQT.qrc" />
-    <QtMoc Include="ClientQT.h" />
-    <ClCompile Include="ClientQT.cpp" />
+    <QtRcc Include="Client.qrc" />
+    <QtMoc Include="Client.h" />
+    <ClCompile Include="Client.cpp" />
     <ClCompile Include="DrawingTable.cpp" />
     <ClCompile Include="LoginWindow.cpp" />
     <ClCompile Include="main.cpp" />
@@ -112,10 +112,10 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="ClientQT.rc" />
+    <ResourceCompile Include="Client.rc" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="ClientQT.ui" />
+    <QtUic Include="Client.ui" />
     <QtUic Include="LoginWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
