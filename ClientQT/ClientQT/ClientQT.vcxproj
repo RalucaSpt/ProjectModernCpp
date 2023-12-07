@@ -105,7 +105,6 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DrawingTable.h" />
     <QtMoc Include="LoginWindow.h" />
     <QtMoc Include="RegisterWindow.h" />
     <QtMoc Include="LobbyWindow.h" />
