@@ -12,55 +12,70 @@ ClientQT::ClientQT(QWidget *parent)
     m_colorButton = new QPushButton("Alege Culoare", this);
     m_colorButton->setGeometry(10, 10, 120, 30);
     connect(m_colorButton, &QPushButton::clicked, this, &ClientQT::openColorDialog);
+
+
+    m_colorButton = new QPushButton("Start", this);
+    m_colorButton->setGeometry(150, 10, 120, 30);
+    connect(m_colorButton, &QPushButton::clicked, this, &ClientQT::startGame);
+
     m_thicknessSlider = new QSlider(Qt::Horizontal, this);
     m_thicknessSlider->setRange(1, 10);
     m_thicknessSlider->setValue(m_lineThickness);
     m_thicknessSlider->setGeometry(50, 50, 200, 30);
     connect(m_thicknessSlider, &QSlider::valueChanged, this, &ClientQT::onThicknessChanged);
+
+    canvas = QImage(width()*0.5, height()*0.5, QImage::Format_ARGB32);
+    canvas.fill(Qt::white);
+    m_drawing = false;
 }
 
 ClientQT::~ClientQT()
 {}
 
-void ClientQT::paintEvent(QPaintEvent * event)
+void ClientQT::paintEvent(QPaintEvent* event)
 {
-    if (!m_table.IsSet())
-    {
-        m_table.SetTable(height(), width(), 100, 100);
-    }
-    QPainter painter(this);
-    m_table.PrintMatrix(painter);
-   
-    qDebug() << this->size();
+    QPainter p(this);
+    p.drawImage(100, 100, canvas);
 }
 
 void ClientQT::mousePressEvent(QMouseEvent* e)
 {
     if (e->button() == Qt::LeftButton) {
+        lastPoint = e->pos();
+
+        lastPoint -= QPoint(100, 100); // Adjust for canvas position
         m_drawing = true;
     }
 }
 
-void ClientQT::mouseMoveEvent(QMouseEvent* event)
+void ClientQT::mouseMoveEvent(QMouseEvent* e)
 {
-    QPainter painter(this);
-    if (/* (event->button() == Qt::LeftButton) && */ m_drawing) {
-        QPoint currentPoint = event->pos();
-        if (currentPoint.x() < m_table.GetWidth() + m_table.GetX() && currentPoint.x() >= m_table.GetX() &&
-            currentPoint.y() < m_table.GetHeight() + m_table.GetY() && currentPoint.y() >= m_table.GetY())
+    if (/* (event->button() == Qt::LeftButton) &&*/  m_drawing) {
+        if (e->pos().x() < 100 + width() * 50 / 100  && e->pos().x() >= 100 &&
+            e->pos().y() < 100+ height() * 50 / 100 && e->pos().y() >= 100)
         {
-            m_table.UpdatePixelColor(currentPoint.x(), currentPoint.y(), m_currentColor, m_lineThickness);
-
+            QPainter p(&canvas);
+            QPen pen(m_currentColor, m_lineThickness);
+            p.setPen(pen);
+            p.drawLine(lastPoint, e->pos() - QPoint(100, 100)); // Adjust for canvas position
+            lastPoint = e->pos() - QPoint(100, 100); // Adjust for canvas position
+            update();
         }
     }
 
 }
 
-void ClientQT::mouseReleaseEvent(QMouseEvent* event)
+void ClientQT::mouseReleaseEvent(QMouseEvent* e)
 {
-    if (event->button() == Qt::LeftButton && m_drawing) {
+    if (e->button() == Qt::LeftButton && m_drawing) {
+        
+        QPainter p(&canvas);
+        QPen pen(m_currentColor, m_lineThickness);
+        p.setPen(pen);
+        p.drawLine(lastPoint, e->pos() - QPoint(100, 100)); // Adjust for canvas position
+        lastPoint = e->pos() - QPoint(100, 100); // Adjust for canvas position
         m_drawing = false;
-        update(m_table.GetX(), m_table.GetY(),m_table.GetWidth(),m_table.GetHeight());
+        update();
     }
 }
 
@@ -76,4 +91,11 @@ void ClientQT::openColorDialog()
 void ClientQT::onThicknessChanged(int thickness)
 {
     m_lineThickness = thickness;
+}
+
+
+void ClientQT::startGame()
+{
+    start = true;
+    update();
 }

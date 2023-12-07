@@ -6,7 +6,7 @@
 #include <QMouseEvent>
 #include <QPushButton>
 #include <QColorDialog>
-#include "DrawingTable.h"
+
 class ClientQT : public QMainWindow
 {
     Q_OBJECT
@@ -22,15 +22,24 @@ public:
     void mouseReleaseEvent(QMouseEvent* event);
 
     void onThicknessChanged(int thickness);
+
+    void startGame();
 private:
     Ui::MainWindow ui;
     bool m_drawing = false;
-    DrawingTable m_table;
-    QPoint m_lastPoint;
+    
+    QImage canvas;
+    QPoint lastPoint;
+    
     QColor m_currentColor;
+
     QPushButton* m_colorButton;
     QSlider* m_thicknessSlider;
+
     int m_lineThickness = 1;
+
+    bool start = false;
+
 private slots:
     void openColorDialog();
 };

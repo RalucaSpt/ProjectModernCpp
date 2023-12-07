@@ -22,6 +22,7 @@ namespace skribble {
 
 		Words& operator=(const Words& words) = delete;
 		Words& operator=(Words&& words)noexcept = default;
+
 		~Words() = default;
 
 
