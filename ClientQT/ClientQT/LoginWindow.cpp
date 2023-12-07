@@ -8,11 +8,13 @@ LoginWindow::LoginWindow(QWidget* parent)
 	//m_colorButton->setGeometry(width()/2-40, height()/2-30, 120, 30);
 	//connect(m_colorButton, &QPushButton::clicked, this, &LoginWindow::joinGame);
 
-	//m_registerButton = new QPushButton("Inregistrare", this);
+	m_loginButton = ui.pushButton;
+	m_registerButton = ui.pushButton_2;
 	//m_registerButton->setGeometry(50, 100, 100, 30); // Ajusteaz? geometria dup? necesit??i
-	//connect(m_registerButton, &QPushButton::clicked, this, &LoginWindow::onRegisterClicked);
+	connect(m_registerButton, &QPushButton::clicked, this, &LoginWindow::onRegisterClicked);
+	connect(m_loginButton, &QPushButton::clicked, this, &LoginWindow::onRegisterClicked);
 
-	//m_registerWindow = nullptr;
+	m_registerWindow = nullptr;
 
 	//q: how to fix a size for window
 

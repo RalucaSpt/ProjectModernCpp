@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/ClientQT">
         <file>fundal.jpg</file>
+        <file>Logo.png</file>
     </qresource>
 </RCC>

@@ -22,6 +22,7 @@ private:
 	Ui::LoginWindowClass ui;
 	QPushButton* m_colorButton;
 
+	QPushButton* m_loginButton;
 	QPushButton* m_registerButton;
 	RegisterWindow* m_registerWindow;
 };

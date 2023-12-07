@@ -100,7 +100,6 @@
     <QtRcc Include="Client.qrc" />
     <QtMoc Include="Client.h" />
     <ClCompile Include="Client.cpp" />
-    <ClCompile Include="DrawingTable.cpp" />
     <ClCompile Include="LoginWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
