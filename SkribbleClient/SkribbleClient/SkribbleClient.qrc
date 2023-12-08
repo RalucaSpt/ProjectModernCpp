@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/SkribbleClient">
+        <file>fundal.jpg</file>
+        <file>Logo.png</file>
+    </qresource>
+</RCC>
