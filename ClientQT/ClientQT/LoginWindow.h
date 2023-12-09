@@ -8,6 +8,8 @@
 #include <QInputDialog>
 #include <qdir.h>
 #include <cpr/cpr.h>
+#include <qstackedwidget.h>
+
 class LoginWindow : public QMainWindow
 {
 	Q_OBJECT
@@ -20,9 +22,17 @@ private slots:
 	void onRegisterClicked();
 private:
 	Ui::LoginWindowClass ui;
-	QPushButton* m_colorButton;
+	//QPushButton* m_colorButton;
 
-	QPushButton* m_loginButton;
-	QPushButton* m_registerButton;
-	RegisterWindow* m_registerWindow;
+	//QPushButton* m_loginButton;
+	//QPushButton* m_registerButton;
+	//QPushButton* m_startButton;
+	//RegisterWindow* m_registerWindow;
+
+public slots:
+	void changeToLoginPage();
+	void changeToRegistrePage();
+	void changeToLobbyPage();
+	void createGameWidget();
+	void joinGameWidget();
 };
