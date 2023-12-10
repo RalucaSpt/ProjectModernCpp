@@ -16,6 +16,8 @@ LoginWindow::LoginWindow(QWidget* parent)
 	ui.stackedWidget->setCurrentIndex(0);
 	connect(ui.loginButton, &QPushButton::clicked, this, &LoginWindow::changeToLoginPage);
 	connect(ui.registreButton, &QPushButton::clicked, this, &LoginWindow::changeToRegistrePage);
+	connect(ui.exitButton, &QPushButton::clicked, this, &LoginWindow::exitGameWidget);
+
 	// Connecteazã celelalte butoane la slot-urile corespunzãtoare pentru schimbarea paginilor.
 
 
@@ -62,6 +64,11 @@ void LoginWindow::createGameWidget()
 
 void LoginWindow::joinGameWidget()
 {
+}
+
+void LoginWindow::exitGameWidget()
+{
+	this->close();
 }
 
 LoginWindow::~LoginWindow()

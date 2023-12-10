@@ -27,38 +27,38 @@ Chat::Chat(int port)
     }
 }
 
-void Chat::start()
-{
-    while (true) {
-        int new_socket;
-        struct sockaddr_in address;
-        int addrlen = sizeof(address);
-
-        // Accept? o nou? conexiune
-        if ((new_socket = accept(server_fd_, (struct sockaddr*)&address, (int*)&addrlen)) < 0) {
-            std::cerr << "Accept failed.\n";
-            continue;
-        }
-
-        // Trateaz? fiecare client într-un fir de execu?ie separat
-        std::thread(&Chat::handleClient, this, new_socket).detach();
-    }
-}
-
-void Chat::handleClient(int socket)
-{
-    char buffer[1024] = { 0 };
-    while (true) {
-        int valread = recv(socket, buffer, 1024, 0);
-        if (valread <= 0) {
-            closesocket(socket);
-            return;
-        }
-
-        // Proceseaz? mesajul primit
-        std::cout << "Message from client: " << buffer << std::endl;
-
-        // Trimite un mesaj înapoi la client
-        send(socket, buffer, strlen(buffer), 0);
-    }
-}
+//void Chat::start()
+//{
+//    while (true) {
+//        int new_socket;
+//        struct sockaddr_in address;
+//        int addrlen = sizeof(address);
+//
+//        // Accept? o nou? conexiune
+//        if ((new_socket = accept(server_fd_, (struct sockaddr*)&address, (int*)&addrlen)) < 0) {
+//            std::cerr << "Accept failed.\n";
+//            continue;
+//        }
+//
+//        // Trateaz? fiecare client într-un fir de execu?ie separat
+//        std::thread(&Chat::handleClient, this, new_socket).detach();
+//    }
+//}
+//
+//void Chat::handleClient(int socket)
+//{
+//    char buffer[1024] = { 0 };
+//    while (true) {
+//        int valread = recv(socket, buffer, 1024, 0);
+//        if (valread <= 0) {
+//            closesocket(socket);
+//            return;
+//        }
+//
+//        // Proceseaz? mesajul primit
+//        std::cout << "Message from client: " << buffer << std::endl;
+//
+//        // Trimite un mesaj înapoi la client
+//        send(socket, buffer, strlen(buffer), 0);
+//    }
+//}

@@ -35,4 +35,5 @@ public slots:
 	void changeToLobbyPage();
 	void createGameWidget();
 	void joinGameWidget();
+	void exitGameWidget();
 };
