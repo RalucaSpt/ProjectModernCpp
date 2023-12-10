@@ -44,3 +44,21 @@ void Chat::start()
         std::thread(&Chat::handleClient, this, new_socket).detach();
     }
 }
+
+void Chat::handleClient(int socket)
+{
+    char buffer[1024] = { 0 };
+    while (true) {
+        int valread = recv(socket, buffer, 1024, 0);
+        if (valread <= 0) {
+            closesocket(socket);
+            return;
+        }
+
+        // Proceseaz? mesajul primit
+        std::cout << "Message from client: " << buffer << std::endl;
+
+        // Trimite un mesaj înapoi la client
+        send(socket, buffer, strlen(buffer), 0);
+    }
+}
