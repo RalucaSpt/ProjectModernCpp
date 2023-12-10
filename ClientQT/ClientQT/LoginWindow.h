@@ -19,7 +19,7 @@ public:
 	~LoginWindow();
 private slots:
 	void joinGame();
-	void onRegisterClicked();
+	void changeToMainPage();
 private:
 	Ui::LoginWindowClass ui;
 	//QPushButton* m_colorButton;

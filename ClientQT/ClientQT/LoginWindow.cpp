@@ -35,35 +35,44 @@ void LoginWindow::joinGame()
 	//this->close();
 }
 
-void LoginWindow::onRegisterClicked()
+void LoginWindow::changeToMainPage()
 {
-
+	ui.stackedWidget->setCurrentIndex(0);
 }
 
 void LoginWindow::changeToLoginPage()
 {
 	ui.stackedWidget->setCurrentIndex(1);
 	connect(ui.loginButton_2, &QPushButton::clicked, this, &LoginWindow::changeToLobbyPage);
+	connect(ui.backButtonLogin, &QPushButton::clicked, this, &LoginWindow::changeToMainPage);
 }
 
 void LoginWindow::changeToRegistrePage()
 {
 	ui.stackedWidget->setCurrentIndex(2);
-	connect(ui.registreButton_2, &QPushButton::clicked, this, &LoginWindow::changeToLobbyPage);
+	connect(ui.registerButton_2, &QPushButton::clicked, this, &LoginWindow::changeToLobbyPage);
+	connect(ui.backButtonRegister, &QPushButton::clicked, this, &LoginWindow::changeToMainPage);
 }
 
 void LoginWindow::changeToLobbyPage()
 {
 	ui.stackedWidget->setCurrentIndex(3);
+	connect(ui.backButtonLobby, &QPushButton::clicked, this, &LoginWindow::changeToMainPage);
+	connect(ui.createGameButton, &QPushButton::clicked, this, &LoginWindow::createGameWidget);
+	connect(ui.joinGameButton, &QPushButton::clicked, this, &LoginWindow::joinGameWidget);
+
 }
 
 void LoginWindow::createGameWidget()
 {
-
+	ui.stackedWidget->setCurrentIndex(4);
+	connect(ui.backButtonCreateGame, &QPushButton::clicked, this, &LoginWindow::changeToLobbyPage);
 }
 
 void LoginWindow::joinGameWidget()
 {
+	ui.stackedWidget->setCurrentIndex(5);
+	connect(ui.backButtonJoinGame, &QPushButton::clicked, this, &LoginWindow::changeToLobbyPage);
 }
 
 void LoginWindow::exitGameWidget()
