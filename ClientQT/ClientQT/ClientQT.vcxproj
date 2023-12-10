@@ -95,6 +95,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Chat.cpp" />
     <ClCompile Include="LobbyWindow.cpp" />
     <ClCompile Include="RegisterWindow.cpp" />
     <QtRcc Include="Client.qrc" />
@@ -107,6 +108,7 @@
     <QtMoc Include="LoginWindow.h" />
     <QtMoc Include="RegisterWindow.h" />
     <QtMoc Include="LobbyWindow.h" />
+    <ClInclude Include="Chat.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
