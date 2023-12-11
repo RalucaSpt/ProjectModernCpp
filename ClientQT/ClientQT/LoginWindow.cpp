@@ -1,4 +1,6 @@
 #include "LoginWindow.h"
+#include "Client.h"
+#include<QMessageBox>
 
 LoginWindow::LoginWindow(QWidget* parent)
 	: QMainWindow(parent)
@@ -43,14 +45,13 @@ void LoginWindow::changeToMainPage()
 void LoginWindow::changeToLoginPage()
 {
 	ui.stackedWidget->setCurrentIndex(1);
-	connect(ui.loginButton_2, &QPushButton::clicked, this, &LoginWindow::changeToLobbyPage);
 	connect(ui.backButtonLogin, &QPushButton::clicked, this, &LoginWindow::changeToMainPage);
+
 }
 
 void LoginWindow::changeToRegistrePage()
 {
 	ui.stackedWidget->setCurrentIndex(2);
-	connect(ui.registerButton_2, &QPushButton::clicked, this, &LoginWindow::changeToLobbyPage);
 	connect(ui.backButtonRegister, &QPushButton::clicked, this, &LoginWindow::changeToMainPage);
 }
 
@@ -58,26 +59,64 @@ void LoginWindow::changeToLobbyPage()
 {
 	ui.stackedWidget->setCurrentIndex(3);
 	connect(ui.backButtonLobby, &QPushButton::clicked, this, &LoginWindow::changeToMainPage);
-	connect(ui.createGameButton, &QPushButton::clicked, this, &LoginWindow::createGameWidget);
-	connect(ui.joinGameButton, &QPushButton::clicked, this, &LoginWindow::joinGameWidget);
+	connect(ui.createGameButton, &QPushButton::clicked, this, &LoginWindow::changeToCreateGamePage);
+	connect(ui.joinGameButton, &QPushButton::clicked, this, &LoginWindow::changeToJoinGamePage);
 
 }
 
-void LoginWindow::createGameWidget()
+void LoginWindow::changeToCreateGamePage()
 {
 	ui.stackedWidget->setCurrentIndex(4);
-	connect(ui.backButtonCreateGame, &QPushButton::clicked, this, &LoginWindow::changeToLobbyPage);
 }
 
-void LoginWindow::joinGameWidget()
+void LoginWindow::changeToJoinGamePage()
 {
 	ui.stackedWidget->setCurrentIndex(5);
-	connect(ui.backButtonJoinGame, &QPushButton::clicked, this, &LoginWindow::changeToLobbyPage);
+	connect(ui.joinGameButtonInsertCode, &QPushButton::clicked, this, &LoginWindow::changeToCreateGamePage);
 }
 
 void LoginWindow::exitGameWidget()
 {
 	this->close();
+}
+
+void LoginWindow::on_loginButton_2_clicked()
+{
+	QString username = ui.lineEditUsername->text();
+	QString password = ui.lineEditPassword->text();
+
+	////CONNECT TO SERVER
+	if (username == "admin" && password == "admin")
+	{
+		connect(ui.loginButton_2, &QPushButton::clicked, this, &LoginWindow::changeToLobbyPage);
+	}
+	else
+	{
+		QMessageBox::warning(this, "Login", "Username and password is not correct. Parola si usernameul sunt admin");
+	}
+}
+
+void LoginWindow::on_registerButton_2_clicked()
+{
+	QString username = ui.lineEditUsernameRegister->text();
+	QString password = ui.lineEditPasswordRegister->text();
+
+	//CONNECT TO SERVER
+	if (username == "admin" && password == "admin")
+	{
+		connect(ui.registerButton_2, &QPushButton::clicked, this, &LoginWindow::changeToLobbyPage);
+	}
+	else
+	{
+		QMessageBox::warning(this, "Register", "Username and password is not correct. Parola si usernameul sunt admin");
+	}
+}
+
+void LoginWindow::on_startGameButton_clicked()
+{
+	this->close();
+	ClientQT* gameWindow = new ClientQT();
+	gameWindow->show();
 }
 
 LoginWindow::~LoginWindow()

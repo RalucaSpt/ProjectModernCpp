@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>885</width>
-    <height>720</height>
+    <height>654</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -128,7 +128,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
          </size>
         </property>
         <property name="currentIndex">
-         <number>0</number>
+         <number>5</number>
         </property>
         <widget class="QWidget" name="mainPage">
          <layout class="QHBoxLayout" name="horizontalLayout">
@@ -212,18 +212,18 @@ li.checked::marker { content: &quot;\2612&quot;; }
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
-           <widget class="QPlainTextEdit" name="passwordPlainTextEdit_2"/>
-          </item>
-          <item row="0" column="2">
-           <widget class="QPlainTextEdit" name="usernamePlainTextEdit"/>
-          </item>
           <item row="4" column="2">
            <widget class="QPushButton" name="backButtonLogin">
             <property name="text">
              <string>BACK</string>
             </property>
            </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLineEdit" name="lineEditUsername"/>
+          </item>
+          <item row="2" column="2">
+           <widget class="QLineEdit" name="lineEditPassword"/>
           </item>
          </layout>
         </widget>
@@ -236,18 +236,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QPlainTextEdit" name="usernamePlainTextEdit_2"/>
-          </item>
           <item row="1" column="0">
            <widget class="QLabel" name="passwordLabel_2">
             <property name="text">
              <string> PASSWORD</string>
             </property>
            </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QTextEdit" name="passwordTextEdit"/>
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="usernameLabel_2">
@@ -262,6 +256,12 @@ li.checked::marker { content: &quot;\2612&quot;; }
              <string>BACK</string>
             </property>
            </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="lineEditUsernameRegister"/>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="lineEditPasswordRegister"/>
           </item>
          </layout>
         </widget>
@@ -379,13 +379,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
             </property>
            </widget>
           </item>
-          <item>
-           <widget class="QPushButton" name="backButtonCreateGame">
-            <property name="text">
-             <string>BACK</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
         <widget class="QWidget" name="joinGamePAge">
@@ -430,16 +423,14 @@ li.checked::marker { content: &quot;\2612&quot;; }
               </size>
              </property>
              <property name="plainText">
-              <string>
-
-</string>
+              <string/>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="backButtonJoinGame">
+            <widget class="QPushButton" name="joinGameButtonInsertCode">
              <property name="text">
-              <string>BACK</string>
+              <string>JOIN GAME</string>
              </property>
             </widget>
            </item>

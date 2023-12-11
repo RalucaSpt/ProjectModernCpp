@@ -17,23 +17,23 @@ class LoginWindow : public QMainWindow
 public:
 	LoginWindow(QWidget *parent = nullptr);
 	~LoginWindow();
+
 private slots:
 	void joinGame();
 	void changeToMainPage();
 private:
 	Ui::LoginWindowClass ui;
-	//QPushButton* m_colorButton;
-
-	//QPushButton* m_loginButton;
-	//QPushButton* m_registerButton;
-	//QPushButton* m_startButton;
-	//RegisterWindow* m_registerWindow;
 
 public slots:
 	void changeToLoginPage();
 	void changeToRegistrePage();
 	void changeToLobbyPage();
-	void createGameWidget();
-	void joinGameWidget();
+	void changeToCreateGamePage();
+	void changeToJoinGamePage();
+
 	void exitGameWidget();
+
+	void on_loginButton_2_clicked();
+	void on_registerButton_2_clicked();
+	void on_startGameButton_clicked();
 };
