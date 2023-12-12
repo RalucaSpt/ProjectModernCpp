@@ -1,9 +1,9 @@
-#include "Client.h"
+#include "GameWindow.h"
 
-ClientQT::ClientQT(QWidget *parent)
-    : QMainWindow(parent)
+GameWindow::GameWindow(QWidget *parent)
+	: QMainWindow(parent)
 {
-    ui.setupUi(this);
+	ui.setupUi(this);
     QPalette pal = this->palette();
     pal.setColor(QPalette::Window, Qt::red);
     this->setPalette(pal);
@@ -11,34 +11,35 @@ ClientQT::ClientQT(QWidget *parent)
 
     m_colorButton = new QPushButton("Alege Culoare", this);
     m_colorButton->setGeometry(10, 10, 120, 30);
-    connect(m_colorButton, &QPushButton::clicked, this, &ClientQT::openColorDialog);
+    connect(m_colorButton, &QPushButton::clicked, this, &GameWindow::openColorDialog);
 
 
     m_colorButton = new QPushButton("Start", this);
     m_colorButton->setGeometry(150, 10, 120, 30);
-    connect(m_colorButton, &QPushButton::clicked, this, &ClientQT::startGame);
+    connect(m_colorButton, &QPushButton::clicked, this, &GameWindow::startGame);
 
     m_thicknessSlider = new QSlider(Qt::Horizontal, this);
     m_thicknessSlider->setRange(1, 10);
     m_thicknessSlider->setValue(m_lineThickness);
     m_thicknessSlider->setGeometry(50, 50, 200, 30);
-    connect(m_thicknessSlider, &QSlider::valueChanged, this, &ClientQT::onThicknessChanged);
+    connect(m_thicknessSlider, &QSlider::valueChanged, this, &GameWindow::onThicknessChanged);
 
-    canvas = QImage(width()*0.5, height()*0.5, QImage::Format_ARGB32);
+    canvas = QImage(width() * 0.5, height() * 0.5, QImage::Format_ARGB32);
     canvas.fill(Qt::white);
     m_drawing = false;
 }
 
-ClientQT::~ClientQT()
+GameWindow::~GameWindow()
 {}
 
-void ClientQT::paintEvent(QPaintEvent* event)
+
+void GameWindow::paintEvent(QPaintEvent* event)
 {
     QPainter p(this);
     p.drawImage(100, 100, canvas);
 }
 
-void ClientQT::mousePressEvent(QMouseEvent* e)
+void GameWindow::mousePressEvent(QMouseEvent* e)
 {
     if (e->button() == Qt::LeftButton) {
         lastPoint = e->pos();
@@ -48,11 +49,11 @@ void ClientQT::mousePressEvent(QMouseEvent* e)
     }
 }
 
-void ClientQT::mouseMoveEvent(QMouseEvent* e)
+void GameWindow::mouseMoveEvent(QMouseEvent* e)
 {
     if (/* (event->button() == Qt::LeftButton) &&*/  m_drawing) {
-        if (e->pos().x() < 100 + width() * 50 / 100  && e->pos().x() >= 100 &&
-            e->pos().y() < 100+ height() * 50 / 100 && e->pos().y() >= 100)
+        if (e->pos().x() < 100 + width() * 50 / 100 && e->pos().x() >= 100 &&
+            e->pos().y() < 100 + height() * 50 / 100 && e->pos().y() >= 100)
         {
             QPainter p(&canvas);
             QPen pen(m_currentColor, m_lineThickness);
@@ -65,10 +66,10 @@ void ClientQT::mouseMoveEvent(QMouseEvent* e)
 
 }
 
-void ClientQT::mouseReleaseEvent(QMouseEvent* e)
+void GameWindow::mouseReleaseEvent(QMouseEvent* e)
 {
     if (e->button() == Qt::LeftButton && m_drawing) {
-        
+
         QPainter p(&canvas);
         QPen pen(m_currentColor, m_lineThickness);
         p.setPen(pen);
@@ -79,7 +80,7 @@ void ClientQT::mouseReleaseEvent(QMouseEvent* e)
     }
 }
 
-void ClientQT::openColorDialog()
+void GameWindow::openColorDialog()
 {
     QColor color = QColorDialog::getColor(m_currentColor, this, "Selecteaza Culoare");
     if (color.isValid())
@@ -88,13 +89,13 @@ void ClientQT::openColorDialog()
     }
 }
 
-void ClientQT::onThicknessChanged(int thickness)
+void GameWindow::onThicknessChanged(int thickness)
 {
     m_lineThickness = thickness;
 }
 
 
-void ClientQT::startGame()
+void GameWindow::startGame()
 {
     start = true;
     update();

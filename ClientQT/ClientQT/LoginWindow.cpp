@@ -115,7 +115,7 @@ void LoginWindow::on_registerButton_2_clicked()
 void LoginWindow::on_startGameButton_clicked()
 {
 	this->close();
-	ClientQT* gameWindow = new ClientQT();
+	GameWindow* gameWindow = new GameWindow();
 	gameWindow->show();
 }
 

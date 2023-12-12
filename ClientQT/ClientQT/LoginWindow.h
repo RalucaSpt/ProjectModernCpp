@@ -2,9 +2,11 @@
 
 #include <QMainWindow>
 #include "ui_LoginWindow.h"
-#include <QPushButton>
-#include "Client.h"
 #include "RegisterWindow.h"
+#include "GameWindow.h"
+
+
+#include <QPushButton>
 #include <QInputDialog>
 #include <qdir.h>
 #include <cpr/cpr.h>

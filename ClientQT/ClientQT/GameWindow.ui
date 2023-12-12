@@ -1,8 +1,8 @@
 <UI version="4.0" >
- <class>RegisterWindowClass</class>
- <widget class="QMainWindow" name="RegisterWindowClass" >
+ <class>GameWindowClass</class>
+ <widget class="QMainWindow" name="GameWindowClass" >
   <property name="objectName" >
-   <string notr="true">RegisterWindowClass</string>
+   <string notr="true">GameWindowClass</string>
   </property>
   <property name="geometry" >
    <rect>
@@ -13,7 +13,7 @@
    </rect>
   </property>
   <property name="windowTitle" >
-   <string>RegisterWindow</string>
+   <string>GameWindow</string>
   </property>  <widget class="QMenuBar" name="menuBar" />  <widget class="QToolBar" name="mainToolBar" />  <widget class="QWidget" name="centralWidget" />  <widget class="QStatusBar" name="statusBar" />
  </widget>
  <layoutDefault spacing="6" margin="11" />

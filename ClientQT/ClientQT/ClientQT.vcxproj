@@ -96,11 +96,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Chat.cpp" />
+    <ClCompile Include="GameWindow.cpp" />
     <ClCompile Include="LobbyWindow.cpp" />
     <ClCompile Include="RegisterWindow.cpp" />
     <QtRcc Include="Client.qrc" />
-    <QtMoc Include="Client.h" />
-    <ClCompile Include="Client.cpp" />
     <ClCompile Include="LoginWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -109,13 +108,14 @@
     <QtMoc Include="RegisterWindow.h" />
     <QtMoc Include="LobbyWindow.h" />
     <ClInclude Include="Chat.h" />
+    <QtMoc Include="GameWindow.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Client.rc" />
   </ItemGroup>
   <ItemGroup>
-    <QtUic Include="Client.ui" />
+    <QtUic Include="GameWindow.ui" />
     <QtUic Include="LobbyWindow.ui" />
     <QtUic Include="LoginWindow.ui" />
   </ItemGroup>

@@ -18,5 +18,15 @@ void Routes::Run()
             std::cout<<"nr players:"<<match.getNrPlayers()<<"\n";
             return crow::response(200);
         });
+    CROW_ROUTE(app, "/Login").methods("POST"_method)([](const crow::request& req) 
+        {
+            auto json = req.body;
+            std::string name = json["username"];
+            std::string password = json["password"];
+            if (m_userDb.VerifyUser(name, password));
+            {
+
+            }
+        });
     app.port(18080).multithreaded().run();
 }

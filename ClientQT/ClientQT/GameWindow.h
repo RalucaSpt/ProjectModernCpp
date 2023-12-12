@@ -1,24 +1,20 @@
 #pragma once
 
-#include <QtWidgets/QMainWindow>
-#include "ui_SkribbleClient.h"
-
+#include <QMainWindow>
+#include "ui_GameWindow.h"
 #include <qpainter.h>
 #include <QMouseEvent>
 #include <QPushButton>
 #include <QColorDialog>
 #include <QSlider>
-
-class SkribbleClient : public QMainWindow
+class GameWindow : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    SkribbleClient(QWidget *parent = nullptr);
-    ~SkribbleClient();
-
+	GameWindow(QWidget *parent = nullptr);
+	~GameWindow();
     void paintEvent(QPaintEvent* event);
-
     void mousePressEvent(QMouseEvent* e);
 
     void mouseMoveEvent(QMouseEvent* event);
@@ -29,9 +25,10 @@ public:
 
     void startGame();
 
+private slots:
+    void openColorDialog();
 private:
-    Ui::SkribbleClientClass ui;
-
+    Ui::GameWindowClass ui;
     bool m_drawing = false;
 
     QImage canvas;
@@ -46,6 +43,4 @@ private:
 
     bool start = false;
 
-private slots:
-    void openColorDialog();
 };
