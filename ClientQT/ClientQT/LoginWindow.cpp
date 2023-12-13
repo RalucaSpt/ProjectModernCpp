@@ -1,5 +1,5 @@
 #include "LoginWindow.h"
-
+#include "Client.h"
 #include<QMessageBox>
 
 LoginWindow::LoginWindow(QWidget* parent)
