@@ -5,7 +5,7 @@ import <string>;
 using skribble::Player;
 
 
-Player::Player(uint16_t IdPlayer, uint16_t score, const std::string& name)
+Player::Player(int IdPlayer, uint16_t score, const std::string& name)
 	:m_idPlayer { IdPlayer },
 	m_score{ score },
 	m_name{ name },
@@ -13,6 +13,14 @@ Player::Player(uint16_t IdPlayer, uint16_t score, const std::string& name)
 	
 {
 
+}
+
+Player::Player(int IdPlayer, const std::string& name,std::string password)
+	:m_idPlayer{ IdPlayer },
+	m_name{ name },
+	m_password{password},
+	m_drawingStatus{ DrawingStatus::NotDrawing }
+{
 }
 
 
@@ -32,7 +40,7 @@ Player& Player::operator=(const Player& player)
 }
 
 
-uint16_t skribble::Player::GetIdPlayer() const {
+int skribble::Player::GetIdPlayer() const {
 	return m_idPlayer;
 }
 
@@ -56,6 +64,11 @@ Player::DrawingStatus skribble::Player::GetIsDrawing() const
 	return m_drawingStatus;
 }
 
+std::string skribble::Player::GetPassword() const
+{
+	return m_password;
+}
+
 bool skribble::Player::guessedWord()
 {
 	return false;
@@ -73,6 +86,16 @@ void Player::SetName(const std::string& name)
 		return;
 	}
 	m_name = name;
+}
+
+void Player::SetId(const int& id) 
+{
+	m_idPlayer = id;
+}
+
+void skribble::Player::SetPassword(const std::string& password)
+{
+	m_password = password;
 }
 
 void Player::AddScore(uint16_t points, int nrPlayers)
