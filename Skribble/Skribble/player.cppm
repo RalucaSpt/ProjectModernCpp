@@ -12,9 +12,9 @@ namespace skribble {
 			Drawing
 		};
 	public:
-		Player() = default;
+		Player();
 		Player(uint16_t IdPlayer, uint16_t score, const std::string& m_name);
-		Player(const Player& player) = default;
+		Player(const Player& player);
 		Player(Player&& player) = default;
 		Player& operator= (const Player& player);
 		Player& operator= (Player&& player) noexcept = default;
@@ -26,7 +26,7 @@ namespace skribble {
 		uint16_t GetScore() const;
 		uint16_t GetCorrectAnswerTime();
 		std::string GetName() const;
-		DrawingStatus GetIsDrawing() const;
+		//DrawingStatus GetIsDrawing() const;
 		bool guessedWord();
 
 		void SetIsDrawing(DrawingStatus isDrawing);
@@ -53,8 +53,8 @@ namespace skribble {
 		uint16_t m_idPlayer;
 		uint16_t m_score;
 		uint8_t m_correctAnswerTime; // de la 0 la 60
-		DrawingStatus m_drawingStatus;
 		std::string m_name;
+		DrawingStatus m_isDrawing;
 	};
 
 
