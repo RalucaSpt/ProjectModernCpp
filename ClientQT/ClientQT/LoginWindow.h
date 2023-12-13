@@ -21,21 +21,17 @@ public:
 	~LoginWindow();
 
 private slots:
-	void joinGame();
 	void changeToMainPage();
-private:
-	Ui::LoginWindowClass ui;
-
-public slots:
 	void changeToLoginPage();
-	void changeToRegistrePage();
+	void changeToRegisterPage();
 	void changeToLobbyPage();
 	void changeToCreateGamePage();
 	void changeToJoinGamePage();
-
+	void on_loginButton_clicked();
+	void on_registerButton_clicked();
+	void on_startGameButton_clicked();
 	void exitGameWidget();
 
-	void on_loginButton_2_clicked();
-	void on_registerButton_2_clicked();
-	void on_startGameButton_clicked();
+private:
+	Ui::LoginWindowClass ui;
 };

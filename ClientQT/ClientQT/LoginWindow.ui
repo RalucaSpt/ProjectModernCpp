@@ -133,7 +133,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <widget class="QWidget" name="mainPage">
          <layout class="QHBoxLayout" name="horizontalLayout">
           <item>
-           <widget class="QPushButton" name="loginButton">
+           <widget class="QPushButton" name="goToLoginButton">
             <property name="maximumSize">
              <size>
               <width>400</width>
@@ -159,7 +159,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="registreButton">
+           <widget class="QPushButton" name="goToRegisterButton">
             <property name="maximumSize">
              <size>
               <width>400</width>
@@ -192,21 +192,21 @@ li.checked::marker { content: &quot;\2612&quot;; }
         <widget class="QWidget" name="loginPage">
          <layout class="QGridLayout" name="gridLayout_2">
           <item row="2" column="0">
-           <widget class="QLabel" name="passwordLabel">
+           <widget class="QLabel" name="passwordLabelLogin">
             <property name="text">
              <string>PASSWORD</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QLabel" name="usernameLabel">
+           <widget class="QLabel" name="usernameLabelLogin">
             <property name="text">
              <string>USERNAME</string>
             </property>
            </widget>
           </item>
           <item row="3" column="2">
-           <widget class="QPushButton" name="loginButton_2">
+           <widget class="QPushButton" name="loginButton">
             <property name="text">
              <string>LOGIN</string>
             </property>
@@ -220,31 +220,31 @@ li.checked::marker { content: &quot;\2612&quot;; }
            </widget>
           </item>
           <item row="0" column="2">
-           <widget class="QLineEdit" name="lineEditUsername"/>
+           <widget class="QLineEdit" name="lineEditUsernameLogin"/>
           </item>
           <item row="2" column="2">
-           <widget class="QLineEdit" name="lineEditPassword"/>
+           <widget class="QLineEdit" name="lineEditPasswordLogin"/>
           </item>
          </layout>
         </widget>
         <widget class="QWidget" name="registerPage">
          <layout class="QGridLayout" name="gridLayout_3">
           <item row="2" column="1">
-           <widget class="QPushButton" name="registerButton_2">
+           <widget class="QPushButton" name="registerButton">
             <property name="text">
              <string>REGISTRE</string>
             </property>
            </widget>
           </item>
           <item row="1" column="0">
-           <widget class="QLabel" name="passwordLabel_2">
+           <widget class="QLabel" name="passwordLabelRegister">
             <property name="text">
              <string> PASSWORD</string>
             </property>
            </widget>
           </item>
           <item row="0" column="0">
-           <widget class="QLabel" name="usernameLabel_2">
+           <widget class="QLabel" name="usernameLabelRegister">
             <property name="text">
              <string>USERNAME</string>
             </property>
@@ -290,7 +290,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item alignment="Qt::AlignHCenter">
-            <widget class="QPushButton" name="createGameButton">
+            <widget class="QPushButton" name="goToCreateGameButton">
              <property name="maximumSize">
               <size>
                <width>400</width>
@@ -319,7 +319,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="joinGameButton">
+            <widget class="QPushButton" name="goToJoinGameButton">
              <property name="maximumSize">
               <size>
                <width>400</width>
@@ -428,7 +428,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="joinGameButtonInsertCode">
+            <widget class="QPushButton" name="joinGameButton">
              <property name="text">
               <string>JOIN GAME</string>
              </property>
