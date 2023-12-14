@@ -3,7 +3,7 @@ import <iostream>;
 
 namespace skribble {
 	
-	// enum class DrawingStatus { NotDrawing, Drawing };
+	
 	export class Player {
 	private:
 		enum class DrawingStatus 
@@ -54,7 +54,6 @@ namespace skribble {
 		bool operator!=(const Player& other) const;
 		
 	private:
-		//skribble::match* m_match = nullptr;
 		int m_idPlayer;
 		std::string m_password;
 		uint16_t m_score;

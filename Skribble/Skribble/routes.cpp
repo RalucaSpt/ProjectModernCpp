@@ -41,10 +41,14 @@ void Routes::Run()
             std::string username{ req.url_params.get("username") };
             std::string password{ req.url_params.get("password") };
             std::cout << username << "\n";
-            if (db.VerifyUser(username) == true)
+           /* if (db.VerifyUser(username) == true)
             {   
                 if(db.VerifyPassword(password)==true)
                     return crow::response(200);
+            }*/
+            if (db.VerifyPassword(username,password) == true)
+            {
+                return crow::response(200);
             }
             return crow::response(300);
         });
