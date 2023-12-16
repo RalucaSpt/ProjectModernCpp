@@ -38,4 +38,8 @@ public slots:
 	void on_loginButton_2_clicked();
 	void on_registerButton_2_clicked();
 	void on_startGameButton_clicked();
+
+private:
+	std::string username,password;
+	
 };

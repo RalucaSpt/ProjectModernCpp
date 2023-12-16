@@ -3,6 +3,8 @@
 
 void Routes::Run()
 {
+    //std::queue<std::tuple<std::string, std::string>> m_messages;
+    std::vector<crow::json::wvalue> m_messagesJson;
     crow::SimpleApp app;
     Database db;
     db.Initialize();
@@ -51,6 +53,33 @@ void Routes::Run()
                 return crow::response(200);
             }
             return crow::response(300);
+        });
+  
+
+    CROW_ROUTE(app, "/SendMessage").methods(crow::HTTPMethod::Put)([&m_messagesJson](const crow::request& req)
+        {
+
+            std::string username{ req.url_params.get("username") };
+            std::string message{ req.url_params.get("message") };
+         
+           
+            if (username.empty() || message.empty())
+            {
+                return crow::response(300);
+            }
+            m_messagesJson.push_back(crow::json::wvalue{
+               {"username", username},
+               {"message", message} });
+            return crow::response(200);
+        });
+    CROW_ROUTE(app, "/GetMessage").methods(crow::HTTPMethod::GET)([&m_messagesJson](/*const crow::request& req*/)
+        {
+            crow::json::wvalue copyMessage = crow::json::wvalue{ m_messagesJson };
+            m_messagesJson.clear();
+           /* while (!m_messagesJson.empty()) {
+                m_messagesJson.pop();
+            }*/
+            return copyMessage;
         });
     app.port(18080).multithreaded().run();
 }

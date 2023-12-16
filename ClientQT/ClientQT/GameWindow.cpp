@@ -24,9 +24,25 @@ GameWindow::GameWindow(QWidget *parent)
     m_thicknessSlider->setGeometry(50, 50, 200, 30);
     connect(m_thicknessSlider, &QSlider::valueChanged, this, &GameWindow::onThicknessChanged);
 
-    canvas = QImage(width() * 0.5, height() * 0.5, QImage::Format_ARGB32);
+    canvas = QImage(kCanvasWidth, kCanvasHeight, QImage::Format_ARGB32);
     canvas.fill(Qt::white);
     m_drawing = false;
+
+    m_textBox = new QListWidget(this);
+    m_textBox->setGeometry(m_textBoxCoords.x(), m_textBoxCoords.y(), kTextBoxWidth, kTextBoxHeight-35);
+    m_textBox->setSelectionMode(QAbstractItemView::NoSelection);
+
+    m_chatMessage = new QLineEdit(this);
+    m_chatMessage->setGeometry(845, 570, 245, 30);
+    
+    m_sendButton = new QPushButton("Send", this);
+    m_sendButton->setGeometry(850+245, 570, 50, 30);
+    connect(m_sendButton, &QPushButton::clicked, this, &GameWindow::sendMessage);
+   
+    timer = new QTimer(this);
+    // Connect the timeout signal to a slot for updating the QListWidget
+    connect(timer, &QTimer::timeout, this, &GameWindow::UpdateChat);
+    timer->start(1000); // Update every 1 second (1000 milliseconds)
 }
 
 GameWindow::~GameWindow()
@@ -36,7 +52,7 @@ GameWindow::~GameWindow()
 void GameWindow::paintEvent(QPaintEvent* event)
 {
     QPainter p(this);
-    p.drawImage(100, 100, canvas);
+    p.drawImage(m_canvasCoords.x(), m_canvasCoords.y(), canvas);
 }
 
 void GameWindow::mousePressEvent(QMouseEvent* e)
@@ -44,7 +60,7 @@ void GameWindow::mousePressEvent(QMouseEvent* e)
     if (e->button() == Qt::LeftButton) {
         lastPoint = e->pos();
 
-        lastPoint -= QPoint(100, 100); // Adjust for canvas position
+        lastPoint -=m_canvasCoords; // Adjust for canvas position
         m_drawing = true;
     }
 }
@@ -52,14 +68,14 @@ void GameWindow::mousePressEvent(QMouseEvent* e)
 void GameWindow::mouseMoveEvent(QMouseEvent* e)
 {
     if (/* (event->button() == Qt::LeftButton) &&*/  m_drawing) {
-        if (e->pos().x() < 100 + width() * 50 / 100 && e->pos().x() >= 100 &&
-            e->pos().y() < 100 + height() * 50 / 100 && e->pos().y() >= 100)
+        if (e->pos().x() < m_canvasCoords.x() + kCanvasWidth && e->pos().x() >= m_canvasCoords.x() &&
+            e->pos().y() < m_canvasCoords.y() + kCanvasHeight && e->pos().y() >= m_canvasCoords.y())
         {
             QPainter p(&canvas);
             QPen pen(m_currentColor, m_lineThickness);
             p.setPen(pen);
-            p.drawLine(lastPoint, e->pos() - QPoint(100, 100)); // Adjust for canvas position
-            lastPoint = e->pos() - QPoint(100, 100); // Adjust for canvas position
+            p.drawLine(lastPoint, e->pos() - m_canvasCoords); // Adjust for canvas position
+            lastPoint = e->pos() - m_canvasCoords; // Adjust for canvas position
             update();
         }
     }
@@ -73,8 +89,8 @@ void GameWindow::mouseReleaseEvent(QMouseEvent* e)
         QPainter p(&canvas);
         QPen pen(m_currentColor, m_lineThickness);
         p.setPen(pen);
-        p.drawLine(lastPoint, e->pos() - QPoint(100, 100)); // Adjust for canvas position
-        lastPoint = e->pos() - QPoint(100, 100); // Adjust for canvas position
+        p.drawLine(lastPoint, e->pos() - m_canvasCoords); // Adjust for canvas position
+        lastPoint = e->pos() - m_canvasCoords; // Adjust for canvas position
         m_drawing = false;
         update();
     }
@@ -99,4 +115,39 @@ void GameWindow::startGame()
 {
     start = true;
     update();
+}
+
+void GameWindow::SetName(std::string name)
+{
+    m_playerName = name;
+}
+
+void GameWindow::sendMessage()
+{
+    std::string message{ m_chatMessage->text().toUtf8().constData() };
+    auto response = cpr::Put(cpr::Url{ "http://localhost:18080/SendMessage" }, cpr::Parameters{ { "username", m_playerName},
+                            {"message", message} });
+    m_chatMessage->clear();
+}
+
+void GameWindow::UpdateChat()
+{
+    auto responseMessages = cpr::Get(cpr::Url{ "http://localhost:18080/GetMessage" });
+    auto responseRows = crow::json::load(responseMessages.text);
+    if (responseRows.size() != 0)
+    {
+
+        for (const auto& responseRow : responseRows)
+        {
+            std::string name = std::string(responseRow["username"]);
+            std::string mess = std::string(responseRow["message"]);
+            std::string message = name + ": " + mess;
+            QString qstrMessage;
+            for (auto c : message)
+                qstrMessage.push_back(c);
+    
+            m_textBox->addItem(qstrMessage);
+            
+        }
+    }
 }
