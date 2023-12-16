@@ -4,6 +4,7 @@
 
 #include <queue>
 #include <vector>
+#include <unordered_set>
 #include <tuple>
 #include <crow.h>
 #include "SkribbleDatabase.h"

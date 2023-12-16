@@ -7,6 +7,7 @@
 #include <QPushButton>
 #include <QColorDialog>
 #include <QSlider>
+//#include <qtextedit.h>
 #include <qlistwidget.h>
 #include <QLineEdit>
 #include <cpr/cpr.h>
@@ -57,6 +58,7 @@ private:
 
     int m_lineThickness = 1;
 
+    //QTextEdit* m_textBox;
     QListWidget* m_textBox;
     QPoint m_textBoxCoords{ 845 ,100 };
     int kTextBoxHeight{ 500 };

@@ -28,6 +28,7 @@ GameWindow::GameWindow(QWidget *parent)
     canvas.fill(Qt::white);
     m_drawing = false;
 
+    //m_textBox = new QTextEdit(this);
     m_textBox = new QListWidget(this);
     m_textBox->setGeometry(m_textBoxCoords.x(), m_textBoxCoords.y(), kTextBoxWidth, kTextBoxHeight-35);
     m_textBox->setSelectionMode(QAbstractItemView::NoSelection);
@@ -42,7 +43,7 @@ GameWindow::GameWindow(QWidget *parent)
     timer = new QTimer(this);
     // Connect the timeout signal to a slot for updating the QListWidget
     connect(timer, &QTimer::timeout, this, &GameWindow::UpdateChat);
-    timer->start(1000); // Update every 1 second (1000 milliseconds)
+    timer->start(100); // Update every 1 second (1000 milliseconds)
 }
 
 GameWindow::~GameWindow()
@@ -125,6 +126,10 @@ void GameWindow::SetName(std::string name)
 void GameWindow::sendMessage()
 {
     std::string message{ m_chatMessage->text().toUtf8().constData() };
+    if (m_textBox->count() > 200)
+    {
+        auto response = cpr::Get(cpr::Url{ "http://localhost:18080/ClearChat" });
+    }
     auto response = cpr::Put(cpr::Url{ "http://localhost:18080/SendMessage" }, cpr::Parameters{ { "username", m_playerName},
                             {"message", message} });
     m_chatMessage->clear();
@@ -136,16 +141,24 @@ void GameWindow::UpdateChat()
     auto responseRows = crow::json::load(responseMessages.text);
     if (responseRows.size() != 0)
     {
-
+        m_textBox->clear();
         for (const auto& responseRow : responseRows)
         {
-            std::string name = std::string(responseRow["username"]);
+            std::string message;
             std::string mess = std::string(responseRow["message"]);
-            std::string message = name + ": " + mess;
+            if(std::string name = std::string(responseRow["username"]);name==m_playerName)
+                message = "You: " + mess;
+            else
+            {
+                message = name + ": " + mess;
+            }
+            
             QString qstrMessage;
             for (auto c : message)
                 qstrMessage.push_back(c);
-    
+           
+            //m_textBox->insertPlainText(qstrMessage);
+            //m_textBox->insertPlainText("\n");
             m_textBox->addItem(qstrMessage);
             
         }

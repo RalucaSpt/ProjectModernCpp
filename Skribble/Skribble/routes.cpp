@@ -8,6 +8,9 @@ void Routes::Run()
     crow::SimpleApp app;
     Database db;
     db.Initialize();
+
+
+
     CROW_ROUTE(app, "/CreateGame").methods("POST"_method)([](const crow::request& req)
         {
             skribble::Match match;
@@ -75,11 +78,16 @@ void Routes::Run()
     CROW_ROUTE(app, "/GetMessage").methods(crow::HTTPMethod::GET)([&m_messagesJson](/*const crow::request& req*/)
         {
             crow::json::wvalue copyMessage = crow::json::wvalue{ m_messagesJson };
-            m_messagesJson.clear();
+            //m_messagesJson.clear();
            /* while (!m_messagesJson.empty()) {
                 m_messagesJson.pop();
             }*/
             return copyMessage;
+        });
+    CROW_ROUTE(app, "/ClearChat").methods(crow::HTTPMethod::GET)([&m_messagesJson](/*const crow::request& req*/)
+        {
+            m_messagesJson.clear();
+            return crow::response(200);
         });
     app.port(18080).multithreaded().run();
 }
