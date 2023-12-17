@@ -172,6 +172,40 @@ bool skribble::Round::isTimeUp()
 	return std::chrono::duration_cast<std::chrono::seconds>(now - roundStartTime) >= roundDuration;
 }
 
+void skribble::Round::manageRound()
+{
+	// Începe o nouă rundă
+	startRound();
+
+	while (isRoundActive()) {
+		// Aici ar fi logica pentru gestionarea desenului și a ghicirii cuvântului
+
+		// Verifică dacă timpul alocat pentru subrundă s-a terminat
+		if (isTimeUp()) {
+			std::cout << "Time is up for the current subround." << std::endl;
+			endSubround(); // Metodă pentru a finaliza subrunda curentă
+		}
+
+		// Verifică dacă cuvântul a fost ghicit
+		if (/* condiția de verificare a cuvântului ghicit */) {
+			std::cout << "The word has been guessed!" << std::endl;
+			// Acordă puncte jucătorului care a ghicit
+			awardPointsToGuesser(); // Metodă ipotetică, trebuie implementată
+
+			endSubround();
+		}
+
+		// Dacă subrunda curentă s-a terminat, trece la următoarea
+		if (isSubroundOver()) {
+			nextSubround();
+		}
+	}
+
+	// Runda s-a încheiat
+	endRound();
+	// Afișează rezultatele runde, scorurile etc.
+}
+
 
 
 

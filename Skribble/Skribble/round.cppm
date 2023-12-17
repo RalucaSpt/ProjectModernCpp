@@ -45,6 +45,8 @@ namespace skribble
 		void startTimer(int durationInSeconds);
 		bool isTimeUp();
 
+		void manageRound();
+
 	private:
 		//Words m_word;
 		std::vector<std::string> m_word;
