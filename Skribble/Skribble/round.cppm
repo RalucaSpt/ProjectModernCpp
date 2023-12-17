@@ -9,6 +9,7 @@ import <algorithm>;
 import <set>;
 import <vector>;
 import <string>;
+import <chrono>;
 import player;
 import word;
 
@@ -39,7 +40,8 @@ namespace skribble
 		void endRound();
 
 		void displayScoreboard(std::vector<Player> players);
-
+		void startTimer(int durationInSeconds);
+		bool isTimeUp();
 
 	private:
 		//Words m_word;
@@ -52,5 +54,8 @@ namespace skribble
 		std::vector<Player> m_players;
 		int currentSubround;
 		Player* m_winner;
+		std::chrono::steady_clock::time_point roundStartTime;
+		std::chrono::seconds roundDuration;
+
 	};
 }

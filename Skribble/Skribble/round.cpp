@@ -148,6 +148,18 @@ void skribble::Round::displayScoreboard(std::vector<Player> players)
 	}
 }
 
+void skribble::Round::startTimer(int durationInSeconds)
+{
+	roundDuration = std::chrono::seconds(durationInSeconds);
+	roundStartTime = std::chrono::steady_clock::now();
+}
+
+bool skribble::Round::isTimeUp()
+{
+	auto now = std::chrono::steady_clock::now();
+	return std::chrono::duration_cast<std::chrono::seconds>(now - roundStartTime) >= roundDuration;
+}
+
 
 
 
