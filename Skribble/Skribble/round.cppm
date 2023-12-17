@@ -33,7 +33,8 @@ namespace skribble
 		void guessWord(Player& player, const std::string& guessedWord,const std::string& guessWord);
 		std::string RevealRandomLetters(std::string word);
 
-		void startRound();
+		void startRound(std::vector<Player>& players);
+		void nextSubround();
 		bool isRoundActive() const;
 		void endRound();
 
@@ -48,6 +49,8 @@ namespace skribble
 		//std::string m_displayWord;
 		bool m_roundActive;
 		Player m_player;
+		std::vector<Player> m_players;
+		int currentSubround;
 		Player* m_winner;
 	};
 }

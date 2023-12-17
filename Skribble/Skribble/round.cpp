@@ -91,22 +91,37 @@ void Round::guessWord()//const std::string& word)
 	m_word.erase(it);
 }
 
-void Round::startRound()
+	void Round::startRound(std::vector<Player>& players)
+	{
+		m_players = players;
+		currentSubround = 0;
+		if (!m_word.empty()) {
+			m_roundActive = true;
+			std::cout << "Round has started. Guess the word!"; 
+			std::cout<< std::endl;
+		}
+		else {
+			std::cerr << "Cannot start round: word is not set." << std::endl;
+		}
+	}
+
+void Round::nextSubround()
 {
-	if (!m_word.empty()) {
-		m_roundActive = true;
-		std::cout << "Round has started. Guess the word!" << std::endl;
+	if (currentSubround < m_players.size()) {
+		// Logica pentru începerea unei noi subrunde
+		currentSubround++;
 	}
 	else {
-		std::cerr << "Cannot start round: word is not set." << std::endl;
+		// Toate subrundele sunt complete
+		endRound();
 	}
 }
-
 
 void Round::endRound()
 {
 	if (!m_roundActive) {
-		std::cerr << "Cannot end round: No round is active." << std::endl;
+		std::cerr << "Cannot end round: No round is active."; 
+		std::cout << std::endl;
 		return;
 	}
 	m_roundActive = false;
