@@ -109,6 +109,7 @@ void Round::nextSubround()
 {
 	if (currentSubround < m_players.size()) {
 		// Logica pentru începerea unei noi subrunde
+		std::cout << "New subround started. " << getCurrentDrawer().getName() << " is drawing now." << std::endl;
 		currentSubround++;
 	}
 	else {
@@ -132,6 +133,17 @@ void Round::endRound()
 		std::cout << "Winner of the round is: " << m_winner->GetName() << std::endl;
 	}
 	std::cout << "Round ended." << std::endl;
+}
+
+Player& skribble::Round::getCurrentDrawer()
+{
+	return players[currentPlayerIndex];
+}
+
+void skribble::Round::nextDrawer()
+{
+	currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+	nextSubround();
 }
 
 void skribble::Round::displayScoreboard(std::vector<Player> players)

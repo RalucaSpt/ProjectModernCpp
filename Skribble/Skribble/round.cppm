@@ -38,6 +38,8 @@ namespace skribble
 		void nextSubround();
 		bool isRoundActive() const;
 		void endRound();
+		Player& getCurrentDrawer();
+		void nextDrawer();
 
 		void displayScoreboard(std::vector<Player> players);
 		void startTimer(int durationInSeconds);
@@ -56,6 +58,6 @@ namespace skribble
 		Player* m_winner;
 		std::chrono::steady_clock::time_point roundStartTime;
 		std::chrono::seconds roundDuration;
-
+		size_t currentPlayerIndex;
 	};
 }
