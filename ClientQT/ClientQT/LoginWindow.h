@@ -21,7 +21,12 @@ public:
 	~LoginWindow();
 
 private slots:
+	void joinGame();
 	void changeToMainPage();
+private:
+	Ui::LoginWindowClass ui;
+
+public slots:
 	void changeToLoginPage();
 	void changeToRegisterPage();
 	void changeToLobbyPage();

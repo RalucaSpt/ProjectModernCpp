@@ -76,8 +76,8 @@ void LoginWindow::on_loginButton_clicked()
 
 void LoginWindow::on_registerButton_clicked()
 {
-	std::string username = ui.lineEditUsernameRegister->text().toUtf8().constData();
-	std::string password = ui.lineEditPasswordRegister->text().toUtf8().constData();
+	/*std::string*/ username = ui.lineEditUsernameRegister->text().toUtf8().constData();
+	/*std::string*/ password = ui.lineEditPasswordRegister->text().toUtf8().constData();
 	
 	
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/Register" }, cpr::Parameters{ { "username", username},
@@ -96,6 +96,7 @@ void LoginWindow::on_startGameButton_clicked()
 {
 	this->close();
 	GameWindow* gameWindow = new GameWindow();
+	gameWindow->SetName(username);
 	gameWindow->show();
 }
 

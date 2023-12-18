@@ -9,6 +9,7 @@ import <algorithm>;
 import <set>;
 import <vector>;
 import <string>;
+import <chrono>;
 import player;
 import word;
 
@@ -33,12 +34,18 @@ namespace skribble
 		void guessWord(Player& player, const std::string& guessedWord,const std::string& guessWord);
 		std::string RevealRandomLetters(std::string word);
 
-		void startRound();
+		void startRound(std::vector<Player>& players);
+		void nextSubround();
 		bool isRoundActive() const;
 		void endRound();
+		Player& getCurrentDrawer();
+		void nextDrawer();
 
 		void displayScoreboard(std::vector<Player> players);
+		void startTimer(int durationInSeconds);
+		bool isTimeUp();
 
+		void manageRound();
 
 	private:
 		//Words m_word;
@@ -48,6 +55,11 @@ namespace skribble
 		//std::string m_displayWord;
 		bool m_roundActive;
 		Player m_player;
+		std::vector<Player> m_players;
+		int currentSubround;
 		Player* m_winner;
+		std::chrono::steady_clock::time_point roundStartTime;
+		std::chrono::seconds roundDuration;
+		size_t currentPlayerIndex;
 	};
 }
