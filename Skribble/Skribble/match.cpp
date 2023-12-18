@@ -19,23 +19,23 @@ skribble::Match::Match(Match&& match) noexcept
 	m_nrPlayers=std::move(match.m_nrPlayers);
 	m_nrRounds = std::move(match.m_nrRounds);	
 }
-
-void Match::StartRound()
-{
-	m_words.setWords();
-	for (int i = 0; i < m_nrRounds * getNrSemiRounds(); i++)
-	{
-		std::vector<std::string> word = m_words.getWord(m_nrRounds, m_players.size());
-		m_round.SetWord(word);
-		//m_words.DeleteWord(word);
-		for (skribble::Player& player : m_players)
-		{
-			m_round.guessWord();
-			player.AddScore(1, m_players.size());
-				
-		}
-	}
-}
+//
+//void Match::StartRound()
+//{
+//	//m_words.setWords();
+//	for (int i = 0; i < m_nrRounds * getNrSemiRounds(); i++)
+//	{
+//		std::vector<std::string> word = m_words.getWord(m_nrRounds, m_players.size());
+//		m_round.SetWord(word);
+//		//m_words.DeleteWord(word);
+//		for (skribble::Player& player : m_players)
+//		{
+//			m_round.guessWord();
+//			player.AddScore(1, m_players.size());
+//				
+//		}
+//	}
+//}
 
 void Match::AddPlayer(const Player& player)
 {

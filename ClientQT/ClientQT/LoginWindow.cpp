@@ -1,4 +1,5 @@
 #include "LoginWindow.h"
+#//include "Client.h"
 #include<QMessageBox>
 
 LoginWindow::LoginWindow(QWidget* parent)
@@ -58,30 +59,36 @@ void LoginWindow::on_loginButton_clicked()
 	QString username = ui.lineEditUsernameLogin->text();
 	QString password = ui.lineEditPasswordLogin->text();
 
-	////CONNECT TO SERVER
-	if (username == "admin" && password == "admin")
+
+	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/Login" }, cpr::Parameters{ { "username", username},
+							 { "password", password } });
+	if (response.status_code == 200)
+	
 	{
 		changeToLobbyPage();
 	}
 	else
-	{
-		QMessageBox::warning(this, "Login", "Username and password is not correct. Parola si usernameul sunt admin");
-	}
+		if (response.status_code == 300)
+		{
+			QMessageBox::warning(this, "Login", "Username or password is not correct.");
+		}
 }
 
 void LoginWindow::on_registerButton_clicked()
 {
-	QString username = ui.lineEditUsernameRegister->text();
-	QString password = ui.lineEditPasswordRegister->text();
-
-	//CONNECT TO SERVER
-	if (username == "admin" && password == "admin")
+	std::string username = ui.lineEditUsernameRegister->text().toUtf8().constData();
+	std::string password = ui.lineEditPasswordRegister->text().toUtf8().constData();
+	
+	
+	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/Register" }, cpr::Parameters{ { "username", username},
+							 { "password", password } });
+	if (response.status_code == 300)
+	{
+		QMessageBox::warning(this, "Register", "Username already registered!");
+	}
+	else if(response.status_code==200)
 	{
 		changeToLobbyPage();
-	}
-	else
-	{
-		QMessageBox::warning(this, "Register", "Username and password is not correct. Parola si usernameul sunt admin");
 	}
 }
 

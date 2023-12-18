@@ -14,7 +14,7 @@ import <algorithm>;
 namespace skribble {
 	export class Words
 	{
-	public:
+	/*public:
 		Words() noexcept = default;
 		Words(const std::vector<std::string>& words);
 		Words(const Words&) = delete;
@@ -23,16 +23,26 @@ namespace skribble {
 		Words& operator=(const Words& words) = delete;
 		Words& operator=(Words&& words)noexcept = default;
 
-		~Words() = default;
-
-
-		void setWords(const std::string& textFile);
-		void setWords();
+		~Words() = default;*/
+	public:
+		Words() noexcept = default;
+		Words(int id, std::string word)
+			:m_id{id},m_word{word}
+		{
+		}
+		std::string GetWord() const;
+		int GetId() const;
+		void SetWord(const std::string& word);
+		void SetId(const int& id);
+		/*void setWords(const std::string& textFile);
+		void setWords();*/
 
 		std::vector<std::string> getWord(int nrRounds, int nrPlayers) const;
 
 
 	private:
-		std::vector<std::string> m_words;
+		int m_id;
+		std::string m_word;
+		//std::vector<std::string> m_words;
 	};
 }

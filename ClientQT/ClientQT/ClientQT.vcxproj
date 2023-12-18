@@ -97,16 +97,12 @@
   <ItemGroup>
     <ClCompile Include="Chat.cpp" />
     <ClCompile Include="GameWindow.cpp" />
-    <ClCompile Include="LobbyWindow.cpp" />
-    <ClCompile Include="RegisterWindow.cpp" />
     <QtRcc Include="Client.qrc" />
     <ClCompile Include="LoginWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="LoginWindow.h" />
-    <QtMoc Include="RegisterWindow.h" />
-    <QtMoc Include="LobbyWindow.h" />
     <ClInclude Include="Chat.h" />
     <QtMoc Include="GameWindow.h" />
     <ClInclude Include="resource.h" />
@@ -116,7 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="GameWindow.ui" />
-    <QtUic Include="LobbyWindow.ui" />
     <QtUic Include="LoginWindow.ui" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -17,7 +17,7 @@ namespace skribble
 
 		Match(Match&& match) noexcept;
 
-		void StartRound();
+		//void StartRound();
 		void AddPlayer(const Player& player);
 
 		int getNrPlayers();
@@ -28,7 +28,7 @@ namespace skribble
 		uint8_t m_nrPlayers;
 		uint8_t m_nrRounds;
 		//int m_nrSemiRounds;
-		Words m_words;
+		//Words m_words;
 	};
 
 

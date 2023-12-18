@@ -128,7 +128,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
          </size>
         </property>
         <property name="currentIndex">
-         <number>5</number>
+         <number>4</number>
         </property>
         <widget class="QWidget" name="mainPage">
          <layout class="QHBoxLayout" name="horizontalLayout">
