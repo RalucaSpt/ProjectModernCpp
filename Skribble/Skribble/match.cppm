@@ -3,16 +3,18 @@ export module match;
 
 import<iostream>;
 import <vector>;
+import <deque>;
 import player;
 import round;
 import word;
+import <array>;
 
 namespace skribble
 {
 	export class Match
 	{
 	public:
-		Match();
+		Match() noexcept=default;
 		Match(const Match& match);
 
 		Match(Match&& match) noexcept;
@@ -23,15 +25,13 @@ namespace skribble
 		int getNrPlayers();
 		uint8_t getNrSemiRounds();
 	private:
-		std::vector<Player> m_players;
+		static const size_t kNrRounds{ 4 };
+		static const size_t kNrPlayers{ 8 };
+
+	private:
+		std::array<Player,kNrPlayers> m_players;
 		Round m_round;
-		uint8_t m_nrPlayers;
-		uint8_t m_nrRounds;
-		//int m_nrSemiRounds;
-		//Words m_words;
+		std::deque<Words> m_words;
+
 	};
-
-
-	
-
 }

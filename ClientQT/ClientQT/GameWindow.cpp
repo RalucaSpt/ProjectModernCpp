@@ -28,7 +28,6 @@ GameWindow::GameWindow(QWidget *parent)
     canvas.fill(Qt::white);
     m_drawing = false;
 
-    //m_textBox = new QTextEdit(this);
     m_textBox = new QListWidget(this);
     m_textBox->setGeometry(m_textBoxCoords.x(), m_textBoxCoords.y(), kTextBoxWidth, kTextBoxHeight-35);
     m_textBox->setSelectionMode(QAbstractItemView::NoSelection);
@@ -41,9 +40,8 @@ GameWindow::GameWindow(QWidget *parent)
     connect(m_sendButton, &QPushButton::clicked, this, &GameWindow::sendMessage);
    
     timer = new QTimer(this);
-    // Connect the timeout signal to a slot for updating the QListWidget
     connect(timer, &QTimer::timeout, this, &GameWindow::UpdateChat);
-    timer->start(100); // Update every 1 second (1000 milliseconds)
+    timer->start(1000); 
 }
 
 GameWindow::~GameWindow()
@@ -58,25 +56,26 @@ void GameWindow::paintEvent(QPaintEvent* event)
 
 void GameWindow::mousePressEvent(QMouseEvent* e)
 {
-    if (e->button() == Qt::LeftButton) {
+    if (e->button() == Qt::LeftButton)
+    {
         lastPoint = e->pos();
-
-        lastPoint -=m_canvasCoords; // Adjust for canvas position
+        lastPoint -=m_canvasCoords; 
         m_drawing = true;
     }
 }
 
 void GameWindow::mouseMoveEvent(QMouseEvent* e)
 {
-    if (/* (event->button() == Qt::LeftButton) &&*/  m_drawing) {
+    if (m_drawing) 
+    {
         if (e->pos().x() < m_canvasCoords.x() + kCanvasWidth && e->pos().x() >= m_canvasCoords.x() &&
             e->pos().y() < m_canvasCoords.y() + kCanvasHeight && e->pos().y() >= m_canvasCoords.y())
         {
             QPainter p(&canvas);
             QPen pen(m_currentColor, m_lineThickness);
             p.setPen(pen);
-            p.drawLine(lastPoint, e->pos() - m_canvasCoords); // Adjust for canvas position
-            lastPoint = e->pos() - m_canvasCoords; // Adjust for canvas position
+            p.drawLine(lastPoint, e->pos() - m_canvasCoords); 
+            lastPoint = e->pos() - m_canvasCoords; 
             update();
         }
     }
@@ -85,13 +84,13 @@ void GameWindow::mouseMoveEvent(QMouseEvent* e)
 
 void GameWindow::mouseReleaseEvent(QMouseEvent* e)
 {
-    if (e->button() == Qt::LeftButton && m_drawing) {
-
+    if (e->button() == Qt::LeftButton && m_drawing)
+    {
         QPainter p(&canvas);
         QPen pen(m_currentColor, m_lineThickness);
         p.setPen(pen);
-        p.drawLine(lastPoint, e->pos() - m_canvasCoords); // Adjust for canvas position
-        lastPoint = e->pos() - m_canvasCoords; // Adjust for canvas position
+        p.drawLine(lastPoint, e->pos() - m_canvasCoords); 
+        lastPoint = e->pos() - m_canvasCoords; 
         m_drawing = false;
         update();
     }
@@ -99,8 +98,7 @@ void GameWindow::mouseReleaseEvent(QMouseEvent* e)
 
 void GameWindow::openColorDialog()
 {
-    QColor color = QColorDialog::getColor(m_currentColor, this, "Selecteaza Culoare");
-    if (color.isValid())
+    if (QColor color = QColorDialog::getColor(m_currentColor, this, "Selecteaza Culoare"); color.isValid())
     {
         m_currentColor = color;
     }
@@ -111,10 +109,9 @@ void GameWindow::onThicknessChanged(int thickness)
     m_lineThickness = thickness;
 }
 
-
 void GameWindow::startGame()
 {
-    start = true;
+    m_startGame = true;
     update();
 }
 
@@ -155,10 +152,9 @@ void GameWindow::UpdateChat()
             
             QString qstrMessage;
             for (auto c : message)
+            {
                 qstrMessage.push_back(c);
-           
-            //m_textBox->insertPlainText(qstrMessage);
-            //m_textBox->insertPlainText("\n");
+            }
             m_textBox->addItem(qstrMessage);
             
         }

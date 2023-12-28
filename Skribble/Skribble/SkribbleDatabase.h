@@ -39,10 +39,12 @@ public:
 
 	std::vector<std::string> GetWords(const int& numWords);
 
-	void AddUser(const std::string& username, const std::string& password);
-	std::vector<Player> GetListOfPlayers();
 	bool VerifyUser(const std::string& username);
 	bool VerifyPassword(const std::string& username,const std::string& password);
+
+	void AddUser(const std::string& username, const std::string& password);
+
+	std::vector<Player> GetListOfPlayers();
 
 private:
 	void PopulateStorage();

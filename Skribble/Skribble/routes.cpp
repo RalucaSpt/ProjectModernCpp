@@ -7,7 +7,10 @@ void Routes::Run()
     std::vector<crow::json::wvalue> m_messagesJson;
     crow::SimpleApp app;
     Database db;
-    db.Initialize();
+    if (db.Initialize() != true)
+    {
+        std::cerr << "Couldn't initialize database.";
+    }
 
 
 

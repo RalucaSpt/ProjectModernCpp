@@ -21,17 +21,13 @@ class GameWindow : public QMainWindow
 public:
 	GameWindow(QWidget *parent = nullptr);
 	~GameWindow();
+
     void paintEvent(QPaintEvent* event);
     void mousePressEvent(QMouseEvent* e);
-
     void mouseMoveEvent(QMouseEvent* event);
-
     void mouseReleaseEvent(QMouseEvent* event);
-
     void onThicknessChanged(int thickness);
-
     void startGame();
-
     void SetName(std::string name);
     
 private slots:
@@ -40,9 +36,10 @@ private slots:
     void UpdateChat();
 private:
     std::string m_playerName;
+    bool m_drawing = false;
+
 private:
     Ui::GameWindowClass ui;
-    bool m_drawing = false;
 
     QImage canvas;
     QPoint m_canvasCoords{ 100,100 };
@@ -50,8 +47,8 @@ private:
     int kCanvasWidth{ 650 };
 
     QPoint lastPoint;
-
     QColor m_currentColor;
+
 
     QPushButton* m_colorButton;
     QSlider* m_thicknessSlider;
@@ -63,12 +60,11 @@ private:
     QPoint m_textBoxCoords{ 845 ,100 };
     int kTextBoxHeight{ 500 };
     int kTextBoxWidth{ 300 };
-    bool start = false;
-
+    
     QLineEdit* m_chatMessage;
     QPushButton* m_sendButton;
     QTimer* timer;
 
-   
+    bool m_startGame = false;
 
 };

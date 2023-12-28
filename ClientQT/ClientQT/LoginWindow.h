@@ -2,7 +2,6 @@
 
 #include <QMainWindow>
 #include "ui_LoginWindow.h"
-#include "RegisterWindow.h"
 #include "GameWindow.h"
 
 
@@ -21,12 +20,7 @@ public:
 	~LoginWindow();
 
 private slots:
-	void joinGame();
 	void changeToMainPage();
-private:
-	Ui::LoginWindowClass ui;
-
-public slots:
 	void changeToLoginPage();
 	void changeToRegisterPage();
 	void changeToLobbyPage();
@@ -37,6 +31,9 @@ public slots:
 	void on_startGameButton_clicked();
 	void exitGameWidget();
 
+
 private:
 	Ui::LoginWindowClass ui;
+	std::string username;
+	std::string password;
 };

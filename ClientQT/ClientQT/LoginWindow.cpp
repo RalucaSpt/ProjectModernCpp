@@ -1,5 +1,4 @@
 #include "LoginWindow.h"
-#//include "Client.h"
 #include<QMessageBox>
 
 LoginWindow::LoginWindow(QWidget* parent)
@@ -56,8 +55,8 @@ void LoginWindow::exitGameWidget()
 
 void LoginWindow::on_loginButton_clicked()
 {
-	QString username = ui.lineEditUsernameLogin->text();
-	QString password = ui.lineEditPasswordLogin->text();
+	username = ui.lineEditUsernameLogin->text().toUtf8().constData();
+	password = ui.lineEditPasswordLogin->text().toUtf8().constData();
 
 
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/Login" }, cpr::Parameters{ { "username", username},
@@ -76,8 +75,8 @@ void LoginWindow::on_loginButton_clicked()
 
 void LoginWindow::on_registerButton_clicked()
 {
-	/*std::string*/ username = ui.lineEditUsernameRegister->text().toUtf8().constData();
-	/*std::string*/ password = ui.lineEditPasswordRegister->text().toUtf8().constData();
+	username = ui.lineEditUsernameRegister->text().toUtf8().constData();
+	password = ui.lineEditPasswordRegister->text().toUtf8().constData();
 	
 	
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/Register" }, cpr::Parameters{ { "username", username},
