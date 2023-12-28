@@ -147,6 +147,8 @@
     <ClCompile Include="match.cppm" />
     <ClCompile Include="player.cppm" />
     <ClCompile Include="player.cpp" />
+    <ClCompile Include="playerhistory.cpp" />
+    <ClCompile Include="playerhistory.cppm" />
     <ClCompile Include="round.cpp" />
     <ClCompile Include="round.cppm" />
     <ClCompile Include="Main.cpp" />

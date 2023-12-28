@@ -16,9 +16,22 @@ void Database::AddUser(const std::string& username, const std::string& password)
 {
     Player newUser{ -1, username, password };
     m_db.insert(newUser);
+    m_db.insert(newUser);
 }
 
-std::vector<Player> Database::GetListOfPlayers() 
+//void Database::AddPlayerHistory(const int& score,const uint8_t& placement, const int& userId)
+//{
+//    PlayerHistory playerHis{ -1,score,placement,userId };
+//    m_db.insert(playerHis);
+//}
+
+
+std::vector<PlayerHistory> Database::GetHistoryOfPlayer(const int& idPlayer)
+{
+    return m_db.get_all<PlayerHistory>(sql::where(sql::c(&PlayerHistory::GetId) == 1));
+}
+
+std::vector<Player> Database::GetListOfPlayers()
 {
     return m_db.get_all<Player>();
 }

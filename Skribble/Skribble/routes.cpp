@@ -49,11 +49,6 @@ void Routes::Run()
             std::string username{ req.url_params.get("username") };
             std::string password{ req.url_params.get("password") };
             std::cout << username << "\n";
-           /* if (db.VerifyUser(username) == true)
-            {   
-                if(db.VerifyPassword(password)==true)
-                    return crow::response(200);
-            }*/
             if (db.VerifyPassword(username,password) == true)
             {
                 return crow::response(200);
@@ -67,8 +62,6 @@ void Routes::Run()
 
             std::string username{ req.url_params.get("username") };
             std::string message{ req.url_params.get("message") };
-         
-           
             if (username.empty() || message.empty())
             {
                 return crow::response(300);
@@ -81,10 +74,6 @@ void Routes::Run()
     CROW_ROUTE(app, "/GetMessage").methods(crow::HTTPMethod::GET)([&m_messagesJson](/*const crow::request& req*/)
         {
             crow::json::wvalue copyMessage = crow::json::wvalue{ m_messagesJson };
-            //m_messagesJson.clear();
-           /* while (!m_messagesJson.empty()) {
-                m_messagesJson.pop();
-            }*/
             return copyMessage;
         });
     CROW_ROUTE(app, "/ClearChat").methods(crow::HTTPMethod::GET)([&m_messagesJson](/*const crow::request& req*/)

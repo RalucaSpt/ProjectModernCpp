@@ -106,7 +106,7 @@ void skribble::Round::nextDrawer()
 void skribble::Round::displayScoreboard(std::vector<Player> players)
 {
 	std::ranges::sort(players, [](const Player& a, const Player& b) {
-		return a.score > b.score; 
+		return a.GetScore() > b.GetScore();
 		});
 	std::cout << "Scoreboard:\n";
 	for (const auto& player : players)
