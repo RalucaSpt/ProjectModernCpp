@@ -16,14 +16,13 @@ void Database::AddUser(const std::string& username, const std::string& password)
 {
     Player newUser{ -1, username, password };
     m_db.insert(newUser);
-    m_db.insert(newUser);
 }
 
-//void Database::AddPlayerHistory(const int& score,const uint8_t& placement, const int& userId)
-//{
-//    PlayerHistory playerHis{ -1,score,placement,userId };
-//    m_db.insert(playerHis);
-//}
+void Database::AddPlayerHistory(const int& score,const int& placement, const int& userId)
+{
+    //PlayerHistory playerHis{ -1, score,placement,userId};
+    m_db.insert(skribble::PlayerHistory{ -1, score,placement,userId });
+}
 
 
 std::vector<PlayerHistory> Database::GetHistoryOfPlayer(const int& idPlayer)

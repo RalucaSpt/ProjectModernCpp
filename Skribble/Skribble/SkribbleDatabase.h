@@ -26,7 +26,7 @@ inline auto CreateStorage(const std::string& filename) {
 			sql::make_column("password_hash", &Player::SetPassword, &Player::GetPassword)
 		),
 		sql::make_table(
-			"UserTable",
+			"PlayerHistory",
 			sql::make_column("id", &PlayerHistory::SetId, &PlayerHistory::GetId, sql::primary_key().autoincrement()),
 			sql::make_column("score", &PlayerHistory::SetScore, &PlayerHistory::GetScore),
 			sql::make_column("placement", &PlayerHistory::SetPlacement, &PlayerHistory::GetPlacement),
@@ -52,7 +52,7 @@ public:
 	bool VerifyPassword(const std::string& username,const std::string& password);
 	void AddUser(const std::string& username, const std::string& password);
 
-	//void AddPlayerHistory(const int& m_score, const uint8_t& m_placement, const int& m_userId);
+	void AddPlayerHistory(const int& m_score, const int& m_placement, const int& m_userId);
 	std::vector<PlayerHistory> GetHistoryOfPlayer(const int& idPlayer);
 	std::vector<Player> GetListOfPlayers();
 
