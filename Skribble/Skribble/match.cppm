@@ -1,6 +1,8 @@
 module;
 export module match;
 
+//#include "SkribbleDatabase.h"
+
 import<iostream>;
 import <vector>;
 import <deque>;
@@ -8,6 +10,7 @@ import player;
 import round;
 import word;
 import <array>;
+
 
 namespace skribble
 {
@@ -20,17 +23,18 @@ namespace skribble
 		Match(Match&& match) noexcept;
 
 		//void StartRound();
-		void AddPlayer(const Player& player);
+		bool AddPlayer(const Player& player);
 
+		void SetMatchWords(const std::deque<Words>& words);
 		int getNrPlayers();
-		uint8_t getNrSemiRounds();
+		//uint8_t getNrSemiRounds();
 	private:
 		static const size_t kNrRounds{ 4 };
 		static const size_t kNrPlayers{ 8 };
 
 	private:
 		std::array<Player,kNrPlayers> m_players;
-		Round m_round;
+		std::array<Round,kNrRounds> m_rounds;
 		std::deque<Words> m_words;
 
 	};

@@ -17,10 +17,10 @@ namespace skribble {
 	public:
 		explicit Words() noexcept = default;
 		Words(int id, std::string word);
-		Words(const Words&) = delete;
+		Words(const Words&) = default; //= delete;
 		Words(Words&& word) noexcept = default;
 
-		Words& operator=(const Words& words) = delete;
+		Words& operator=(const Words& words) = default;//= delete;
 		Words& operator=(Words&& words)noexcept = default;
 
 		~Words() = default;

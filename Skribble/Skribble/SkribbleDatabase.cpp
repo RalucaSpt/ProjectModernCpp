@@ -18,10 +18,10 @@ void Database::AddUser(const std::string& username, const std::string& password)
     m_db.insert(newUser);
 }
 
-void Database::AddPlayerHistory(const int& score,const int& placement, const int& userId)
+void Database::AddPlayerHistory(const int16_t& score,const uint8_t& placement, const uint32_t& userId)
 {
     //PlayerHistory playerHis{ -1, score,placement,userId};
-    m_db.insert(skribble::PlayerHistory{ -1, score,placement,userId });
+    m_db.insert(skribble::PlayerHistory{ static_cast<uint32_t>(-1), score,placement,userId });
 }
 
 
@@ -78,13 +78,12 @@ void Database::PopulateStorage()
     m_db.insert_range(words.begin(), words.end());
 }
 
-std::vector<std::string> Database::GetWords(const int& numWords) 
+std::deque<Words> Database::GetWords(const int& numWords) 
 {
-    std::vector<Words> wordsEntity= m_db.get_all<Words>(sql::where(sql::like(&Words::GetWord, "%")), sql::order_by(sql::random()), sql::limit(numWords));
-    std::vector<std::string> words;
-    for (const auto& it : wordsEntity)
-    {
-        words.push_back(it.GetWord());
-    }
-    return words;
+    std::vector<Words> wordsEntity=m_db.get_all<Words>(sql::where(sql::like(&Words::GetWord, "%")), sql::order_by(sql::random()), sql::limit(numWords));
+    std::deque<Words> wordsDeque;
+    wordsDeque.insert(wordsDeque.end(),
+        std::make_move_iterator(wordsEntity.begin()),
+        std::make_move_iterator(wordsEntity.end()));
+    return wordsDeque;
 }

@@ -8,11 +8,12 @@ import <ctime>;
 import <algorithm>;
 import <set>;
 import <vector>;
-import <queue>;
+import <deque>;
 import <string>;
 import <chrono>;
 import player;
 import word;
+
 
 
 
@@ -23,22 +24,23 @@ namespace skribble
 	public:
 		//Round(Words& words, std::vector<Player>& players);
 		Round();
-	    Round(std::queue<std::string> word);
+	    Round(const std::deque<std::string>& words);
 		Round(const Round& round);
 		~Round();
 
-		void SetWord(const std::queue<std::string>& word);
-		bool guessWord(const std::string& guess);
+		void SetWord(const std::deque<std::string>& words);
+		std::string CreateGuessWord(const std::deque<std::string>& words);
+		//bool guessWord(const std::string& guess);
 		
-		std::string RevealRandomLetters(std::string word);
+		std::string RevealRandomLetters(const std::string& word);
 
-		void startRound();// std::vector<Player>& players);
-		void manageRound();
-		void endRound();
-		void nextDrawer();
+		void StartRound();// std::vector<Player>& players);
+		void NextSubround(const size_t& nrPlayers);
+		void EndRound();
+		//void manageRound();
+		//void nextDrawer();
 		void displayScoreboard(std::vector<Player> players);
 
-		void nextSubround();
 
 		//void SetPlayer(Player player);
 		//const Player& GetWinner() const;
@@ -55,11 +57,14 @@ namespace skribble
 
 	private:
 		
+		std::deque<std::string> m_words;
+		
 		int currentPlayerIndex;
-		std::queue<std::string> m_word;
+		bool m_roundActive;
+
+
 		std::chrono::steady_clock::time_point roundStartTime;
 		std::chrono::seconds roundDuration;
-		//bool m_roundActive;
 		//Player m_player;
 
 		//std::vector<Player> m_players;

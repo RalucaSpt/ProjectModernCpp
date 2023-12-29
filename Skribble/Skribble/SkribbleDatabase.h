@@ -1,11 +1,12 @@
 #pragma once
-#include <string>
-#include <vector>
-
+//#include <string>
+//#include <vector>
 #include <crow.h>
 #include <sqlite_orm/sqlite_orm.h>
 namespace sql = sqlite_orm;
-
+import <vector>;
+import <string>;
+import <deque>;
 import word;
 import player;
 import playerhistory;
@@ -46,13 +47,13 @@ public:
 
 	bool Initialize();
 
-	std::vector<std::string> GetWords(const int& numWords);
+	std::deque<Words> GetWords(const int& numWords);
 
 	bool VerifyUser(const std::string& username);
 	bool VerifyPassword(const std::string& username,const std::string& password);
 	void AddUser(const std::string& username, const std::string& password);
 
-	void AddPlayerHistory(const int& m_score, const int& m_placement, const int& m_userId);
+	void AddPlayerHistory(const int16_t& m_score, const uint8_t& m_placement, const uint32_t& m_userId);
 	std::vector<PlayerHistory> GetHistoryOfPlayer(const int& idPlayer);
 	std::vector<Player> GetListOfPlayers();
 

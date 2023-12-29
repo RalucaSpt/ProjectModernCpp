@@ -7,20 +7,20 @@ namespace skribble
 	{
 	public:
 		PlayerHistory()=default;
-		PlayerHistory(int id, int score, int placement,int userId);
-		void SetId(int id);
-		void SetScore(int score);
-		void SetPlacement(int placement);
-		void SetUserId(int userId);
+		PlayerHistory(uint32_t id, int16_t score, uint8_t placement, uint32_t userId);
+		void SetId(uint32_t id);
+		void SetScore(int16_t score);
+		void SetPlacement(uint8_t placement);
+		void SetUserId(uint32_t userId);
 
-		int GetId()const; 
-		int GetScore()const;
-		int GetPlacement()const;
-		int GetUserId()const;
+		uint32_t GetId()const;
+		int16_t GetScore()const;
+		uint8_t GetPlacement()const;
+		uint32_t GetUserId()const;
 	private:
-		int m_id;
-		int m_score;
-		int m_placement;
-		int m_userId;
+		uint32_t m_id;
+		int16_t m_score;
+		uint8_t m_placement;
+		uint32_t m_userId;
 	};
 }

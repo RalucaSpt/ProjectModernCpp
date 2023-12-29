@@ -14,13 +14,13 @@ Round::Round()
 {
 }
 
-Round::Round(std::queue<std::string> word)
-	:m_word{ word }/*, m_roundActive{ false }*/
+Round::Round(const std::deque<std::string>& words)
+	:m_words{ words }/*, m_roundActive{ false }*/
 {
 }
 
 Round::Round(const Round& round)
-	:/*m_player{ round.m_player }, m_roundActive{ round.m_roundActive }, m_winner{ round.m_winner },*/ m_word{ round.m_word }
+	:/*m_player{ round.m_player }, m_roundActive{ round.m_roundActive }, m_winner{ round.m_winner },*/ m_words{ round.m_words }
 {
 
 }
@@ -30,30 +30,33 @@ Round::~Round()
 
 }
 
-void Round::SetWord(const std::queue<std::string>& word)
+void Round::SetWord(const std::deque<std::string>& words)
 {
-	m_word = word;
+	m_words = words;
 }
 
-bool Round::guessWord(const std::string& guess)
+std::string skribble::Round::CreateGuessWord(const std::deque<std::string>& words)
 {
-	std::string word = m_word.front();
-	m_word.pop();
+	std::string word = words.front();
+	m_words.pop_front();
 	std::string guessingWord;
 	for (int it = 0; it < word.size(); it++)
 		guessingWord.push_back('_');
-	std::cout << guessingWord << "  (" << guessingWord.size() << ")\n";
-	if (guess == guessingWord)
-		return true;
-	return false;
+	return guessingWord;
 }
 
-void Round::startRound()//std::vector<Player>& players)
+//bool Round::guessWord(const std::string& guess)
+//{
+//	if (guess == guessingWord)
+//		return true;
+//	return false;
+//}
+
+void Round::StartRound()//std::vector<Player>& players)
 {
-	//m_players = players;
-	//currentSubround = 0;
-	if (!m_word.empty()) {
-		//m_roundActive = true;
+	currentPlayerIndex = 0;
+	if (!m_words.empty()) {
+		m_roundActive = true;
 		std::cout << "Round has started. Guess the word!"; 
 		std::cout<< std::endl;
 	}
@@ -62,21 +65,26 @@ void Round::startRound()//std::vector<Player>& players)
 	}
 }
 
-void Round::nextSubround()
+void Round::NextSubround(const size_t& nrPlayers)
 {
-	//if (currentSubround < m_players.size()) {
-	//	// Logica pentru începerea unei noi subrunde
-	//	std::cout << "New subround started. " << getCurrentDrawer(currentPlayerIndex).GetName() << " is drawing now." << std::endl;
-	//	currentSubround++;
-	//}
-	//else {
-	//	// Toate subrundele sunt complete
-	//	endRound();
-	//}
+	if (currentPlayerIndex < nrPlayers-1 && m_roundActive==true)
+	{
+		currentPlayerIndex++;
+	}
+	else
+	{
+		EndRound();
+	}
 }
 
-void Round::endRound()
+void Round::EndRound()
 {
+	if (m_roundActive == true)
+	{
+		m_roundActive = false;
+		currentPlayerIndex = 0;
+	}
+
 	/*if (!m_roundActive) {
 		std::cerr << "Cannot end round: No round is active."; 
 		std::cout << std::endl;
@@ -97,11 +105,11 @@ void Round::endRound()
 //	return m_players[index];
 //}
 
-void skribble::Round::nextDrawer()
-{
-	currentPlayerIndex = currentPlayerIndex + 1; //% m_players.size();
-	nextSubround();
-}
+//void skribble::Round::nextDrawer()
+//{
+//	currentPlayerIndex = currentPlayerIndex + 1; //% m_players.size();
+//	nextSubround();
+//}
 
 void skribble::Round::displayScoreboard(std::vector<Player> players)
 {
@@ -126,9 +134,10 @@ void skribble::Round::displayScoreboard(std::vector<Player> players)
 //	auto now = std::chrono::steady_clock::now();
 //	return std::chrono::duration_cast<std::chrono::seconds>(now - roundStartTime) >= roundDuration;
 //}
-
-void skribble::Round::manageRound()
-{
+//
+//void skribble::Round::manageRound()
+//{
+//}
 	//// Începe o nouă rundă
 	///*startRound();*/
 
@@ -159,7 +168,7 @@ void skribble::Round::manageRound()
 	// //Runda s-a încheiat
 	//endRound();
 	// //Afișează rezultatele runde, scorurile etc.
-}
+
 
 
 
@@ -194,7 +203,7 @@ void skribble::Round::manageRound()
 //	return m_roundActive;
 //}
 
-std::string Round::RevealRandomLetters(std::string word)
+std::string Round::RevealRandomLetters(const std::string& word)
 {
 
 	int halfLength = word.length() / 2;
