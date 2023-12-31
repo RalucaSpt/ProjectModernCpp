@@ -42,7 +42,7 @@ private:
     Ui::GameWindowClass ui;
 
     QImage canvas;
-    QPoint m_canvasCoords{ 100,100 };
+    QPoint m_canvasCoords{ 200,100 };
     int kCanvasHeight{ 500 };
     int kCanvasWidth{ 650 };
 
@@ -57,14 +57,15 @@ private:
 
     //QTextEdit* m_textBox;
     QListWidget* m_textBox;
-    QPoint m_textBoxCoords{ 845 ,100 };
+    QPoint m_textBoxCoords{ 900 ,100 };
     int kTextBoxHeight{ 500 };
     int kTextBoxWidth{ 300 };
     
     QLineEdit* m_chatMessage;
     QPushButton* m_sendButton;
     QTimer* timer;
-
+    int roundTimeRemaining;//seconds
+   
     bool m_startGame = false;
 
 };
