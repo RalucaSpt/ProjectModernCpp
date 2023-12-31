@@ -1,4 +1,4 @@
-module match;
+﻿module match;
 
 using skribble::Match;
 
@@ -14,6 +14,7 @@ skribble::Match::Match(Match&& match) noexcept
 	m_players = std::move(match.m_players);
 	m_rounds = std::move(match.m_rounds);
 }
+
 //
 //void Match::StartRound()
 //{
@@ -56,3 +57,9 @@ int skribble::Match::getNrPlayers()
 //{
 //	return m_players.size() * kNrRounds;
 //}
+
+void Match::NextDrawer() {
+	currentPlayerIndex = (currentPlayerIndex + 1) % m_players.size();
+	m_players[currentPlayerIndex].StartDrawing();
+	// Alte logici pentru pregătirea noului desenator
+}

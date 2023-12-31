@@ -1,4 +1,4 @@
-export module player;
+﻿export module player;
 import <iostream>;
 
 namespace skribble {
@@ -49,6 +49,9 @@ namespace skribble {
 		//// Equality and Comparison	
 		//bool operator==(const Player& other) const;
 		//bool operator!=(const Player& other) const;
+
+		void StartDrawing();
+		void StopDrawing();
 		
 	private:
 		int m_idPlayer;
@@ -71,5 +74,14 @@ namespace skribble {
 	{
 		is >> player.m_idPlayer >> player.m_name;
 		return is;
+	}
+
+	void Player::StartDrawing() {
+		m_isDrawing = DrawingStatus::Drawing;
+		std::cout << "Jucătorul " << this->m_name << " începe să deseneze." << std::endl;
+	}
+	
+	void Player::StopDrawing() {
+		m_isDrawing = DrawingStatus::NotDrawing;
 	}
 }

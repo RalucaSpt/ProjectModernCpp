@@ -29,6 +29,8 @@ namespace skribble
 		int getNrPlayers();
 		//uint8_t getNrSemiRounds();
 	private:
+		void NextDrawer();
+		int currentPlayerIndex;
 		static const size_t kNrRounds{ 4 };
 		static const size_t kNrPlayers{ 8 };
 
