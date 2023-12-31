@@ -27,6 +27,7 @@ namespace skribble {
 		std::string GetName() const;
 		std::string GetPassword() const;
 		uint16_t GetScore() const;
+		uint16_t GetCorrectAnswerTime() const;
 
 		void SetId(const int& id);
 		void SetName(const std::string& name);
@@ -35,10 +36,10 @@ namespace skribble {
 
 		bool IsDrawing() const;
 		
-		//// Score management
-		//void AddScore(uint16_t points,int nrPlayers);
-		//void SubtractScore(uint16_t points);
-		//void ResetScore();
+		// Score management
+		void AddScore(uint16_t points,int nrPlayers);
+		void SubtractScore(uint16_t points);
+		void ResetScore();
 
 		// Friend functions
 		friend std::ostream& operator<<(std::ostream& os, const Player& player);
@@ -50,6 +51,7 @@ namespace skribble {
 		
 	private:
 		int m_idPlayer;
+
 		std::string m_name;
 		std::string m_password;
 	
