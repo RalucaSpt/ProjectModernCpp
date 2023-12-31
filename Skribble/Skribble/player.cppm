@@ -28,6 +28,7 @@ namespace skribble {
 		std::string GetPassword() const;
 		uint16_t GetScore() const;
 		uint16_t GetCorrectAnswerTime() const;
+		void SetCorrectAnswerTime(uint8_t seconds);
 
 		void SetId(const int& id);
 		void SetName(const std::string& name);
@@ -38,7 +39,7 @@ namespace skribble {
 		
 		// Score management
 		void AddScore(uint16_t points,int nrPlayers);
-		void SubtractScore(uint16_t points);
+		void SubtractScore(uint16_t points, bool hasGuessed);
 		void ResetScore();
 
 		// Friend functions

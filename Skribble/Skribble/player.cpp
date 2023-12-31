@@ -40,9 +40,14 @@ uint16_t skribble::Player::GetScore() const
 	return m_score;
 }
 
+void skribble::Player::SetCorrectAnswerTime(uint8_t seconds) 
+{
+	m_correctAnswerTime = seconds;
+}
+
 uint16_t skribble::Player::GetCorrectAnswerTime() const
 {
-	return 0;
+	return m_correctAnswerTime;
 }
 
 std::string Player::GetName() const
@@ -77,7 +82,7 @@ bool skribble::Player::IsDrawing() const
 
 void skribble::Player::AddScore(uint16_t points, int nrPlayers)
 {
-	if (IsDrawing()) {
+	if (this->IsDrawing()) {
 		float alfa = 0.0; // in alfa calculam media timpilor la care s au oferit raspunsurile corecte
 		//uint8_t numPlayers = m_match->getNrPlayers();	
 		// de calculat alfa 
@@ -91,5 +96,23 @@ void skribble::Player::AddScore(uint16_t points, int nrPlayers)
 			m_score = ((60 - seconds) * 100) / 30;
 	}
 
+}
+
+void skribble::Player::SubtractScore(uint16_t points, bool hasGuessed)
+{
+	if (this->IsDrawing()) {
+		// Depunctare pentru juc?torul care deseneaz? dac? nimeni nu a ghicit
+		m_score -= 100;
+	}
+	else if (!hasGuessed) {
+		// Depunctare pentru juc?torii care nu au ghicit
+		m_score -= 50;
+	}
+}
+
+
+void skribble::Player::ResetScore()
+{
+	m_score = 0;
 }
 
