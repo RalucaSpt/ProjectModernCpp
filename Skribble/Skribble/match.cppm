@@ -28,11 +28,16 @@ namespace skribble
 		void SetMatchWords(const std::deque<Words>& words);
 		int getNrPlayers();
 		//uint8_t getNrSemiRounds();
+
+		void StartRound();
+		
+
 	private:
 		void NextDrawer();
 		int currentPlayerIndex;
 		static const size_t kNrRounds{ 4 };
 		static const size_t kNrPlayers{ 8 };
+		//void StartTimer();->de implementat
 
 	private:
 		std::array<Player,kNrPlayers> m_players;

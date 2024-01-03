@@ -15,6 +15,7 @@ skribble::Match::Match(Match&& match) noexcept
 	m_rounds = std::move(match.m_rounds);
 }
 
+
 //
 //void Match::StartRound()
 //{
@@ -62,4 +63,19 @@ void Match::NextDrawer() {
 	currentPlayerIndex = (currentPlayerIndex + 1) % m_players.size();
 	m_players[currentPlayerIndex].StartDrawing();
 	// Alte logici pentru pregătirea noului desenator
+}
+
+void Match::StartRound() {
+	if (m_players.empty()) {
+		std::cerr << "Nu sunt jucători în meci." << std::endl;
+		return;
+	}
+	if (m_words.empty()) {
+		std::cerr << "Nu mai sunt cuvinte disponibile." << std::endl;
+		return;
+	}
+	std::string currentWord = m_words.front().GetWord();
+	m_words.pop_front();
+	m_players[currentPlayerIndex].StartDrawing();
+	//StartTimer();
 }
