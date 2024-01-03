@@ -30,7 +30,7 @@ namespace skribble
 		//uint8_t getNrSemiRounds();
 
 		void StartRound();
-		
+		void EndRound();
 
 	private:
 		void NextDrawer();

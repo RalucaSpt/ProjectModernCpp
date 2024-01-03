@@ -67,15 +67,21 @@ void Match::NextDrawer() {
 
 void Match::StartRound() {
 	if (m_players.empty()) {
-		std::cerr << "Nu sunt jucători în meci." << std::endl;
+		std::cerr << "There are no players in the match." << std::endl;
 		return;
 	}
 	if (m_words.empty()) {
-		std::cerr << "Nu mai sunt cuvinte disponibile." << std::endl;
+		std::cerr << "There are no more words available." << std::endl;
 		return;
 	}
 	std::string currentWord = m_words.front().GetWord();
 	m_words.pop_front();
 	m_players[currentPlayerIndex].StartDrawing();
 	//StartTimer();
+}
+
+void Match::EndRound() {
+	m_players[currentPlayerIndex].StopDrawing();
+	NextDrawer();
+	StartRound();
 }
