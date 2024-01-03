@@ -61,10 +61,13 @@ int skribble::Match::getNrPlayers()
 
 void Match::NextDrawer() {
 	currentPlayerIndex = (currentPlayerIndex + 1) % m_players.size();
+	if (currentPlayerIndex == 0) {
+		currentRoundComplete++;
+	}
 	m_players[currentPlayerIndex].StartDrawing();
 	// Alte logici pentru pregătirea noului desenator
 }
-
+//de discutat daca raman clasele astea sau cele din round
 void Match::StartRound() {
 	if (m_players.empty()) {
 		std::cerr << "There are no players in the match." << std::endl;
@@ -83,5 +86,17 @@ void Match::StartRound() {
 void Match::EndRound() {
 	m_players[currentPlayerIndex].StopDrawing();
 	NextDrawer();
-	StartRound();
+	if (currentRoundComplete >= kNrRounds) {
+		// Dacă toate rundele complete au fost jucate, resetează jocul sau începe un nou set de runde
+		ResetGame();
+	}
+	else {
+		StartRound();
+	}
+}
+
+void Match::ResetGame() {
+	currentRoundComplete = 0;
+	currentPlayerIndex = 0;
+	//+altele
 }

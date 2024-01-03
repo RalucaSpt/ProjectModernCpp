@@ -31,10 +31,12 @@ namespace skribble
 
 		void StartRound();
 		void EndRound();
+		void ResetGame();
 
 	private:
 		void NextDrawer();
 		int currentPlayerIndex;
+		int currentRoundComplete;
 		static const size_t kNrRounds{ 4 };
 		static const size_t kNrPlayers{ 8 };
 		//void StartTimer();->de implementat
