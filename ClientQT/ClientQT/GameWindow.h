@@ -7,65 +7,76 @@
 #include <QPushButton>
 #include <QColorDialog>
 #include <QSlider>
-//#include <qtextedit.h>
+#include <qtextedit.h>
 #include <qlistwidget.h>
 #include <QLineEdit>
 #include <cpr/cpr.h>
 #include <qtimer.h>
 #include <crow.h>
 #include <qstring.h>
+#include <QGraphicsScene>
+#include <QGraphicsView>
+#include <QGraphicsItem>
+struct Imagine {
+};
 class GameWindow : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	GameWindow(QWidget *parent = nullptr);
+	GameWindow(QWidget* parent = nullptr);
 	~GameWindow();
 
-    void paintEvent(QPaintEvent* event);
-    void mousePressEvent(QMouseEvent* e);
-    void mouseMoveEvent(QMouseEvent* event);
-    void mouseReleaseEvent(QMouseEvent* event);
-    void onThicknessChanged(int thickness);
-    void startGame();
-    void SetName(std::string name);
-    
+	void paintEvent(QPaintEvent* event);
+	void mousePressEvent(QMouseEvent* e);
+	void mouseMoveEvent(QMouseEvent* event);
+	void mouseReleaseEvent(QMouseEvent* event);
+	void onThicknessChanged(int thickness);
+	void startGame();
+	void SetName(std::string name);
+
+	void initScoreBoard();
+	void initCanvas();
+	void initChatBox();
+	void initButtons();
+	void initSlider();
+	void initTimer();
+
 private slots:
-    void openColorDialog();
-    void sendMessage();
-    void UpdateChat();
+	void openColorDialog();
+	void sendMessage();
+	void UpdateChat();
 private:
-    std::string m_playerName;
-    bool m_drawing = false;
+	std::string m_playerName = "Talica";
+	bool m_drawing = false;
 
 private:
-    Ui::GameWindowClass ui;
+	Ui::GameWindowClass ui;
 
-    QImage canvas;
-    QPoint m_canvasCoords{ 200,100 };
-    int kCanvasHeight{ 500 };
-    int kCanvasWidth{ 650 };
+	QImage canvas;
+	QPoint m_canvasCoords{ 300,100 };
+	int kCanvasHeight{ 500 };
+	int kCanvasWidth{ 650 };
 
-    QPoint lastPoint;
-    QColor m_currentColor;
+	QPoint lastPoint;
+	QColor m_currentColor;
 
 
-    QPushButton* m_colorButton;
-    QSlider* m_thicknessSlider;
+	QPushButton* m_colorButton;
+	QSlider* m_thicknessSlider;
 
-    int m_lineThickness = 1;
+	int m_lineThickness = 1;
 
-    //QTextEdit* m_textBox;
-    QListWidget* m_textBox;
-    QPoint m_textBoxCoords{ 900 ,100 };
-    int kTextBoxHeight{ 500 };
-    int kTextBoxWidth{ 300 };
-    
-    QLineEdit* m_chatMessage;
-    QPushButton* m_sendButton;
-    QTimer* timer;
-    int roundTimeRemaining;//seconds
-   
-    bool m_startGame = false;
+	//QTextEdit* m_textBox;
+	QListWidget* m_textBox;
+	QPoint m_textBoxCoords{ 900 ,100 };
+	int kTextBoxHeight{ 500 };
+	int kTextBoxWidth{ 300 };
 
+	QLineEdit* m_chatMessage;
+	QPushButton* m_sendButton;
+	QTimer* timer;
+	int roundTimeRemaining;//seconds
+
+	bool m_startGame = false;
 };
