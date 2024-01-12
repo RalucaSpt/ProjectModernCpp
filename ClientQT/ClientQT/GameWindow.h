@@ -46,6 +46,7 @@ public:
 	void initTimer();
 	void connectColorButtonsToSlots();
 	void setButtonColorMap();
+	void changePlayerType();
 
 private slots:
 	void onThicknessChanged();
