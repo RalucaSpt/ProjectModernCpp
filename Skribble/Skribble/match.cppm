@@ -26,25 +26,29 @@ namespace skribble
 		bool AddPlayer(const Player& player);
 
 		void SetMatchWords(const std::deque<Words>& words);
-		int getNrPlayers();
+		void SetIsStarted(const bool& b);
+
+		int GetNrPlayers();
+		bool GetIsStarted();
 		//uint8_t getNrSemiRounds();
 
 		void StartRound();
 		void EndRound();
 		void ResetGame();
-
-	private:
 		void NextDrawer();
-		int currentPlayerIndex;
-		int currentRoundComplete;
+
 		static const size_t kNrRounds{ 4 };
 		static const size_t kNrPlayers{ 8 };
+	
+	private:
+		int m_currentPlayerIndex;
+		int m_currentRoundComplete;
 		//void StartTimer();->de implementat
 
 	private:
 		std::array<Player,kNrPlayers> m_players;
 		std::array<Round,kNrRounds> m_rounds;
 		std::deque<Words> m_words;
-
+		bool m_isStarted;
 	};
 }

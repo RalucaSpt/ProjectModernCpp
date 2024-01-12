@@ -19,6 +19,7 @@ GameWindow::GameWindow(QWidget* parent)
 	initTimer();
 	setButtonColorMap();
 	connectColorButtonsToSlots();
+	initChat();
 }
 
 void GameWindow::paintEvent(QPaintEvent* event)
@@ -243,6 +244,14 @@ void GameWindow::changePlayerType()
 		// Afișează pagina 1 pentru jucătorul Guesser
 		ui.stackedWidget->setCurrentIndex(1);
 	}
+}
+
+void GameWindow::initChat()
+{
+	m_timerChat = new QTimer(this);
+	// Connect the timeout signal to a slot for updating the QListWidget
+	connect(m_timerChat, &QTimer::timeout, this, &GameWindow::UpdateChat);
+	m_timerChat->start(1000);
 }
 
 void GameWindow::connectColorButtonsToSlots()

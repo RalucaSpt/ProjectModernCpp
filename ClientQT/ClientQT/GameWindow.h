@@ -47,7 +47,7 @@ public:
 	void connectColorButtonsToSlots();
 	void setButtonColorMap();
 	void changePlayerType();
-
+	void initChat();
 
 private slots:
 	void onThicknessChanged();
@@ -70,6 +70,7 @@ private:
 	size_t m_lineThickness;
 
 	QTimer* m_timer;
+	QTimer* m_timerChat;
 	uint16_t m_roundTimeRemaining;
 
 	QMap<QPushButton*, QColor> buttonColorMap;
