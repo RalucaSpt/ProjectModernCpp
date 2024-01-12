@@ -6,6 +6,10 @@
         <file>white.jpg</file>
         <file>colorWheel.png</file>
         <file>reset.png</file>
+        <file>clock.png</file>
+        <file>CHATtextpng.png</file>
+        <file>SCOREBOARD.png</file>
+        <file>SENDtext.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

@@ -2,13 +2,14 @@
 #include <qtablewidget.h>
 
 GameWindow::GameWindow(QWidget* parent)
-	: QMainWindow{parent},
-	m_canvas{new Canvas},
-	m_lineThickness{1},
+	: QMainWindow{ parent },
+	m_canvas{ new Canvas },
+	m_lineThickness{ 1 },
 	m_playerType{ GUESSER },
-	m_gameStatus{ NOT_STARTED}
+	m_gameStatus{ NOT_STARTED }
 {
 	ui.setupUi(this);
+	ui.stackedWidget->setCurrentIndex(1);
 	initCanvas();
 	initSlider();
 	initButtons();
@@ -25,6 +26,7 @@ GameWindow::~GameWindow()
 
 void GameWindow::paintEvent(QPaintEvent* event)
 {
+
 	QPainter p(this);
 	p.drawImage(m_canvas->Coords.x(), m_canvas->Coords.y(), m_canvas->image);
 	setFrameColor();
@@ -32,12 +34,14 @@ void GameWindow::paintEvent(QPaintEvent* event)
 
 void GameWindow::mousePressEvent(QMouseEvent* e)
 {
-	if (e->button() == Qt::LeftButton)
-	{
-		m_canvas->lastPoint = e->pos();
-		m_canvas->lastPoint -= m_canvas->Coords;
-		m_isDrawing = true;
-	}
+	if (m_playerType == PlayerType::DRAWER)
+
+		if (e->button() == Qt::LeftButton)
+		{
+			m_canvas->lastPoint = e->pos();
+			m_canvas->lastPoint -= m_canvas->Coords;
+			m_isDrawing = true;
+		}
 }
 
 void GameWindow::mouseMoveEvent(QMouseEvent* e)
@@ -230,6 +234,18 @@ void GameWindow::setButtonColorMap()
 	buttonColorMap[ui.darkBrownButton] = QColor(109, 55, 0);
 }
 
+void GameWindow::changePlayerType()
+{
+	if (m_playerType == PlayerType::DRAWER) {
+		// Afișează pagina 0 pentru jucătorul Drawer
+		ui.stackedWidget->setCurrentIndex(0);
+	}
+	if (m_playerType == PlayerType::GUESSER) {
+		// Afișează pagina 1 pentru jucătorul Guesser
+		ui.stackedWidget->setCurrentIndex(1);
+	}
+}
+
 void GameWindow::connectColorButtonsToSlots()
 {
 	connect(ui.blackButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
@@ -283,5 +299,6 @@ void GameWindow::setFrameColor()
 {
 	ui.frame->setStyleSheet("background-color: " + m_canvas->currentColor.name());
 }
+
 
 

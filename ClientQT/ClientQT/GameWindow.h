@@ -46,6 +46,7 @@ public:
 	void initTimer();
 	void connectColorButtonsToSlots();
 	void setButtonColorMap();
+	void changePlayerType();
 
 private slots:
 	void onThicknessChanged();
@@ -55,6 +56,7 @@ private slots:
 	void onColorButtonClicked();
 	void on_resetCanvasButton_clicked();
 	void setFrameColor();
+	//conecteaza stacked wideget: daca statusul playerului este drawer, atunci se va afisa canvasul, altfel se va afisa chatul
 
 private:
 	std::string m_playerName = "Talica";
