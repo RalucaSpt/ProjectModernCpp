@@ -1,15 +1,16 @@
 ﻿#include "GameWindow.h"
 #include <qtablewidget.h>
+#include<qdebug.h>
 
 GameWindow::GameWindow(QWidget* parent)
 	: QMainWindow{ parent },
 	m_canvas{ new Canvas },
 	m_lineThickness{ 1 },
-	m_playerType{ GUESSER },
+	m_playerType{ DRAWER},
 	m_gameStatus{ NOT_STARTED }
 {
 	ui.setupUi(this);
-	ui.stackedWidget->setCurrentIndex(1);
+	ui.stackedWidget->setCurrentIndex(0);
 	initCanvas();
 	initSlider();
 	initButtons();
@@ -19,10 +20,6 @@ GameWindow::GameWindow(QWidget* parent)
 	setButtonColorMap();
 	connectColorButtonsToSlots();
 }
-
-GameWindow::~GameWindow()
-{}
-
 
 void GameWindow::paintEvent(QPaintEvent* event)
 {
@@ -151,9 +148,6 @@ void GameWindow::initScoreBoard()
 		ui.tableWidgetScoreboard->setItem(i, 0, nameItem);
 		ui.tableWidgetScoreboard->setItem(i, 1, scoreItem);
 
-		//timer = new QTimer(this);
-		//connect(timer, &QTimer::timeout, this, &GameWindow::UpdateChat);
-		//timer->start(1000); 
 	}
 	ui.tableWidgetScoreboard->setEditTriggers(QAbstractItemView::NoEditTriggers);
 	ui.tableWidgetScoreboard->setFocusPolicy(Qt::NoFocus);
@@ -179,7 +173,12 @@ void GameWindow::initChatBox()
 
 void GameWindow::initTimer()
 {
-
+	m_timer = new QTimer(this);
+	m_roundTimeRemaining = 60;
+	//aici e diferit connect(m_timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
+	//connect(m_timer, &QTimer::timeout, this, &GameWindow::updateTimer);
+	connect(m_timer, SIGNAL(timeout()), this, SLOT(updateTimer()));
+	m_timer->start(1000);//60 milisecunde
 }
 
 void GameWindow::initButtons()
@@ -298,6 +297,19 @@ void GameWindow::on_resetCanvasButton_clicked()
 void GameWindow::setFrameColor()
 {
 	ui.frame->setStyleSheet("background-color: " + m_canvas->currentColor.name());
+}
+
+void GameWindow::updateTimer()
+{
+	if (m_roundTimeRemaining == 0)
+	{
+		m_timer->stop();
+	}
+	else
+	{
+		m_roundTimeRemaining--;
+		ui.timer->setText(QString::number(m_roundTimeRemaining));
+	}
 }
 
 

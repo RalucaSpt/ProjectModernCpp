@@ -29,7 +29,7 @@ class GameWindow : public QMainWindow
 
 public:
 	GameWindow(QWidget* parent = nullptr);
-	~GameWindow();
+	~GameWindow()=default;
 
 	void paintEvent(QPaintEvent* event);
 	void mousePressEvent(QMouseEvent* e);
@@ -48,6 +48,7 @@ public:
 	void setButtonColorMap();
 	void changePlayerType();
 
+
 private slots:
 	void onThicknessChanged();
 	void openColorDialog();
@@ -56,7 +57,7 @@ private slots:
 	void onColorButtonClicked();
 	void on_resetCanvasButton_clicked();
 	void setFrameColor();
-	//conecteaza stacked wideget: daca statusul playerului este drawer, atunci se va afisa canvasul, altfel se va afisa chatul
+	void updateTimer();
 
 private:
 	std::string m_playerName = "Talica";
@@ -68,9 +69,9 @@ private:
 	Canvas* m_canvas;
 	size_t m_lineThickness;
 
-	QTimer* timer;
-	int roundTimeRemaining;//seconds
-	QTableWidget* m_scoreBoard;
+	QTimer* m_timer;
+	uint16_t m_roundTimeRemaining;
+
 	QMap<QPushButton*, QColor> buttonColorMap;
 	GameStatus m_gameStatus;
 };

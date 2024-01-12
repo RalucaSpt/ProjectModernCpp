@@ -7,9 +7,10 @@
         <file>colorWheel.png</file>
         <file>reset.png</file>
         <file>clock.png</file>
-        <file>CHATtextpng.png</file>
-        <file>SCOREBOARD.png</file>
-        <file>SENDtext.png</file>
     </qresource>
-    <qresource prefix="/"/>
+    <qresource prefix="/text">
+        <file>scoreboardText.png</file>
+        <file>sendText.png</file>
+        <file>chatText.png</file>
+    </qresource>
 </RCC>
