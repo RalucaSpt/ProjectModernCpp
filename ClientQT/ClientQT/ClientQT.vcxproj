@@ -101,6 +101,7 @@
     <ClCompile Include="Chat.cpp" />
     <ClCompile Include="GameWindow.cpp" />
     <QtRcc Include="Client.qrc" />
+    <ClCompile Include="Image.cpp" />
     <ClCompile Include="LoginWindow.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -108,6 +109,7 @@
     <QtMoc Include="LoginWindow.h" />
     <ClInclude Include="Chat.h" />
     <QtMoc Include="GameWindow.h" />
+    <ClInclude Include="Image.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

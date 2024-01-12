@@ -17,8 +17,12 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsItem>
-struct Imagine {
-};
+#include"Image.h"
+
+
+enum PlayerType { DRAWER, GUESSER };
+enum GameStatus { NOT_STARTED, STARTED, FINISHED };
+
 class GameWindow : public QMainWindow
 {
 	Q_OBJECT
@@ -52,36 +56,19 @@ private slots:
 	void on_resetCanvasButton_clicked();
 	void setFrameColor();
 
-
 private:
 	std::string m_playerName = "Talica";
-	bool m_drawing = false;
-
+	PlayerType m_playerType;
+	bool m_isDrawing;
 
 private:
 	Ui::GameWindowClass ui;
+	Canvas* m_canvas;
+	size_t m_lineThickness;
 
-	QImage canvas;
-	QPoint m_canvasCoords{ 300,100 };
-	int kCanvasHeight{ 400 };
-	int kCanvasWidth{ 650 };
-
-	QPoint lastPoint;
-	QColor m_currentColor;
-
-
-	QPushButton* m_colorButton;
-	QSlider* m_thicknessSlider;
-
-	int m_lineThickness = 1;
-
-	//QTextEdit* m_textBox;
-	QListWidget* m_textBox;
-	QLineEdit* m_chatMessage;
-	QPushButton* m_sendButton;
 	QTimer* timer;
 	int roundTimeRemaining;//seconds
 	QTableWidget* m_scoreBoard;
 	QMap<QPushButton*, QColor> buttonColorMap;
-	bool m_startGame = false;
+	GameStatus m_gameStatus;
 };

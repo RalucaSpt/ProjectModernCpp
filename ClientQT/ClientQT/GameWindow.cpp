@@ -2,9 +2,11 @@
 #include <qtablewidget.h>
 
 GameWindow::GameWindow(QWidget* parent)
-	: QMainWindow(parent),
-	m_drawing(false),
-	m_startGame(false)
+	: QMainWindow{parent},
+	m_canvas{new Canvas},
+	m_lineThickness{1},
+	m_playerType{ GUESSER },
+	m_gameStatus{ NOT_STARTED}
 {
 	ui.setupUi(this);
 	initCanvas();
@@ -24,32 +26,32 @@ GameWindow::~GameWindow()
 void GameWindow::paintEvent(QPaintEvent* event)
 {
 	QPainter p(this);
-	p.drawImage(m_canvasCoords.x(), m_canvasCoords.y(), canvas);
-	setFrameColor();	
+	p.drawImage(m_canvas->Coords.x(), m_canvas->Coords.y(), m_canvas->image);
+	setFrameColor();
 }
 
 void GameWindow::mousePressEvent(QMouseEvent* e)
 {
 	if (e->button() == Qt::LeftButton)
 	{
-		lastPoint = e->pos();
-		lastPoint -= m_canvasCoords;
-		m_drawing = true;
+		m_canvas->lastPoint = e->pos();
+		m_canvas->lastPoint -= m_canvas->Coords;
+		m_isDrawing = true;
 	}
 }
 
 void GameWindow::mouseMoveEvent(QMouseEvent* e)
 {
-	if (m_drawing)
+	if (m_isDrawing)
 	{
-		if (e->pos().x() < m_canvasCoords.x() + kCanvasWidth && e->pos().x() >= m_canvasCoords.x() &&
-			e->pos().y() < m_canvasCoords.y() + kCanvasHeight && e->pos().y() >= m_canvasCoords.y())
+		if (e->pos().x() < m_canvas->Coords.x() + m_canvas->width && e->pos().x() >= m_canvas->Coords.x() &&
+			e->pos().y() < m_canvas->Coords.y() + m_canvas->height && e->pos().y() >= m_canvas->Coords.y())
 		{
-			QPainter p(&canvas);
-			QPen pen(m_currentColor, m_lineThickness);
+			QPainter p(&m_canvas->image);
+			QPen pen(m_canvas->currentColor, m_lineThickness);
 			p.setPen(pen);
-			p.drawLine(lastPoint, e->pos() - m_canvasCoords);
-			lastPoint = e->pos() - m_canvasCoords;
+			p.drawLine(m_canvas->lastPoint, e->pos() - m_canvas->Coords);
+			m_canvas->lastPoint = e->pos() - m_canvas->Coords;
 			update();
 		}
 	}
@@ -58,23 +60,23 @@ void GameWindow::mouseMoveEvent(QMouseEvent* e)
 
 void GameWindow::mouseReleaseEvent(QMouseEvent* e)
 {
-	if (e->button() == Qt::LeftButton && m_drawing)
+	if (e->button() == Qt::LeftButton && m_isDrawing)
 	{
-		QPainter p(&canvas);
-		QPen pen(m_currentColor, m_lineThickness);
+		QPainter p(&m_canvas->image);
+		QPen pen(m_canvas->currentColor, m_lineThickness);
 		p.setPen(pen);
-		p.drawLine(lastPoint, e->pos() - m_canvasCoords);
-		lastPoint = e->pos() - m_canvasCoords;
-		m_drawing = false;
+		p.drawLine(m_canvas->lastPoint, e->pos() - m_canvas->Coords);
+		m_canvas->lastPoint = e->pos() - m_canvas->Coords;
+		m_isDrawing = false;
 		update();
 	}
 }
 
 void GameWindow::openColorDialog()
 {
-	if (QColor color = QColorDialog::getColor(m_currentColor, this, "Selecteaza Culoare"); color.isValid())
+	if (QColor color = QColorDialog::getColor(m_canvas->currentColor, this, "Selecteaza Culoare"); color.isValid())
 	{
-		m_currentColor = color;
+		m_canvas->currentColor = color;
 	}
 }
 
@@ -84,7 +86,7 @@ void GameWindow::UpdateChat()
 	auto responseRows = crow::json::load(responseMessages.text);
 	if (responseRows.size() != 0)
 	{
-		m_textBox->clear();
+		ui.chat->clear();
 		for (const auto& responseRow : responseRows)
 		{
 			std::string message;
@@ -101,7 +103,7 @@ void GameWindow::UpdateChat()
 			{
 				qstrMessage.push_back(c);
 			}
-			m_textBox->addItem(qstrMessage);
+			ui.chat->addItem(qstrMessage);
 
 		}
 	}
@@ -109,12 +111,12 @@ void GameWindow::UpdateChat()
 
 void GameWindow::onThicknessChanged()
 {
-	m_lineThickness = m_thicknessSlider->value();
+	m_lineThickness = ui.horizontalSlider->value();
 }
 
 void GameWindow::startGame()
 {
-	m_startGame = true;
+	m_gameStatus = STARTED;
 	update();
 }
 
@@ -159,20 +161,16 @@ void GameWindow::initCanvas()
 	pal.setColor(QPalette::Window, QColor(205, 225, 255));
 	this->setPalette(pal);
 	this->resize(1300, 700);
-	canvas = QImage(kCanvasWidth, kCanvasHeight, QImage::Format_ARGB32);
-	canvas.fill(Qt::white);
+	m_canvas->image = QImage(m_canvas->width, m_canvas->height, QImage::Format_ARGB32);
+	m_canvas->image.fill(Qt::white);
 }
 
 void GameWindow::initChatBox()
 {
-	m_textBox = ui.chat;
-	m_textBox->setSelectionMode(QAbstractItemView::NoSelection);
-	m_textBox->setFocusPolicy(Qt::NoFocus);
+	ui.chat->setSelectionMode(QAbstractItemView::NoSelection);
+	ui.chat->setFocusPolicy(Qt::NoFocus);
 
-	m_chatMessage = ui.textBox;
-
-	m_sendButton = ui.sendButton;
-	connect(m_sendButton, &QPushButton::clicked, this, &GameWindow::sendMessage);
+	connect(ui.sendButton, &QPushButton::clicked, this, &GameWindow::sendMessage);
 }
 
 void GameWindow::initTimer()
@@ -180,35 +178,32 @@ void GameWindow::initTimer()
 
 }
 
-
 void GameWindow::initButtons()
 {
-	m_colorButton = ui.pushButtonChooseColor;
-	connect(m_colorButton, &QPushButton::clicked, this, &GameWindow::openColorDialog);
+	connect(ui.pushButtonChooseColor, &QPushButton::clicked, this, &GameWindow::openColorDialog);
 
 
-	m_colorButton = new QPushButton("Start", this);
-	m_colorButton->setGeometry(150, 10, 120, 30);
-	connect(m_colorButton, &QPushButton::clicked, this, &GameWindow::startGame);
+	//m_colorButton = new QPushButton("Start", this);
+	//m_colorButton->setGeometry(150, 10, 120, 30);
+	//connect(m_colorButton, &QPushButton::clicked, this, &GameWindow::startGame);
 }
 
 void GameWindow::initSlider()
 {
-	m_thicknessSlider = ui.horizontalSlider;
-	m_thicknessSlider->setValue(m_lineThickness);
-	connect(m_thicknessSlider, &QSlider::valueChanged, this, &GameWindow::onThicknessChanged);
+	ui.horizontalSlider->setValue(m_lineThickness);
+	connect(ui.horizontalSlider, &QSlider::valueChanged, this, &GameWindow::onThicknessChanged);
 }
 
 void GameWindow::sendMessage()
 {
-	std::string message{ m_chatMessage->text().toUtf8().constData() };
-	if (m_textBox->count() > 200)
+	std::string message{ ui.textBox->text().toUtf8().constData() };
+	if (ui.chat->count() > 200)
 	{
 		auto response = cpr::Get(cpr::Url{ "http://localhost:18080/ClearChat" });
 	}
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/SendMessage" }, cpr::Parameters{ { "username", m_playerName},
 							{"message", message} });
-	m_chatMessage->clear();
+	ui.textBox->clear();
 }
 
 void GameWindow::setButtonColorMap()
@@ -274,19 +269,19 @@ void GameWindow::onColorButtonClicked()
 	}
 
 	if (buttonColorMap.contains(clickedButton)) {
-		m_currentColor = buttonColorMap[clickedButton];
+		m_canvas->currentColor = buttonColorMap[clickedButton];
 	}
 }
 
 void GameWindow::on_resetCanvasButton_clicked()
 {
-	canvas.fill(Qt::white);
+	m_canvas->image.fill(Qt::white);
 	update();
 }
 
 void GameWindow::setFrameColor()
 {
-	ui.frame->setStyleSheet("background-color: " + m_currentColor.name());
+	ui.frame->setStyleSheet("background-color: " + m_canvas->currentColor.name());
 }
 
 
