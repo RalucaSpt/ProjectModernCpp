@@ -13,6 +13,8 @@ GameWindow::GameWindow(QWidget* parent)
 	initChatBox();
 	initScoreBoard();
 	initTimer();
+	setButtonColorMap();
+	connectColorButtonsToSlots();
 }
 
 GameWindow::~GameWindow()
@@ -23,6 +25,7 @@ void GameWindow::paintEvent(QPaintEvent* event)
 {
 	QPainter p(this);
 	p.drawImage(m_canvasCoords.x(), m_canvasCoords.y(), canvas);
+	setFrameColor();	
 }
 
 void GameWindow::mousePressEvent(QMouseEvent* e)
@@ -75,9 +78,38 @@ void GameWindow::openColorDialog()
 	}
 }
 
-void GameWindow::onThicknessChanged(int thickness)
+void GameWindow::UpdateChat()
 {
-	m_lineThickness = thickness;
+	auto responseMessages = cpr::Get(cpr::Url{ "http://localhost:18080/GetMessage" });
+	auto responseRows = crow::json::load(responseMessages.text);
+	if (responseRows.size() != 0)
+	{
+		m_textBox->clear();
+		for (const auto& responseRow : responseRows)
+		{
+			std::string message;
+			std::string mess = std::string(responseRow["message"]);
+			if (std::string name = std::string(responseRow["username"]); name == m_playerName)
+				message = "You: " + mess;
+			else
+			{
+				message = name + ": " + mess;
+			}
+
+			QString qstrMessage;
+			for (auto c : message)
+			{
+				qstrMessage.push_back(c);
+			}
+			m_textBox->addItem(qstrMessage);
+
+		}
+	}
+}
+
+void GameWindow::onThicknessChanged()
+{
+	m_lineThickness = m_thicknessSlider->value();
 }
 
 void GameWindow::startGame()
@@ -94,9 +126,16 @@ void GameWindow::SetName(std::string name)
 void GameWindow::initScoreBoard()
 {
 	//
-	std::vector<std::pair<QString, int>> data = { {"Jucator1", 100}, {"Jucator2", 150}, {"Jucator3", 120} };
+	std::vector<std::pair<QString, int>> data = { {"Jucatocsnjknkjndcacdr1", 100}, {"Jucator2", 150}, {"Jucator3", 120} };
 
 	ui.tableWidgetScoreboard->setRowCount(data.size());
+	ui.tableWidgetScoreboard->setColumnWidth(1, 1);
+	QHeaderView* headerColoane = ui.tableWidgetScoreboard->horizontalHeader();
+	headerColoane->setStyleSheet("QHeaderView::section { background-color: rgb(205, 225, 255) }");
+
+	// Setează culorile pentru headerul vertical (rânduri)
+	QHeaderView* headerRinduri = ui.tableWidgetScoreboard->verticalHeader();
+	headerRinduri->setStyleSheet("QHeaderView::section { background-color: rgb(205, 225, 255) }");
 
 
 	for (int i = 0; i < data.size(); ++i) {
@@ -126,15 +165,13 @@ void GameWindow::initCanvas()
 
 void GameWindow::initChatBox()
 {
-	m_textBox = new QListWidget(this);
-	m_textBox->setGeometry(m_textBoxCoords.x() + 90, m_textBoxCoords.y(), kTextBoxWidth, kTextBoxHeight - 35);
+	m_textBox = ui.chat;
 	m_textBox->setSelectionMode(QAbstractItemView::NoSelection);
+	m_textBox->setFocusPolicy(Qt::NoFocus);
 
-	m_chatMessage = new QLineEdit(this);
-	m_chatMessage->setGeometry(845 + 145, 570, 245, 30);
+	m_chatMessage = ui.textBox;
 
-	m_sendButton = new QPushButton("Send", this);
-	m_sendButton->setGeometry(850 + 245 + 145, 570, 50, 30);
+	m_sendButton = ui.sendButton;
 	connect(m_sendButton, &QPushButton::clicked, this, &GameWindow::sendMessage);
 }
 
@@ -143,10 +180,10 @@ void GameWindow::initTimer()
 
 }
 
+
 void GameWindow::initButtons()
 {
-	m_colorButton = new QPushButton("Alege Culoare", this);
-	m_colorButton->setGeometry(10, 10, 120, 30);
+	m_colorButton = ui.pushButtonChooseColor;
 	connect(m_colorButton, &QPushButton::clicked, this, &GameWindow::openColorDialog);
 
 
@@ -157,10 +194,8 @@ void GameWindow::initButtons()
 
 void GameWindow::initSlider()
 {
-	m_thicknessSlider = new QSlider(Qt::Horizontal, this);
-	m_thicknessSlider->setRange(1, 10);
+	m_thicknessSlider = ui.horizontalSlider;
 	m_thicknessSlider->setValue(m_lineThickness);
-	m_thicknessSlider->setGeometry(50 + 50, 50, 200, 30);
 	connect(m_thicknessSlider, &QSlider::valueChanged, this, &GameWindow::onThicknessChanged);
 }
 
@@ -176,33 +211,82 @@ void GameWindow::sendMessage()
 	m_chatMessage->clear();
 }
 
-void GameWindow::UpdateChat()
+void GameWindow::setButtonColorMap()
 {
-	auto responseMessages = cpr::Get(cpr::Url{ "http://localhost:18080/GetMessage" });
-	auto responseRows = crow::json::load(responseMessages.text);
-	if (responseRows.size() != 0)
-	{
-		m_textBox->clear();
-		for (const auto& responseRow : responseRows)
-		{
-			std::string message;
-			std::string mess = std::string(responseRow["message"]);
-			if (std::string name = std::string(responseRow["username"]); name == m_playerName)
-				message = "You: " + mess;
-			else
-			{
-				message = name + ": " + mess;
-			}
+	buttonColorMap[ui.blackButton] = QColor(0, 0, 0);  // black
+	buttonColorMap[ui.whiteButton] = QColor(255, 255, 255);  // white
+	buttonColorMap[ui.greyButton] = QColor(189, 189, 189);
+	buttonColorMap[ui.darkGreyButton] = QColor(72, 72, 7);
+	buttonColorMap[ui.redButton] = QColor(255, 0, 0);  // red
+	buttonColorMap[ui.greenButton] = QColor(170, 255, 0);  // green
+	buttonColorMap[ui.darkRedButtpn] = QColor(170, 0, 0);  // dark red
+	buttonColorMap[ui.yellowButton] = QColor(255, 242, 99);  // yellow
+	buttonColorMap[ui.orangeButton] = QColor(255, 170, 0);  // ornage
+	buttonColorMap[ui.nudeButton] = QColor(255, 220, 179);  // nude
+	buttonColorMap[ui.darkNudeButton] = QColor(197, 139, 88);
+	buttonColorMap[ui.darkGreenButton] = QColor(0, 170, 0);
+	buttonColorMap[ui.blueButton] = QColor(35, 215, 255);
+	buttonColorMap[ui.darkBlueButton] = QColor(0, 54, 180);
+	buttonColorMap[ui.purpleButtton] = QColor(170, 0, 255);
+	buttonColorMap[ui.darkPurpleButtton] = QColor(85, 0, 127);
+	buttonColorMap[ui.pinkButton] = QColor(255, 187, 199);
+	buttonColorMap[ui.darkPinkButton] = QColor(255, 93, 131);
+	buttonColorMap[ui.brownButton] = QColor(170, 85, 0);
+	buttonColorMap[ui.darkBrownButton] = QColor(109, 55, 0);
+}
 
-			QString qstrMessage;
-			for (auto c : message)
-			{
-				qstrMessage.push_back(c);
-			}
-			m_textBox->addItem(qstrMessage);
+void GameWindow::connectColorButtonsToSlots()
+{
+	connect(ui.blackButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.whiteButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.redButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.greenButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.darkRedButtpn, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.yellowButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.orangeButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.nudeButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.darkNudeButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.darkGreenButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.blueButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.darkBlueButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.purpleButtton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.darkPurpleButtton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.pinkButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.darkPinkButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.brownButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+	connect(ui.darkBrownButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
+}
 
-		}
+void GameWindow::onColorButtonClicked()
+{
+	QObject* senderObj = sender();
+	if (!senderObj) {
+		return;
 	}
+
+	QPushButton* clickedButton = qobject_cast<QPushButton*>(senderObj);
+	if (!clickedButton) {
+		return;
+	}
+
+	if (buttonColorMap.isEmpty()) {
+		setButtonColorMap();
+	}
+
+	if (buttonColorMap.contains(clickedButton)) {
+		m_currentColor = buttonColorMap[clickedButton];
+	}
+}
+
+void GameWindow::on_resetCanvasButton_clicked()
+{
+	canvas.fill(Qt::white);
+	update();
+}
+
+void GameWindow::setFrameColor()
+{
+	ui.frame->setStyleSheet("background-color: " + m_currentColor.name());
 }
 
 

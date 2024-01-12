@@ -4,6 +4,8 @@
         <file>Logo.png</file>
         <file>buton.png</file>
         <file>white.jpg</file>
+        <file>colorWheel.png</file>
+        <file>reset.png</file>
     </qresource>
     <qresource prefix="/"/>
 </RCC>

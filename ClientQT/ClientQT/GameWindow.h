@@ -31,7 +31,6 @@ public:
 	void mousePressEvent(QMouseEvent* e);
 	void mouseMoveEvent(QMouseEvent* event);
 	void mouseReleaseEvent(QMouseEvent* event);
-	void onThicknessChanged(int thickness);
 	void startGame();
 	void SetName(std::string name);
 
@@ -41,21 +40,30 @@ public:
 	void initButtons();
 	void initSlider();
 	void initTimer();
+	void connectColorButtonsToSlots();
+	void setButtonColorMap();
 
 private slots:
+	void onThicknessChanged();
 	void openColorDialog();
 	void sendMessage();
 	void UpdateChat();
+	void onColorButtonClicked();
+	void on_resetCanvasButton_clicked();
+	void setFrameColor();
+
+
 private:
 	std::string m_playerName = "Talica";
 	bool m_drawing = false;
+
 
 private:
 	Ui::GameWindowClass ui;
 
 	QImage canvas;
 	QPoint m_canvasCoords{ 300,100 };
-	int kCanvasHeight{ 500 };
+	int kCanvasHeight{ 400 };
 	int kCanvasWidth{ 650 };
 
 	QPoint lastPoint;
@@ -69,14 +77,11 @@ private:
 
 	//QTextEdit* m_textBox;
 	QListWidget* m_textBox;
-	QPoint m_textBoxCoords{ 900 ,100 };
-	int kTextBoxHeight{ 500 };
-	int kTextBoxWidth{ 300 };
-
 	QLineEdit* m_chatMessage;
 	QPushButton* m_sendButton;
 	QTimer* timer;
 	int roundTimeRemaining;//seconds
-
+	QTableWidget* m_scoreBoard;
+	QMap<QPushButton*, QColor> buttonColorMap;
 	bool m_startGame = false;
 };
