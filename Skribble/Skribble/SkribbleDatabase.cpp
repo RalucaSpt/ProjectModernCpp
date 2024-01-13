@@ -27,12 +27,22 @@ void Database::AddPlayerHistory(const int16_t& score,const uint8_t& placement, c
 
 std::vector<PlayerHistory> Database::GetHistoryOfPlayer(const int& idPlayer)
 {
-    return m_db.get_all<PlayerHistory>(sql::where(sql::c(&PlayerHistory::GetId) == 1));
+  
+    return m_db.get_all<PlayerHistory>(sql::where(sql::c(&PlayerHistory::GetId) == idPlayer));
+   
 }
 
 std::vector<Player> Database::GetListOfPlayers()
 {
     return m_db.get_all<Player>();
+}
+
+int Database::GetPlayerId(const std::string& name)
+{
+    auto id= m_db.select(&Player::GetIdPlayer, sql::where(sql::c(&Player::GetName) == name));
+    if (id.size() != 0)
+        return id[0];
+    else return std::numeric_limits<int>::max();
 }
 
 bool Database::VerifyUser(const std::string& username)

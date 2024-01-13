@@ -15,35 +15,27 @@ void Routes::Run()
     if (db.Initialize() != true)
     {
         std::cerr << "Couldn't initialize database.";
+        return;
     }
 
 
     CROW_ROUTE(app, "/CreateGame").methods(crow::HTTPMethod::Put)([&match](const crow::request& req)
         {
-            //skribble::Match match;
-            
-            std::string name = req.url_params.get("username");
-            std::string gameCode{ req.url_params.get("gameCode") };
             skribble::Player player;
-            player.SetName(name);
+            player.SetName(req.url_params.get("username"));
             player.SetScore(0);
             match.AddPlayer(player);
-            //listOfMatches.insert({ gameCode,std::make_unique<Match>(std::move(match)) });
-            std::cout << "nr players:" << match.GetNrPlayers() << "\n";
             return crow::response(200);
         });
     CROW_ROUTE(app, "/Register").methods(crow::HTTPMethod::Put)([&db](const crow::request& req)
         {
-            std::string username{ req.url_params.get("username") };
-            std::string password{ req.url_params.get("password") };
-            
-             if (db.VerifyUser(username)==true)
+             if (db.VerifyUser(req.url_params.get("username"))==true)
              {
                  return crow::response(300);
              }
              else
              {
-                 db.AddUser(username, password);
+                 db.AddUser(req.url_params.get("username"), req.url_params.get("password"));
              }
              return crow::response(200);
         });
@@ -106,8 +98,7 @@ void Routes::Run()
                 return "guessing";
             else
                 return "drawing";
-            //it->second->GetPlayer(username);
-            //return crow::response(200);
+          
         });
     CROW_ROUTE(app, "/getPlayersList").methods(crow::HTTPMethod::GET)([&match](/*const crow::request& req*/)
         {
@@ -119,6 +110,25 @@ void Routes::Run()
             }
             crow::json::wvalue list = crow::json::wvalue{listPlayers };
             return list;
+        });
+    CROW_ROUTE(app, "/getPlayerMatchHistory").methods(crow::HTTPMethod::GET)([&match,&db](const crow::request& req)
+        {
+            std::string username{ req.url_params.get("username") };
+            std::vector<crow::json::wvalue> matchHistory;
+            int id = db.GetPlayerId(username);
+            if(id== std::numeric_limits<int>::max())
+                return crow::json::wvalue{ matchHistory };
+            else
+            {
+                std::vector<PlayerHistory> playerhistory{ db.GetHistoryOfPlayer(id) };
+                for(const auto& it:playerhistory)
+                matchHistory.push_back({
+                        {"score",it.GetScore()},
+                        {"placement",it.GetPlacement()}
+                    });
+                return crow::json::wvalue{ matchHistory };
+            }
+            
         });
     app.port(18080).multithreaded().run();
 }

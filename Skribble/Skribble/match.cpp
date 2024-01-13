@@ -32,7 +32,7 @@ bool Match::AddPlayer(const Player& player)
 {
 	if (m_players.size() < kNrPlayers)
 	{
-		m_players.push_back(std::make_unique<Player>(player));
+		m_players.push_back(std::make_unique<Player>(std::move(player)));
 		return true;
 	}
 	return false;

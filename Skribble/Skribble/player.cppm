@@ -63,7 +63,6 @@ namespace skribble {
 		uint8_t m_correctAnswerTime; // de la 0 la 60
 		DrawingStatus m_isDrawing;
 
-		bool IsValidName(const std::string& name);
 	};
 
 
