@@ -145,6 +145,27 @@ void Match::EndRound() {
 	}
 }
 
+void skribble::Match::DisplayFinalResults()
+{
+
+	std::cout << "Jocul s-a terminat. Rezultatele finale sunt:" << std::endl;
+
+	// Sortați jucătorii în funcție de scor și afișați scorurile
+	std::sort(m_players.begin(), m_players.end(),
+		[](const std::unique_ptr<Player>& a, const std::unique_ptr<Player>& b) {
+			return a->GetScore() > b->GetScore();
+		});
+
+	for (const auto& player : m_players) {
+		std::cout << player->GetName() << ": " << player->GetScore() << " puncte" << std::endl;
+	}
+
+	// Anunțați câștigătorul
+	if (!m_players.empty()) {
+		std::cout << "Câștigătorul este: " << m_players.front()->GetName() << std::endl;
+	}
+}
+
 void Match::ResetGame() {
 	m_currentRoundComplete = 0;
 	m_currentPlayerIndex = 0;

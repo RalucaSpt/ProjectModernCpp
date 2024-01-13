@@ -34,14 +34,14 @@ namespace skribble
 		
 		std::string RevealRandomLetters(const std::string& word);
 
-		void StartSubRound();// std::vector<Player>& players);
-		void NextSubround(const size_t& nrPlayers);
+		void StartSubRound(int drawerIndex);
+		void NextSubround(std::vector<Player> players);
 		void EndSubRound();
 		//void manageRound();
 		//void nextDrawer();
 		void displayScoreboard(std::vector<Player> players);
-		void GenerateThreeWords();
-		bool m_subRoundActive = true;
+		std::vector<std::string> GenerateThreeWords();
+		void SendWordsToDrawer(int drawerIndex, std::vector<std::string> threeWords);
 		//void SetPlayer(Player player);
 		//const Player& GetWinner() const;
 		//std::string GetDisplayWord() const;
@@ -60,9 +60,10 @@ namespace skribble
 		std::deque<std::string> m_words;
 		std::vector<std::string> m_threeWords;
 		
-		int currentPlayerIndex;
+		int currentDrawerIndex;
 		bool m_roundActive;
-		
+		bool m_subRoundActive = true;
+		std::vector<Player> m_players;
 
 		std::chrono::steady_clock::time_point roundStartTime;
 		std::chrono::seconds roundDuration;

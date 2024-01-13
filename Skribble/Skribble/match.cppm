@@ -42,6 +42,9 @@ namespace skribble
 		void StartRound();
 		void EndRound();
 
+		void DisplayFinalResults();
+
+
 		void ResetGame();
 		void NextDrawer();
 
