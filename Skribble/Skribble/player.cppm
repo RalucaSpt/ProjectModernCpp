@@ -22,7 +22,7 @@ namespace skribble {
 	
 		~Player() noexcept = default;
 
-
+	
 		int GetIdPlayer() const;
 		std::string GetName() const;
 		std::string GetPassword() const;
@@ -62,6 +62,8 @@ namespace skribble {
 		uint16_t m_score;
 		uint8_t m_correctAnswerTime; // de la 0 la 60
 		DrawingStatus m_isDrawing;
+
+		bool IsValidName(const std::string& name);
 	};
 
 
@@ -84,4 +86,5 @@ namespace skribble {
 	void Player::StopDrawing() {
 		m_isDrawing = DrawingStatus::NotDrawing;
 	}
+	
 }

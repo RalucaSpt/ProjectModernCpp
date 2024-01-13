@@ -1,6 +1,7 @@
 module player;
 import<format>;
 import <string>;
+#include <random>
 
 using skribble::Player;
 
@@ -52,7 +53,17 @@ std::string skribble::Player::GetPassword() const
 }
 void Player::SetName(const std::string& name)
 {
-	m_name = name;
+	if (IsValidName(name)) {
+		m_name = name;
+	}
+	else {
+		std::random_device rd;
+		std::mt19937 gen(rd());
+		std::uniform_int_distribution<> distr(1, 100);
+
+		// Seteaz? numele ca "Jucator" + num?rul aleator
+		m_name = "Jucator" + std::to_string(distr(gen));
+	}
 }
 
 void Player::SetId(const int& id)
@@ -73,6 +84,22 @@ bool skribble::Player::IsDrawing() const
 	if(this->m_isDrawing==DrawingStatus::NotDrawing)
 		return false;
 	return true;
+}
+
+bool Player::IsValidName(const std::string& name)
+{
+	if (name.length() < 3 || name.length() > 20) {
+		return false;
+	}
+
+	for (char c : name) {
+		if (!isalnum(c) && c != '_') {
+			return false;
+		}
+	}
+
+	return true;
+	
 }
 /*
 skribble::Player::DrawingStatus skribble::Player::GetIsDrawing() const
