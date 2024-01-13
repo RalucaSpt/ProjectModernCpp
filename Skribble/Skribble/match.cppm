@@ -18,6 +18,7 @@ namespace skribble
 	export class Match
 	{
 	public:
+	
 		Match() noexcept=default;
 		Match(const Match& match)=delete;
 
@@ -40,6 +41,7 @@ namespace skribble
 
 		void StartRound();
 		void EndRound();
+
 		void ResetGame();
 		void NextDrawer();
 

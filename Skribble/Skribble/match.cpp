@@ -115,6 +115,8 @@ void Match::NextDrawer() {
 	// Alte logici pentru pregătirea noului desenator
 }
 //de discutat daca raman clasele astea sau cele din round
+
+
 void Match::StartRound() {
 	if (m_players.empty()) {
 		std::cerr << "There are no players in the match." << std::endl;
@@ -124,6 +126,7 @@ void Match::StartRound() {
 		std::cerr << "There are no more words available." << std::endl;
 		return;
 	}
+
 	std::string currentWord = m_words.front().GetWord();
 	m_words.pop_front();
 	m_players[m_currentPlayerIndex]->StartDrawing();

@@ -52,16 +52,18 @@ std::string skribble::Round::CreateGuessWord(const std::deque<std::string>& word
 //	return false;
 //}
 
-void Round::StartRound()//std::vector<Player>& players)
+void Round::StartSubRound()//std::vector<Player>& players)
 {
 	currentPlayerIndex = 0;
+
 	if (!m_words.empty()) {
 		m_roundActive = true;
-		std::cout << "Round has started. Guess the word!"; 
+		std::cout << "Subround has started. Guess the word!"; 
 		std::cout<< std::endl;
 	}
+	else if (m_words.size() >= 3);
 	else {
-		std::cerr << "Cannot start round: word is not set." << std::endl;
+		std::cerr << "Cannot start subround: word is not set." << std::endl;
 	}
 }
 
@@ -73,15 +75,15 @@ void Round::NextSubround(const size_t& nrPlayers)
 	}
 	else
 	{
-		EndRound();
+		EndSubRound();
 	}
 }
 
-void Round::EndRound()
+void Round::EndSubRound()
 {
-	if (m_roundActive == true)
+	if (m_subRoundActive == true)
 	{
-		m_roundActive = false;
+		m_subRoundActive = false;
 		currentPlayerIndex = 0;
 	}
 
@@ -120,6 +122,18 @@ void skribble::Round::displayScoreboard(std::vector<Player> players)
 	for (const auto& player : players)
 	{
 		std::cout << player.GetName() << " " << player.GetScore();
+	}
+}
+
+void skribble::Round::GenerateThreeWords()
+{
+	std::random_device rd;
+	std::mt19937 g(rd());
+	std::shuffle(m_words.begin(), m_words.end(), g);
+
+	m_threeWords.clear();
+	for (int i = 0; i < 3 && i < m_words.size(); ++i) {
+		m_threeWords.push_back(m_words[i]);
 	}
 }
 
