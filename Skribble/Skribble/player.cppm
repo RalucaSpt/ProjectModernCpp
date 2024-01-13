@@ -33,7 +33,7 @@ namespace skribble {
 		void SetId(const int& id);
 		void SetName(const std::string& name);
 		void SetPassword(const std::string& password);
-
+		void SetScore(uint16_t score);
 
 		bool IsDrawing() const;
 		

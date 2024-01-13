@@ -15,7 +15,8 @@ GameWindow::GameWindow(QWidget* parent)
 	initSlider();
 	initButtons();
 	initChatBox();
-	initScoreBoard();
+	//initScoreBoard();
+	timerScoreboard();
 	initTimer();
 	setButtonColorMap();
 	connectColorButtonsToSlots();
@@ -129,8 +130,25 @@ void GameWindow::SetName(std::string name)
 
 void GameWindow::initScoreBoard()
 {
-	//
-	std::vector<std::pair<QString, int>> data = { {"Jucatocsnjknkjndcacdr1", 100}, {"Jucator2", 150}, {"Jucator3", 120} };
+	//std::vector<std::pair<QString, int>> data = { {"Jucatocsnjknkjndcacdr1", 100}, {"Jucator2", 150}, {"Jucator3", 120} };
+	std::vector<std::pair<QString, int>> data;
+	auto response = cpr::Get(cpr::Url("http://localhost:18080/getPlayersList"));
+	auto responseRows = crow::json::load(response.text);
+	if (responseRows.size() != 0)
+	{
+		for (const auto& responseRow : responseRows)
+		{
+			std::string playerName{ std::string(responseRow["player"]) };
+			int playerScore{ std::stoi(std::string(responseRow["score"])) };
+			QString name;
+			for (auto c : playerName)
+			{
+				name.push_back(c);
+			}
+			data.push_back({ name,playerScore });
+		}
+	}
+	
 
 	ui.tableWidgetScoreboard->setRowCount(data.size());
 	ui.tableWidgetScoreboard->setColumnWidth(1, 1);
@@ -254,6 +272,16 @@ void GameWindow::initChat()
 	m_timerChat->start(1000);
 }
 
+void GameWindow::timerScoreboard()
+{
+	m_timerChat = new QTimer(this);
+	// Connect the timeout signal to a slot for updating the QListWidget
+	connect(m_timerChat, &QTimer::timeout, this, &GameWindow::initScoreBoard);
+	m_timerChat->start(5000);
+}
+
+
+
 void GameWindow::connectColorButtonsToSlots()
 {
 	connect(ui.blackButton, &QPushButton::clicked, this, &GameWindow::onColorButtonClicked);
@@ -320,6 +348,7 @@ void GameWindow::updateTimer()
 		ui.timer->setText(QString::number(m_roundTimeRemaining));
 	}
 }
+
 
 
 

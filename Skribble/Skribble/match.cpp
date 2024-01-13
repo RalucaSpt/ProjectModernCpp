@@ -3,16 +3,10 @@
 using skribble::Match;
 
 
-
-skribble::Match::Match(const Match& match)
-	:m_players{match.m_players}, m_rounds{match.m_rounds}, m_currentPlayerIndex{0},m_isStarted{false}
-{
-}
-
 skribble::Match::Match(Match&& match) noexcept
 {
 	m_players = std::move(match.m_players);
-	m_rounds = std::move(match.m_rounds);
+	//m_rounds = std::move(match.m_rounds);
 }
 
 
@@ -36,9 +30,9 @@ skribble::Match::Match(Match&& match) noexcept
 
 bool Match::AddPlayer(const Player& player)
 {
-	if (m_players.size() < m_players.max_size())
+	if (m_players.size() < kNrPlayers)
 	{
-		m_players[m_players.size()] = player;
+		m_players.push_back(std::make_unique<Player>(player));
 		return true;
 	}
 	return false;
@@ -66,6 +60,47 @@ bool skribble::Match::GetIsStarted()
 	return m_isStarted;
 }
 
+bool skribble::Match::GetPlayerStatus(const std::string& username)
+{
+	for (const auto& it:m_players)
+		if (it->GetName() == username)
+			if(it->IsDrawing() == false)
+				return false;
+	return true;
+}
+
+std::vector<std::tuple<std::string, int>> Match::GetPlayerScore()
+{
+	std::vector<std::tuple<std::string, int>> playersScore;
+	for (const auto& it : m_players)
+	{
+		playersScore.push_back({it->GetName(), static_cast<int>(it->GetScore())});
+	
+	}
+	return playersScore;
+
+}
+
+bool skribble::Match::FindPlayer(const std::string& name)
+{
+	for (const auto& it : m_players)
+		if (it->GetName() == name)
+			return true;
+	return false;
+}
+
+void skribble::Match::ErasePlayer(const std::string& name)
+{
+	for (auto it=m_players.begin();it!=m_players.end();it++)
+		if (it->get()->GetName() == name)
+		{
+			m_players.erase(it);
+			break;
+		}
+
+}
+
+
 //uint8_t skribble::Match::getNrSemiRounds()
 //{
 //	return m_players.size() * kNrRounds;
@@ -76,7 +111,7 @@ void Match::NextDrawer() {
 	if (m_currentPlayerIndex == 0) {
 		m_currentRoundComplete++;
 	}
-	m_players[m_currentPlayerIndex].StartDrawing();
+	m_players[m_currentPlayerIndex]->StartDrawing();
 	// Alte logici pentru pregătirea noului desenator
 }
 //de discutat daca raman clasele astea sau cele din round
@@ -91,12 +126,12 @@ void Match::StartRound() {
 	}
 	std::string currentWord = m_words.front().GetWord();
 	m_words.pop_front();
-	m_players[m_currentPlayerIndex].StartDrawing();
+	m_players[m_currentPlayerIndex]->StartDrawing();
 	//StartTimer();
 }
 
 void Match::EndRound() {
-	m_players[m_currentPlayerIndex].StopDrawing();
+	m_players[m_currentPlayerIndex]->StopDrawing();
 	NextDrawer();
 	if (m_currentRoundComplete >= kNrRounds) {
 		// Dacă toate rundele complete au fost jucate, resetează jocul sau începe un nou set de runde

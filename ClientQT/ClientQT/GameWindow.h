@@ -17,6 +17,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsItem>
+#include <qbuffer.h>
 #include"Image.h"
 
 
@@ -48,7 +49,7 @@ public:
 	void setButtonColorMap();
 	void changePlayerType();
 	void initChat();
-
+	void timerScoreboard();
 private slots:
 	void onThicknessChanged();
 	void openColorDialog();
@@ -58,7 +59,7 @@ private slots:
 	void on_resetCanvasButton_clicked();
 	void setFrameColor();
 	void updateTimer();
-
+	
 private:
 	std::string m_playerName = "Talica";
 	PlayerType m_playerType;
@@ -71,6 +72,7 @@ private:
 
 	QTimer* m_timer;
 	QTimer* m_timerChat;
+	QTimer* m_timerImage;
 	uint16_t m_roundTimeRemaining;
 
 	QMap<QPushButton*, QColor> buttonColorMap;

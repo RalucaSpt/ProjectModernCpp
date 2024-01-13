@@ -6,6 +6,7 @@ export module match;
 import<iostream>;
 import <vector>;
 import <deque>;
+import <list>;
 import player;
 import round;
 import word;
@@ -18,7 +19,7 @@ namespace skribble
 	{
 	public:
 		Match() noexcept=default;
-		Match(const Match& match);
+		Match(const Match& match)=delete;
 
 		Match(Match&& match) noexcept;
 
@@ -30,7 +31,12 @@ namespace skribble
 
 		int GetNrPlayers();
 		bool GetIsStarted();
+		bool GetPlayerStatus(const std::string& username);
+		std::vector<std::tuple<std::string, int>> GetPlayerScore();
 		//uint8_t getNrSemiRounds();
+
+		bool FindPlayer(const std::string& name);
+		void ErasePlayer(const std::string& name);
 
 		void StartRound();
 		void EndRound();
@@ -46,8 +52,7 @@ namespace skribble
 		//void StartTimer();->de implementat
 
 	private:
-		std::array<Player,kNrPlayers> m_players;
-		std::array<Round,kNrRounds> m_rounds;
+		std::deque<std::unique_ptr<Player>> m_players;
 		std::deque<Words> m_words;
 		bool m_isStarted;
 	};

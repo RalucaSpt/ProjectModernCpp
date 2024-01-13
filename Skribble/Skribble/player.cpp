@@ -64,6 +64,16 @@ void skribble::Player::SetPassword(const std::string& password)
 {
 	m_password = password;
 }
+void skribble::Player::SetScore(uint16_t score)
+{
+	m_score = score;
+}
+bool skribble::Player::IsDrawing() const
+{
+	if(this->m_isDrawing==DrawingStatus::NotDrawing)
+		return false;
+	return true;
+}
 /*
 skribble::Player::DrawingStatus skribble::Player::GetIsDrawing() const
 {
