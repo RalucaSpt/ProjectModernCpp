@@ -98,8 +98,3 @@ void LoginWindow::on_startGameButton_clicked()
 	gameWindow->SetName(username);
 	gameWindow->show();
 }
-
-LoginWindow::~LoginWindow()
-{
-
-}

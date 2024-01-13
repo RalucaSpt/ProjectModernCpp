@@ -13,6 +13,8 @@ public:
 		image.fill(Qt::white);
 	}
 
+	void resetCanva(){image.fill(Qt::white);}
+
 	QImage image;
 	QPoint Coords;
 	size_t height;

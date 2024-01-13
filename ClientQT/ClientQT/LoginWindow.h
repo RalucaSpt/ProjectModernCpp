@@ -17,7 +17,7 @@ class LoginWindow : public QMainWindow
 
 public:
 	LoginWindow(QWidget *parent = nullptr);
-	~LoginWindow();
+	~LoginWindow()=default;
 
 private slots:
 	void changeToMainPage();

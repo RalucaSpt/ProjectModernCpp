@@ -29,33 +29,37 @@ class GameWindow : public QMainWindow
 
 public:
 	GameWindow(QWidget* parent = nullptr);
-	~GameWindow()=default;
+	~GameWindow() = default;
 
 	void paintEvent(QPaintEvent* event);
 	void mousePressEvent(QMouseEvent* e);
 	void mouseMoveEvent(QMouseEvent* event);
 	void mouseReleaseEvent(QMouseEvent* event);
-	void startGame();
-	void SetName(std::string name);
 
+	void SetName(std::string name);
+	void SetPlayerType(PlayerType type);
+	void SetWords(std::string word1, const std::string& word2, const std::string& word3);
+	void StartRound();
+	void resetRound();
+
+private:
 	void initScoreBoard();
 	void initCanvas();
 	void initChatBox();
 	void initButtons();
 	void initSlider();
 	void initTimer();
-	void connectColorButtonsToSlots();
 	void setButtonColorMap();
-	void changePlayerType();
 
 
-private slots:
+public slots:
 	void onThicknessChanged();
 	void openColorDialog();
 	void sendMessage();
 	void UpdateChat();
 	void onColorButtonClicked();
 	void on_resetCanvasButton_clicked();
+	void onChooseWordClicked();
 	void setFrameColor();
 	void updateTimer();
 
@@ -63,6 +67,8 @@ private:
 	std::string m_playerName = "Talica";
 	PlayerType m_playerType;
 	bool m_isDrawing;
+	QString m_guessWord;
+	bool chooseWordClicked = false;
 
 private:
 	Ui::GameWindowClass ui;
