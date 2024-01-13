@@ -50,6 +50,7 @@ private:
 	void initSlider();
 	void initTimer();
 	void setButtonColorMap();
+	void changePlayerType();
 
 
 public slots:
