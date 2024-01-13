@@ -17,6 +17,7 @@
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include <QGraphicsItem>
+#include <qbuffer.h>
 #include"Image.h"
 
 
@@ -29,7 +30,7 @@ class GameWindow : public QMainWindow
 
 public:
 	GameWindow(QWidget* parent = nullptr);
-	~GameWindow() = default;
+	~GameWindow()=default;
 
 	void paintEvent(QPaintEvent* event);
 	void mousePressEvent(QMouseEvent* e);
@@ -51,8 +52,8 @@ private:
 	void initTimer();
 	void setButtonColorMap();
 	void changePlayerType();
-
-
+	void initChat();
+	void timerScoreboard();
 public slots:
 	void onThicknessChanged();
 	void openColorDialog();
@@ -63,7 +64,7 @@ public slots:
 	void onChooseWordClicked();
 	void setFrameColor();
 	void updateTimer();
-
+	
 private:
 	std::string m_playerName = "Talica";
 	PlayerType m_playerType;
@@ -77,6 +78,8 @@ private:
 	size_t m_lineThickness;
 
 	QTimer* m_timer;
+	QTimer* m_timerChat;
+	QTimer* m_timerImage;
 	uint16_t m_roundTimeRemaining;
 
 	QMap<QPushButton*, QColor> buttonColorMap;

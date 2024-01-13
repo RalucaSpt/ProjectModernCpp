@@ -9,11 +9,11 @@ Player::Player(int IdPlayer, uint16_t score, const std::string& name)
 	:m_idPlayer { IdPlayer },
 	m_score{ score },
 	m_name{ name },
-	m_isDrawing{ false }
+	m_isDrawing{ DrawingStatus::NotDrawing }
 {
 
 }
-Player::Player(int IdPlayer, const std::string& name,std::string password)
+Player::Player(const int& IdPlayer, const std::string& name,const std::string& password)
 	:m_idPlayer{ IdPlayer },
 	m_name{ name },
 	m_password{password},
@@ -21,10 +21,6 @@ Player::Player(int IdPlayer, const std::string& name,std::string password)
 {
 }
 
-Player::~Player()
-{
-
-}
 
 Player& Player::operator=(const Player& player)
 {
@@ -67,6 +63,16 @@ void Player::SetId(const int& id)
 void skribble::Player::SetPassword(const std::string& password)
 {
 	m_password = password;
+}
+void skribble::Player::SetScore(uint16_t score)
+{
+	m_score = score;
+}
+bool skribble::Player::IsDrawing() const
+{
+	if(this->m_isDrawing==DrawingStatus::NotDrawing)
+		return false;
+	return true;
 }
 /*
 skribble::Player::DrawingStatus skribble::Player::GetIsDrawing() const
