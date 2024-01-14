@@ -39,7 +39,6 @@ void LoginWindow::changeToLobbyPage()
 void LoginWindow::changeToCreateGamePage()//de verificat de ce nu face conversia din std::string in QString
 {
 	ui.stackedWidget->setCurrentIndex(4);
-	ui.hostNameLabel->setText("eu");
 	displayGameCode();
 }
 
@@ -56,7 +55,7 @@ void LoginWindow::exitGameWidget()
 
 void LoginWindow::displayGameCode()//de verificat de ce nu face conversia din std::string in QString
 {
-	
+
 }
 
 void LoginWindow::on_loginButton_clicked()
@@ -117,14 +116,10 @@ void LoginWindow::on_joinGameButton_clicked()
 {
 	m_gameCode = ui.lineEdit->text().toUtf8().constData();
 	auto response = cpr::Get(cpr::Url("http://localhost:18080/joinGame"), cpr::Parameters{ { "gameCode", m_gameCode}, {"username",username} });
-	if (response.status_code==200)
+	if (response.status_code == 200)
 	{
-		QString code;
-		for (auto c : m_gameCode)
-		{
-			code.push_back(c);
-		}
-		ui.showCodeLabel->setText(code);
+		QString cod = QString::fromUtf8(m_gameCode.c_str());
+		ui.showCodeLabel->setText(cod);
 		changeToCreateGamePage();
 	}
 	else
