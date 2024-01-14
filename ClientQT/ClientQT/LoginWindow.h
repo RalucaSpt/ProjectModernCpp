@@ -16,8 +16,8 @@ class LoginWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	LoginWindow(QWidget *parent = nullptr);
-	~LoginWindow()=default;
+	LoginWindow(QWidget* parent = nullptr);
+	~LoginWindow() = default;
 
 private slots:
 	void changeToMainPage();
@@ -30,10 +30,12 @@ private slots:
 	void on_registerButton_clicked();
 	void on_startGameButton_clicked();
 	void exitGameWidget();
+	void displayGameCode();
 
 
 private:
 	Ui::LoginWindowClass ui;
-	std::string username;
+	std::string username = "eu";
 	std::string password;
+	std::string m_gameCode = "testCode";
 };

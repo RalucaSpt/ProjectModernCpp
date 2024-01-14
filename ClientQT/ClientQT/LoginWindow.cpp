@@ -32,14 +32,15 @@ void LoginWindow::changeToRegisterPage()
 void LoginWindow::changeToLobbyPage()
 {
 	ui.stackedWidget->setCurrentIndex(3);
-	connect(ui.backButtonLobby, &QPushButton::clicked, this, &LoginWindow::changeToMainPage);
-	connect(ui.goToCreateGameButton, &QPushButton::clicked, this, &LoginWindow::changeToCreateGamePage);
 	connect(ui.goToJoinGameButton, &QPushButton::clicked, this, &LoginWindow::changeToJoinGamePage);
+	connect(ui.goToCreateGameButton, &QPushButton::clicked, this, &LoginWindow::changeToCreateGamePage);
 }
 
-void LoginWindow::changeToCreateGamePage()
+void LoginWindow::changeToCreateGamePage()//de verificat de ce nu face conversia din std::string in QString
 {
 	ui.stackedWidget->setCurrentIndex(4);
+	ui.hostNameLabel->setText("eu");
+	displayGameCode();
 }
 
 void LoginWindow::changeToJoinGamePage()
@@ -53,6 +54,11 @@ void LoginWindow::exitGameWidget()
 	this->close();
 }
 
+void LoginWindow::displayGameCode()//de verificat de ce nu face conversia din std::string in QString
+{
+	ui.showCodeLabel->setText("2003");
+}
+
 void LoginWindow::on_loginButton_clicked()
 {
 	username = ui.lineEditUsernameLogin->text().toUtf8().constData();
@@ -62,7 +68,7 @@ void LoginWindow::on_loginButton_clicked()
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/Login" }, cpr::Parameters{ { "username", username},
 							 { "password", password } });
 	if (response.status_code == 200)
-	
+
 	{
 		changeToLobbyPage();
 	}
@@ -77,15 +83,15 @@ void LoginWindow::on_registerButton_clicked()
 {
 	username = ui.lineEditUsernameRegister->text().toUtf8().constData();
 	password = ui.lineEditPasswordRegister->text().toUtf8().constData();
-	
-	
+
+
 	auto response = cpr::Put(cpr::Url{ "http://localhost:18080/Register" }, cpr::Parameters{ { "username", username},
 							 { "password", password } });
 	if (response.status_code == 300)
 	{
 		QMessageBox::warning(this, "Register", "Username already registered!");
 	}
-	else if(response.status_code==200)
+	else if (response.status_code == 200)
 	{
 		changeToLobbyPage();
 	}
@@ -94,13 +100,15 @@ void LoginWindow::on_registerButton_clicked()
 void LoginWindow::on_startGameButton_clicked()
 {
 	std::string testCode = "testCode";
-	auto response = cpr::Put(cpr::Url("http://localhost:18080/CreateGame"), cpr::Parameters{ { "username", username}});
+	auto response = cpr::Put(cpr::Url("http://localhost:18080/CreateGame"), cpr::Parameters{ { "username", username},
+							 { "gameCode", testCode } });
 	if (response.status_code == 200)
 	{
 		this->close();
 
 		GameWindow* gameWindow = new GameWindow();
 		gameWindow->SetName(username);
+
 		gameWindow->show();
 	}
 }

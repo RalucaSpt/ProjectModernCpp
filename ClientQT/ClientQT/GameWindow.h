@@ -30,7 +30,7 @@ class GameWindow : public QMainWindow
 
 public:
 	GameWindow(QWidget* parent = nullptr);
-	~GameWindow()=default;
+	~GameWindow() = default;
 
 	void paintEvent(QPaintEvent* event);
 	void mousePressEvent(QMouseEvent* e);
@@ -39,7 +39,9 @@ public:
 
 	void SetName(std::string name);
 	void SetPlayerType(PlayerType type);
-	void SetWords(std::string word1, const std::string& word2, const std::string& word3);
+	void SetWords(std::string word1, const std::string& word2, const std::string& word3);//de verificat de ce nu face conversia din std::string in QString
+	void setButtonColorMap();
+	void setGameStatus(GameStatus status);
 	void StartRound();
 	void resetRound();
 
@@ -50,25 +52,20 @@ private:
 	void initButtons();
 	void initSlider();
 	void initTimer();
-<<<<<<< HEAD
-	//void connectColorButtonsToSlots();
-=======
->>>>>>> 0721cd183e87228af9a214611dfd40bf704c564a
-	void setButtonColorMap();
-	//void changePlayerType();
 	void initChat();
 	void timerScoreboard();
+
 public slots:
 	void onThicknessChanged();
 	void openColorDialog();
 	void sendMessage();
 	void UpdateChat();
 	void onColorButtonClicked();
-	//void on_resetCanvasButton_clicked();
-	void onChooseWordClicked();
+	void on_resetCanvasButton_clicked();
 	void setFrameColor();
+	void onChooseWordClicked();
 	void updateTimer();
-	
+
 private:
 	std::string m_playerName = "Talica";
 	PlayerType m_playerType;
