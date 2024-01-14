@@ -50,9 +50,9 @@ private:
 	void initButtons();
 	void initSlider();
 	void initTimer();
-	void connectColorButtonsToSlots();
+	//void connectColorButtonsToSlots();
 	void setButtonColorMap();
-	void changePlayerType();
+	//void changePlayerType();
 	void initChat();
 	void timerScoreboard();
 private slots:
@@ -61,7 +61,7 @@ private slots:
 	void sendMessage();
 	void UpdateChat();
 	void onColorButtonClicked();
-	void on_resetCanvasButton_clicked();
+	//void on_resetCanvasButton_clicked();
 	void onChooseWordClicked();
 	void setFrameColor();
 	void updateTimer();

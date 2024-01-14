@@ -3,55 +3,26 @@
 
 void Routes::Run()
 {
-    skribble::Match match;
-    std::vector<crow::json::wvalue> m_messagesJson;
    
-    std::vector<std::tuple<int, int, int>> image;
 
-    crow::SimpleApp app;
-
-    Database db;
-
-    if (db.Initialize() != true)
+    if (db->Initialize() != true)
     {
         std::cerr << "Couldn't initialize database.";
         return;
     }
 
 
-    CROW_ROUTE(app, "/CreateGame").methods(crow::HTTPMethod::Put)([&match](const crow::request& req)
+    CROW_ROUTE(app, "/CreateGame").methods(crow::HTTPMethod::Put)([this](const crow::request& req)
         {
-            skribble::Player player;
-            player.SetName(req.url_params.get("username"));
-            player.SetScore(0);
-            match.AddPlayer(player);
-            return crow::response(200);
+            return CreateGame(req);
         });
-    CROW_ROUTE(app, "/Register").methods(crow::HTTPMethod::Put)([&db](const crow::request& req)
+    CROW_ROUTE(app, "/Register").methods(crow::HTTPMethod::Put)([this](const crow::request& req)
         {
-             if (db.VerifyUser(req.url_params.get("username"))==true)
-             {
-                 return crow::response(300);
-             }
-             else
-             {
-                 db.AddUser(req.url_params.get("username"), req.url_params.get("password"));
-             }
-             return crow::response(200);
+            return Register(req);
         });
-    CROW_ROUTE(app, "/Login").methods(crow::HTTPMethod::Put)([&match,&db](const crow::request& req)
+    CROW_ROUTE(app, "/Login").methods(crow::HTTPMethod::Put)([this](const crow::request& req)
         {
-
-            std::string username{ req.url_params.get("username") };
-            std::string password{ req.url_params.get("password") };
-            std::cout << username << "\n";
-            if (db.VerifyPassword(username,password) == true)
-            {
-                if (match.FindPlayer(username) == true)
-                    match.ErasePlayer(username);
-                return crow::response(200);
-            }
-            return crow::response(300);
+            return Login(req);
         });
   
 
@@ -81,7 +52,7 @@ void Routes::Run()
         });
     CROW_ROUTE(app, "/start").methods(crow::HTTPMethod::Put) ([&match, &db](const crow::request& req)
         {
-            match.SetMatchWords(db.GetWords(Match::kNrRounds*Match::kNrPlayers));
+            match.SetMatchWords(db.GetWords(Match::kNrRounds*Match::kNrPlayers*3));
             match.SetIsStarted(true);
             return crow::response(200);
         });
@@ -131,4 +102,40 @@ void Routes::Run()
             
         });
     app.port(18080).multithreaded().run();
+}
+
+crow::response Routes::CreateGame(const crow::request& req)
+{
+    skribble::Player player;
+    player.SetName(req.url_params.get("username"));
+    player.SetScore(0);
+    match.AddPlayer(player);
+    return crow::response(200);
+}
+
+crow::response Routes::Register(const crow::request& req)
+{
+    if (db.VerifyUser(req.url_params.get("username")) == true)
+    {
+        return crow::response(300);
+    }
+    else
+    {
+        db.AddUser(req.url_params.get("username"), req.url_params.get("password"));
+    }
+    return crow::response(200);
+}
+
+crow::response Routes::Login(const crow::request& req)
+{
+    std::string username{ req.url_params.get("username") };
+    std::string password{ req.url_params.get("password") };
+    std::cout << username << "\n";
+    if (db.VerifyPassword(username, password) == true)
+    {
+        if (match.FindPlayer(username) == true)
+            match.ErasePlayer(username);
+        return crow::response(200);
+    }
+    return crow::response(300);
 }
