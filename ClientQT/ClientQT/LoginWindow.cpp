@@ -46,8 +46,7 @@ void LoginWindow::changeToCreateGamePage()//de verificat de ce nu face conversia
 void LoginWindow::changeToJoinGamePage()
 {
 	ui.stackedWidget->setCurrentIndex(5);
-	connect(ui.joinGameButton, &QPushButton::clicked, this, &LoginWindow::changeToCreateGamePage);
-
+	//connect(ui.joinGameButton, &QPushButton::clicked, this, &LoginWindow::changeToCreateGamePage);
 }
 
 void LoginWindow::exitGameWidget()
@@ -120,7 +119,12 @@ void LoginWindow::on_joinGameButton_clicked()
 	auto response = cpr::Get(cpr::Url("http://localhost:18080/joinGame"), cpr::Parameters{ { "gameCode", m_gameCode}, {"username",username} });
 	if (response.status_code==200)
 	{
-		ui.showCodeLabel->setText(QString::number(m_gameCode));
+		QString code;
+		for (auto c : m_gameCode)
+		{
+			code.push_back(c);
+		}
+		ui.showCodeLabel->setText(code);
 		changeToCreateGamePage();
 	}
 	else
@@ -134,8 +138,12 @@ void LoginWindow::on_goToCreateGameButton_clicked()
 	std::random_device dev;
 	std::mt19937 rng(dev());
 	std::uniform_int_distribution<std::mt19937::result_type> dist6(1000, 9999);
-	 m_gameCode = dist6(rng);
-	QString gameCode{ QString::number(m_gameCode) };
-	auto response = cpr::Put(cpr::Url("http://localhost:18080/setGameCode"), cpr::Parameters{ { "gameCode", std::to_string(code)} });
-	ui.showCodeLabel->setText(gameCode);
+	//generam random init
+	int gameCode = dist6(rng);
+	//convertim game code in string
+	m_gameCode = std::to_string(gameCode);
+
+	QString code{ QString::number(gameCode) };
+	auto response = cpr::Put(cpr::Url("http://localhost:18080/setGameCode"), cpr::Parameters{ { "gameCode", m_gameCode} });
+	ui.showCodeLabel->setText(code);
 }
