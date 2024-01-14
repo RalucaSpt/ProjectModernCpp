@@ -42,6 +42,11 @@ uint16_t skribble::Player::GetScore() const
 	return m_score;
 }
 
+uint16_t skribble::Player::GetCorrectAnswerTime() const
+{
+	return 0;
+}
+
 std::string Player::GetName() const
 {
 	return m_name;
@@ -73,6 +78,31 @@ bool skribble::Player::IsDrawing() const
 	if(this->m_isDrawing==DrawingStatus::NotDrawing)
 		return false;
 	return true;
+}
+
+void skribble::Player::AddScore(uint16_t points, int nrPlayers)
+{
+	if (m_isDrawing == DrawingStatus::Drawing) {
+		float alfa = 0.0; // in alfa calculam media timpilor la care s au oferit raspunsurile corecte
+	}
+	else if (m_isDrawing == DrawingStatus::NotDrawing) {
+		uint8_t seconds; //numarul de secunde in care jucatorul a ghicit cuvantul
+		m_score = ((60 - seconds) * 100) / 30;
+	}
+}
+
+void skribble::Player::SubtractScore(uint16_t points, bool hasGuessed)
+{
+	if (m_isDrawing == DrawingStatus::Drawing) {
+		//daca niciun jucator nu a ghicit cuvantul
+		points = 100;
+		m_score -= points;
+	}
+	else if (m_isDrawing == DrawingStatus::NotDrawing) {
+		//daca jucatorul nu a ghicit cuvantul
+		points = 50;
+		m_score -= points;
+	}
 }
 
 
