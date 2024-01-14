@@ -45,6 +45,7 @@ int Database::GetPlayerId(const std::string& name)
     else return std::numeric_limits<int>::max();
 }
 
+
 bool Database::VerifyUser(const std::string& username)
 {
     if (auto users = m_db.get_all<Player>(sql::where(sql::c(&Player::GetName) == username)); !users.empty())

@@ -58,6 +58,7 @@ public:
 	std::vector<PlayerHistory> GetHistoryOfPlayer(const int& idPlayer);
 	std::vector<Player> GetListOfPlayers();
 	int GetPlayerId(const std::string& name);
+
 private:
 	void PopulateStorage();
 
