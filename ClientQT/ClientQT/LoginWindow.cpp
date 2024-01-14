@@ -93,8 +93,14 @@ void LoginWindow::on_registerButton_clicked()
 
 void LoginWindow::on_startGameButton_clicked()
 {
-	this->close();
-	GameWindow* gameWindow = new GameWindow();
-	gameWindow->SetName(username);
-	gameWindow->show();
+	std::string testCode = "testCode";
+	auto response = cpr::Put(cpr::Url("http://localhost:18080/CreateGame"), cpr::Parameters{ { "username", username}});
+	if (response.status_code == 200)
+	{
+		this->close();
+
+		GameWindow* gameWindow = new GameWindow();
+		gameWindow->SetName(username);
+		gameWindow->show();
+	}
 }

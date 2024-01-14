@@ -6,7 +6,7 @@ GameWindow::GameWindow(QWidget* parent)
 	: QMainWindow{ parent },
 	m_canvas{ new Canvas },
 	m_lineThickness{ 1 },
-	m_playerType{ DRAWER },
+	m_playerType{ DRAWER},
 	m_gameStatus{ NOT_STARTED }
 {
 	ui.setupUi(this);
@@ -21,9 +21,12 @@ GameWindow::GameWindow(QWidget* parent)
 	initSlider();
 	initButtons();
 	initChatBox();
-	initScoreBoard();
+	//initScoreBoard();
+	timerScoreboard();
 	initTimer();
 	setButtonColorMap();
+	connectColorButtonsToSlots();
+	initChat();
 }
 
 void GameWindow::paintEvent(QPaintEvent* event)
@@ -154,8 +157,25 @@ void GameWindow::SetWords(std::string word1, const std::string& word2, const std
 
 void GameWindow::initScoreBoard()
 {
-	//
-	std::vector<std::pair<QString, int>> data = { {"Jucatocsnjknkjndcacdr1", 100}, {"Jucator2", 150}, {"Jucator3", 120} };
+	//std::vector<std::pair<QString, int>> data = { {"Jucatocsnjknkjndcacdr1", 100}, {"Jucator2", 150}, {"Jucator3", 120} };
+	std::vector<std::pair<QString, int>> data;
+	auto response = cpr::Get(cpr::Url("http://localhost:18080/getPlayersList"));
+	auto responseRows = crow::json::load(response.text);
+	if (responseRows.size() != 0)
+	{
+		for (const auto& responseRow : responseRows)
+		{
+			std::string playerName{ std::string(responseRow["player"]) };
+			int playerScore{ std::stoi(std::string(responseRow["score"])) };
+			QString name;
+			for (auto c : playerName)
+			{
+				name.push_back(c);
+			}
+			data.push_back({ name,playerScore });
+		}
+	}
+	
 
 	ui.tableWidgetScoreboard->setRowCount(data.size());
 	ui.tableWidgetScoreboard->setColumnWidth(1, 1);
@@ -234,7 +254,7 @@ void GameWindow::initButtons()
 
 	//m_colorButton = new QPushButton("Start", this);
 	//m_colorButton->setGeometry(150, 10, 120, 30);
-	//connect(m_colorButton, &QPushButton::clicked, this, &GameWindow::StartRound);
+	//connect(m_colorButton, &QPushButton::clicked, this, &GameWindow::startGame);
 }
 
 void GameWindow::initSlider()
@@ -288,16 +308,22 @@ void GameWindow::resetRound()
 	{
 		ui.stackedWidget->setCurrentIndex(1);
 	}
-	if (PlayerType::GUESSER == m_playerType)
-	{
-		ui.stackedWidget->setCurrentIndex(3);
-	}
+}
+
+void GameWindow::initChat()
+{
+	m_timerChat = new QTimer(this);
+	// Connect the timeout signal to a slot for updating the QListWidget
+	connect(m_timerChat, &QTimer::timeout, this, &GameWindow::UpdateChat);
+	m_timerChat->start(1000);
 }
 
 void GameWindow::on_resetCanvasButton_clicked()
 {
-	m_canvas->resetCanva();
-	update();
+	m_timerChat = new QTimer(this);
+	// Connect the timeout signal to a slot for updating the QListWidget
+	connect(m_timerChat, &QTimer::timeout, this, &GameWindow::initScoreBoard);
+	m_timerChat->start(5000);
 }
 
 void GameWindow::setFrameColor()

@@ -31,8 +31,8 @@ inline auto CreateStorage(const std::string& filename) {
 			sql::make_column("id", &PlayerHistory::SetId, &PlayerHistory::GetId, sql::primary_key().autoincrement()),
 			sql::make_column("score", &PlayerHistory::SetScore, &PlayerHistory::GetScore),
 			sql::make_column("placement", &PlayerHistory::SetPlacement, &PlayerHistory::GetPlacement),
-			sql::make_column("playerid", &PlayerHistory::SetUserId, &PlayerHistory::GetUserId)
-			//sql::foreign_key(&PlayerHistory::GetUserId).references(&Player::GetIdPlayer)
+			sql::make_column("playerid", &PlayerHistory::SetUserId, &PlayerHistory::GetUserId),
+			sql::foreign_key(&PlayerHistory::GetUserId).references(&Player::GetIdPlayer)
 		)
 	);
 }
@@ -51,12 +51,13 @@ public:
 
 	bool VerifyUser(const std::string& username);
 	bool VerifyPassword(const std::string& username,const std::string& password);
+	
 	void AddUser(const std::string& username, const std::string& password);
-
 	void AddPlayerHistory(const int16_t& m_score, const uint8_t& m_placement, const uint32_t& m_userId);
+
 	std::vector<PlayerHistory> GetHistoryOfPlayer(const int& idPlayer);
 	std::vector<Player> GetListOfPlayers();
-
+	int GetPlayerId(const std::string& name);
 private:
 	void PopulateStorage();
 

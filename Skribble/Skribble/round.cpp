@@ -51,38 +51,58 @@ std::string skribble::Round::CreateGuessWord(const std::deque<std::string>& word
 //		return true;
 //	return false;
 //}
-
-void Round::StartRound()//std::vector<Player>& players)
+std::vector<std::string> skribble::Round::GenerateThreeWords()
 {
-	currentPlayerIndex = 0;
+	std::random_device rd;
+	std::mt19937 g(rd());
+	std::shuffle(m_words.begin(), m_words.end(), g);
+
+	m_threeWords.clear();
+	for (int i = 0; i < 3 && i < m_words.size(); ++i) {
+		m_threeWords.push_back(m_words[i]);
+	}
+	return m_threeWords;
+}
+
+void skribble::Round::SendWordsToDrawer(int drawerIndex, std::vector<std::string> threeWords)
+{
+
+}
+
+void Round::StartSubRound(int drawerIndex)
+{
 	if (!m_words.empty()) {
-		m_roundActive = true;
-		std::cout << "Round has started. Guess the word!"; 
+		m_subRoundActive = true;
+		std::cout << "Subround has started. Guess the word!"; 
 		std::cout<< std::endl;
+		std::vector<std::string> threeWords = GenerateThreeWords();
+		SendWordsToDrawer(drawerIndex, threeWords);
+		
 	}
 	else {
-		std::cerr << "Cannot start round: word is not set." << std::endl;
+		std::cerr << "Cannot start subround: not enough words." << std::endl;
 	}
 }
 
-void Round::NextSubround(const size_t& nrPlayers)
+void Round::NextSubround(std::vector<Player> players)
 {
-	if (currentPlayerIndex < nrPlayers-1 && m_roundActive==true)
+	if (currentDrawerIndex < players.size() - 1 && m_roundActive == true)
 	{
-		currentPlayerIndex++;
+		StartSubRound(currentDrawerIndex);
+		currentDrawerIndex++;
 	}
 	else
 	{
-		EndRound();
+		EndSubRound();
 	}
 }
 
-void Round::EndRound()
+void Round::EndSubRound()
 {
-	if (m_roundActive == true)
+	if (m_subRoundActive == true)
 	{
-		m_roundActive = false;
-		currentPlayerIndex = 0;
+		m_subRoundActive = false;
+		currentDrawerIndex = 0;
 	}
 
 	/*if (!m_roundActive) {
@@ -122,6 +142,8 @@ void skribble::Round::displayScoreboard(std::vector<Player> players)
 		std::cout << player.GetName() << " " << player.GetScore();
 	}
 }
+
+
 
 //void skribble::Round::startTimer(int durationInSeconds)
 //{
