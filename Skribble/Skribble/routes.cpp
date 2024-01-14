@@ -16,14 +16,14 @@ void Routes::Run()
     }
 
 
-    CROW_ROUTE(app, "/CreateGame").methods(crow::HTTPMethod::Put)([&match](const crow::request& req)
+    CROW_ROUTE(app, "/CreateGame").methods(crow::HTTPMethod::Put)([&match,&db](const crow::request& req)
         {
            
             skribble::Player player;
             player.SetName(req.url_params.get("username"));
             player.SetScore(0);
             match.AddPlayer(player);
-            
+            match.SetMatchWords(db.GetWords(Match::kNrRounds * Match::kNrPlayers * 3));
             return crow::response(200);
         });
     CROW_ROUTE(app, "/setGameCode").methods(crow::HTTPMethod::Put)([&match](const crow::request& req)
@@ -42,6 +42,15 @@ void Routes::Run()
                 return crow::response(200);
             }
             return crow::response(300);
+        });
+    CROW_ROUTE(app, "/get3Words").methods(crow::HTTPMethod::GET)([&match]()
+        {
+            std::vector<crow::json::wvalue> words;
+            for (int i = 0; i < 3; i++)
+            {
+                words.push_back(crow::json::wvalue{ {"word", match.GetWord()} });
+            }
+            return crow::json::wvalue{ words };
         });
     CROW_ROUTE(app, "/Register").methods(crow::HTTPMethod::Put)([&db](const crow::request& req)
         {

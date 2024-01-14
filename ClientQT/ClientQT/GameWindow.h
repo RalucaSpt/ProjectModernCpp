@@ -54,6 +54,7 @@ private:
 	void initTimer();
 	void initChat();
 	void timerScoreboard();
+	void initWords();
 
 public slots:
 	void onThicknessChanged();

@@ -36,6 +36,7 @@ namespace skribble
 		bool GetPlayerStatus(const std::string& username);
 		std::vector<std::tuple<std::string, int>> GetPlayerScore();
 		std::string GetGameCode();
+		std::string GetWord();
 		//uint8_t getNrSemiRounds();
 
 		bool FindPlayer(const std::string& name);

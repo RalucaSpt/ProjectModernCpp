@@ -27,6 +27,7 @@ GameWindow::GameWindow(QWidget* parent)
 	setButtonColorMap();
 	//connectColorButtonsToSlots();
 	initChat();
+	initWords();
 }
 
 void GameWindow::paintEvent(QPaintEvent* event)
@@ -148,11 +149,24 @@ void GameWindow::SetPlayerType(PlayerType type)
 
 void GameWindow::SetWords(std::string word1, const std::string& word2, const std::string& word3) //nu pot seta textul butoanelor
 {
-
-	//QString q = QString::fromStdString("caine");
-	//	ui.chooseWord1->setText(QString::fromStdString("caine"));
-	//ui.chooseWord2->setText(QString::fromStdString(word2));
-	//ui.chooseWord3->setText(QString::fromStdString(word3));
+	QString word;
+	for (const auto& c : word1)
+	{
+		word.push_back(c);
+	}
+	ui.chooseWord1->setText(word);
+	word.clear();
+	for (const auto& c : word2)
+	{
+		word.push_back(c);
+	}
+	ui.chooseWord2->setText(word);
+	word.clear();
+	for (const auto& c : word3)
+	{
+		word.push_back(c);
+	}
+	ui.chooseWord3->setText(word);
 }
 
 void GameWindow::initScoreBoard()
@@ -389,5 +403,16 @@ void GameWindow::onChooseWordClicked()
 	resetRound();
 }
 
-
-
+void GameWindow::initWords()
+{
+	auto response = cpr::Get(cpr::Url("http://localhost:18080/get3Words"));
+	auto responseVec=crow::json::load(response.text);
+	std::vector<std::string> words;
+	int i = 0;
+	for (const auto& it:responseVec)
+	{
+		words.push_back(std::string(it["word"]));
+		i++;
+	}
+	SetWords(words[0], words[1], words[2]);
+}

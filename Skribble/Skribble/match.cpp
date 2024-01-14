@@ -85,6 +85,12 @@ std::vector<std::tuple<std::string, int>> Match::GetPlayerScore()
 	return playersScore;
 
 }
+std::string skribble::Match::GetWord()
+{
+	std::string word{ m_words.begin()->GetWord() };
+	m_words.pop_front();
+	return word;
+}
 
 std::string skribble::Match::GetGameCode()
 {
