@@ -18,11 +18,30 @@ void Routes::Run()
 
     CROW_ROUTE(app, "/CreateGame").methods(crow::HTTPMethod::Put)([&match](const crow::request& req)
         {
+           
             skribble::Player player;
             player.SetName(req.url_params.get("username"));
             player.SetScore(0);
             match.AddPlayer(player);
+            
             return crow::response(200);
+        });
+    CROW_ROUTE(app, "/setGameCode").methods(crow::HTTPMethod::Put)([&match](const crow::request& req)
+        {
+            match.SetGameCode(req.url_params.get("gameCode"));
+            return crow::response(200);
+        });
+    CROW_ROUTE(app, "/joinGame").methods(crow::HTTPMethod::GET)([&match](const crow::request& req)
+        {
+            if (req.url_params.get("gameCode")==match.GetGameCode())
+            {
+                skribble::Player player;
+                player.SetName(req.url_params.get("username"));
+                player.SetScore(0);
+                match.AddPlayer(player);
+                return crow::response(200);
+            }
+            return crow::response(300);
         });
     CROW_ROUTE(app, "/Register").methods(crow::HTTPMethod::Put)([&db](const crow::request& req)
         {

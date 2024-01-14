@@ -41,7 +41,7 @@ public:
 	void SetPlayerType(PlayerType type);
 	void SetWords(std::string word1, const std::string& word2, const std::string& word3);//de verificat de ce nu face conversia din std::string in QString
 	void setButtonColorMap();
-	void setGameStatus(GameStatus status);
+	//void setGameStatus(GameStatus status);
 	void StartRound();
 	void resetRound();
 
@@ -80,7 +80,8 @@ private:
 
 	QTimer* m_timer;
 	QTimer* m_timerChat;
-	QTimer* m_timerImage;
+	QTimer* m_timerScoreboard;
+
 	uint16_t m_roundTimeRemaining;
 
 	QMap<QPushButton*, QColor> buttonColorMap;

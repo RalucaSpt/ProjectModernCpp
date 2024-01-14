@@ -7,6 +7,7 @@
         <file>colorWheel.png</file>
         <file>reset.png</file>
         <file>clock.png</file>
+        <file>background.jpg</file>
     </qresource>
     <qresource prefix="/text">
         <file>scoreboardText.png</file>

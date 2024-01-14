@@ -25,7 +25,7 @@ GameWindow::GameWindow(QWidget* parent)
 	timerScoreboard();
 	initTimer();
 	setButtonColorMap();
-	connectColorButtonsToSlots();
+	//connectColorButtonsToSlots();
 	initChat();
 }
 
@@ -318,12 +318,18 @@ void GameWindow::initChat()
 	m_timerChat->start(1000);
 }
 
+void GameWindow::timerScoreboard()
+{
+	m_timerScoreboard = new QTimer(this);
+	// Connect the timeout signal to a slot for updating the QListWidget
+	connect(m_timerScoreboard, &QTimer::timeout, this, &GameWindow::initScoreBoard);
+	m_timerScoreboard->start(5000);
+}
+
 void GameWindow::on_resetCanvasButton_clicked()
 {
-	m_timerChat = new QTimer(this);
-	// Connect the timeout signal to a slot for updating the QListWidget
-	connect(m_timerChat, &QTimer::timeout, this, &GameWindow::initScoreBoard);
-	m_timerChat->start(5000);
+	m_canvas->resetCanva();
+	update();
 }
 
 void GameWindow::setFrameColor()

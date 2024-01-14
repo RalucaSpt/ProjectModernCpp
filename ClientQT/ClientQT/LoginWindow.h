@@ -10,6 +10,7 @@
 #include <qdir.h>
 #include <cpr/cpr.h>
 #include <qstackedwidget.h>
+#include <random>
 
 class LoginWindow : public QMainWindow
 {
@@ -29,6 +30,8 @@ private slots:
 	void on_loginButton_clicked();
 	void on_registerButton_clicked();
 	void on_startGameButton_clicked();
+	void on_joinGameButton_clicked();
+	void on_goToCreateGameButton_clicked();
 	void exitGameWidget();
 	void displayGameCode();
 

@@ -86,7 +86,7 @@ void skribble::Player::AddScore(uint16_t points, int nrPlayers)
 		float alfa = 0.0; // in alfa calculam media timpilor la care s au oferit raspunsurile corecte
 	}
 	else if (m_isDrawing == DrawingStatus::NotDrawing) {
-		uint8_t seconds; //numarul de secunde in care jucatorul a ghicit cuvantul
+		uint8_t seconds =0 ; //numarul de secunde in care jucatorul a ghicit cuvantul
 		m_score = ((60 - seconds) * 100) / 30;
 	}
 }

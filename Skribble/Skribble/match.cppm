@@ -29,11 +29,13 @@ namespace skribble
 
 		void SetMatchWords(const std::deque<Words>& words);
 		void SetIsStarted(const bool& b);
+		void SetGameCode(const std::string& gameCode);
 
 		int GetNrPlayers();
 		bool GetIsStarted();
 		bool GetPlayerStatus(const std::string& username);
 		std::vector<std::tuple<std::string, int>> GetPlayerScore();
+		std::string GetGameCode();
 		//uint8_t getNrSemiRounds();
 
 		bool FindPlayer(const std::string& name);
@@ -60,5 +62,6 @@ namespace skribble
 		std::deque<std::unique_ptr<Player>> m_players;
 		std::deque<Words> m_words;
 		bool m_isStarted;
+		std::string m_gameCode;
 	};
 }

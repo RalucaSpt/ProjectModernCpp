@@ -48,6 +48,11 @@ void skribble::Match::SetIsStarted(const bool& b)
 	m_isStarted = b;
 }
 
+void skribble::Match::SetGameCode(const std::string& gameCode)
+{
+	m_gameCode = gameCode;
+}
+
 
 
 int skribble::Match::GetNrPlayers()
@@ -79,6 +84,11 @@ std::vector<std::tuple<std::string, int>> Match::GetPlayerScore()
 	}
 	return playersScore;
 
+}
+
+std::string skribble::Match::GetGameCode()
+{
+	return m_gameCode;
 }
 
 bool skribble::Match::FindPlayer(const std::string& name)
