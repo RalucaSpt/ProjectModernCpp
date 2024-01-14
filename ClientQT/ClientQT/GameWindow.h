@@ -36,7 +36,7 @@ public:
 	void mousePressEvent(QMouseEvent* e);
 	void mouseMoveEvent(QMouseEvent* event);
 	void mouseReleaseEvent(QMouseEvent* event);
-	void startGame();
+
 	void SetName(std::string name);
 	void SetPlayerType(PlayerType type);
 	void SetWords(std::string word1, const std::string& word2, const std::string& word3);
@@ -50,12 +50,15 @@ private:
 	void initButtons();
 	void initSlider();
 	void initTimer();
+<<<<<<< HEAD
 	//void connectColorButtonsToSlots();
+=======
+>>>>>>> 0721cd183e87228af9a214611dfd40bf704c564a
 	void setButtonColorMap();
 	//void changePlayerType();
 	void initChat();
 	void timerScoreboard();
-private slots:
+public slots:
 	void onThicknessChanged();
 	void openColorDialog();
 	void sendMessage();

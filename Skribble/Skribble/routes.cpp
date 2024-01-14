@@ -5,7 +5,7 @@ void Routes::Run()
 {
    
 
-    if (db->Initialize() != true)
+    if (db.Initialize() != true)
     {
         std::cerr << "Couldn't initialize database.";
         return;
@@ -26,31 +26,19 @@ void Routes::Run()
         });
   
 
-    CROW_ROUTE(app, "/SendMessage").methods(crow::HTTPMethod::Put)([&m_messagesJson](const crow::request& req)
+    CROW_ROUTE(app, "/SendMessage").methods(crow::HTTPMethod::Put)([this](const crow::request& req)
         {
-
-            std::string username{ req.url_params.get("username") };
-            std::string message{ req.url_params.get("message") };
-            if (username.empty() || message.empty())
-            {
-                return crow::response(300);
-            }
-            m_messagesJson.push_back(crow::json::wvalue{
-               {"username", username},
-               {"message", message} });
-            return crow::response(200);
+            return SendMessage(req);
         });
-    CROW_ROUTE(app, "/GetMessage").methods(crow::HTTPMethod::GET)([&m_messagesJson](/*const crow::request& req*/)
+    CROW_ROUTE(app, "/GetMessage").methods(crow::HTTPMethod::GET)([this](/*const crow::request& req*/)
         {
-            crow::json::wvalue copyMessage = crow::json::wvalue{ m_messagesJson };
-            return copyMessage;
+            return GetMessage(req);
         });
-    CROW_ROUTE(app, "/ClearChat").methods(crow::HTTPMethod::GET)([&m_messagesJson](/*const crow::request& req*/)
+    CROW_ROUTE(app, "/ClearChat").methods(crow::HTTPMethod::GET)([this](/*const crow::request& req*/)
         {
-            m_messagesJson.clear();
-            return crow::response(200);
+            return ClearChat(req);
         });
-    CROW_ROUTE(app, "/start").methods(crow::HTTPMethod::Put) ([&match, &db](const crow::request& req)
+    CROW_ROUTE(app, "/start").methods(crow::HTTPMethod::Put) ([this](const crow::request& req)
         {
             match.SetMatchWords(db.GetWords(Match::kNrRounds*Match::kNrPlayers*3));
             match.SetIsStarted(true);
@@ -138,4 +126,30 @@ crow::response Routes::Login(const crow::request& req)
         return crow::response(200);
     }
     return crow::response(300);
+}
+
+crow::response Routes::SendMessage(const crow::request& req)
+{
+    std::string username{ req.url_params.get("username") };
+    std::string message{ req.url_params.get("message") };
+    if (username.empty() || message.empty())
+    {
+        return crow::response(300);
+    }
+    m_messagesJson.push_back(crow::json::wvalue{
+       {"username", username},
+       {"message", message} });
+    return crow::response(200);
+}
+
+crow::response Routes::GetMessage(const crow::request& req)
+{
+    crow::json::wvalue copyMessage = crow::json::wvalue{ m_messagesJson };
+    return copyMessage;
+}
+
+crow::response Routes::ClearChat(const crow::request& req)
+{
+    m_messagesJson.clear();
+    return crow::response(200);
 }

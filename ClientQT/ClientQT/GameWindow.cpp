@@ -6,7 +6,7 @@ GameWindow::GameWindow(QWidget* parent)
 	: QMainWindow{ parent },
 	m_canvas{ new Canvas },
 	m_lineThickness{ 1 },
-	m_playerType{ DRAWER},
+	m_playerType{ DRAWER },
 	m_gameStatus{ NOT_STARTED }
 {
 	ui.setupUi(this);
@@ -25,7 +25,6 @@ GameWindow::GameWindow(QWidget* parent)
 	timerScoreboard();
 	initTimer();
 	setButtonColorMap();
-	//connectColorButtonsToSlots();
 	initChat();
 }
 
@@ -254,7 +253,7 @@ void GameWindow::initButtons()
 
 	//m_colorButton = new QPushButton("Start", this);
 	//m_colorButton->setGeometry(150, 10, 120, 30);
-	//connect(m_colorButton, &QPushButton::clicked, this, &GameWindow::startGame);
+	//connect(m_colorButton, &QPushButton::clicked, this, &GameWindow::StartRound);
 }
 
 void GameWindow::initSlider()
@@ -308,6 +307,12 @@ void GameWindow::resetRound()
 	{
 		ui.stackedWidget->setCurrentIndex(1);
 	}
+	if (PlayerType::GUESSER == m_playerType)
+	{
+		ui.stackedWidget->setCurrentIndex(3);
+	}
+}
+
 }
 
 void GameWindow::initChat()
@@ -324,12 +329,10 @@ void GameWindow::timerScoreboard()
 	// Connect the timeout signal to a slot for updating the QListWidget
 	connect(m_timerChat, &QTimer::timeout, this, &GameWindow::initScoreBoard);
 	m_timerChat->start(5000);
+{
+	m_canvas->resetCanva();
+	update();
 }
-//
-//void GameWindow::on_resetCanvasButton_clicked()
-//{
-//
-//}
 
 void GameWindow::setFrameColor()
 {
@@ -387,6 +390,7 @@ void GameWindow::onChooseWordClicked()
 	m_guessWord = clickedButton->text();
 	resetRound();
 }
+
 
 
 
