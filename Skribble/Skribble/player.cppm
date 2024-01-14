@@ -39,12 +39,13 @@ namespace skribble {
 
 		bool IsDrawing() const;
 		
+		void UpdateAfterCorrectGuess(int timeTakenToGuess);
+
 		// Score management
 		void AddScore(uint16_t points,int nrPlayers);
 		void SubtractScore(uint16_t points, bool hasGuessed);
 		void ResetScore();
 		static void DisplayPlayersInOrder(const std::vector<Player>& players);
-
 		// Friend functions
 		friend std::ostream& operator<<(std::ostream& os, const Player& player);
 		friend std::istream& operator>>(std::istream& is, Player& player);
@@ -63,7 +64,7 @@ namespace skribble {
 		std::string m_password;
 	
 		uint16_t m_score;
-		uint8_t m_correctAnswerTime; // de la 0 la 60
+		uint8_t m_correctAnswerTime = 0; // de la 0 la 60
 		DrawingStatus m_isDrawing;
 
 	};

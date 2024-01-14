@@ -80,6 +80,15 @@ bool skribble::Player::IsDrawing() const
 	return true;
 }
 
+void skribble::Player::UpdateAfterCorrectGuess(int timeTakenToGuess)
+{
+	const int maxScorePerGuess = 100;
+	int scoreEarned = maxScorePerGuess - timeTakenToGuess;
+	m_score += scoreEarned > 0 ? scoreEarned : 0;
+	m_correctAnswerTime = timeTakenToGuess;
+	std::cout << "Felicit?ri, " << m_name << "! Ai câ?tigat " << scoreEarned << " puncte." << std::endl;
+}
+
 void skribble::Player::AddScore(uint16_t points, int nrPlayers)
 {
 	if (m_isDrawing == DrawingStatus::Drawing) {
@@ -103,6 +112,13 @@ void skribble::Player::SubtractScore(uint16_t points, bool hasGuessed)
 		points = 50;
 		m_score -= points;
 	}
+}
+
+void skribble::Player::ResetScore()
+{
+	m_score = 0;
+	m_correctAnswerTime = 0;
+	std::cout << "Scorul juc?torului " << m_name << " a fost resetat la 0." << std::endl;
 }
 
 void skribble::Player::DisplayPlayersInOrder(const std::vector<Player>& players)
