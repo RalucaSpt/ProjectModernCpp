@@ -105,6 +105,23 @@ void skribble::Player::SubtractScore(uint16_t points, bool hasGuessed)
 	}
 }
 
+void skribble::Player::DisplayPlayersInOrder(const std::vector<Player>& players)
+{
+	std::vector<Player> sortedPlayers = players;
+
+	// Sortarea juc?torilor dup? un criteriu, de exemplu scor
+	std::sort(sortedPlayers.begin(), sortedPlayers.end(),
+		[](const Player& a, const Player& b) {
+			return a.GetScore() < b.GetScore();
+		}
+	);
+
+	// Afi?area juc?torilor sorta?i
+	for (const auto& player : sortedPlayers) {
+		std::cout << player.GetName() << " - Scor: " << player.GetScore() << std::endl;
+	}
+}
+
 
 /*
 skribble::Player::DrawingStatus skribble::Player::GetIsDrawing() const

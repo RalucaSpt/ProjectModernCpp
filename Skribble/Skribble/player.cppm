@@ -1,5 +1,7 @@
 ﻿export module player;
 import <iostream>;
+import <vector>;
+import <algorithm>;
 
 namespace skribble {
 	
@@ -41,6 +43,7 @@ namespace skribble {
 		void AddScore(uint16_t points,int nrPlayers);
 		void SubtractScore(uint16_t points, bool hasGuessed);
 		void ResetScore();
+		static void DisplayPlayersInOrder(const std::vector<Player>& players);
 
 		// Friend functions
 		friend std::ostream& operator<<(std::ostream& os, const Player& player);
